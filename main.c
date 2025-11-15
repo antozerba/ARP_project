@@ -7,9 +7,13 @@
 
 int main(int arc, char ** argv) {
     //PIPE
+   
+    //BLACK-WHINDOW
     int bw_pipe[2]; //prime lettura //seconda scrittura
     int wb_pipe[2];
-    
+    //BLACK-INPUT
+    int bi_pipe[2];
+    int ib_pipe[2];
     if(pipe(bw_pipe) == -1){
         perror("pipe input");
         return 1;
@@ -18,11 +22,18 @@ int main(int arc, char ** argv) {
         perror("pipe input");
         return 1;
     }
+    if(pipe(bi_pipe) == -1){
+        perror("pipe input");
+        return 1;
+    }
+    if(pipe(ib_pipe) == -1){
+        perror("pipe input");
+        return 1;
+    }
 
-    int w_status;
-    pid_t pid;
-    
-    if((pid = fork()) == 0){
+    int w_status, i_status;
+    pid_t w_pid, i_pid;
+    if((w_pid = fork()) == 0){
 
         //window
         close(bw_pipe[1]);
@@ -40,6 +51,22 @@ int main(int arc, char ** argv) {
         
     }
     write(bw_pipe[1], "ciao\n", sizeof("ciao\n"));
-    waitpid(pid, &w_status, 0);
+
+    if(fork() == 0){
+        //input
+        close(bi_pipe[1]); //close write
+        close(ib_pipe[0]); //close read
+        char write_fd[16];
+        char read_fd[16];
+        sprintf(read_fd, "%d", bi_pipe[0]);
+        sprintf(write_fd, "%d", ib_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1);
+        execlp("konsole", "konsole", "-e", "./input",NULL);
+    }
+
+    
+    waitpid(i_pid, &i_status, 0);
+    waitpid(w_pid, &w_status, 0);
     return 0;
 }

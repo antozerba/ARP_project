@@ -9,7 +9,6 @@ FILE* log_file;
 
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
 void update_window(WINDOW *win, int drone_x, int drone_Y);
-void logger(FILE * handler, const char *message);
 
 int main(int argc, char **argv) {
     
@@ -36,14 +35,12 @@ int main(int argc, char **argv) {
     logger(log_file, buffer);
 
     Config config = {};
-    //if(!load_config("/config/parameters.txt", &config))
-    //{
-        //logger(log_file, "Error loading configuration");
-        //return 1;
-    //}
-    char conf_buf[100];
-    
-    load_config("/config/parameters.txt", &config);
+    if(!load_config("/config/parameters.txt", &config))
+    {
+      logger(log_file, "Error loading configuration");
+      return 1;
+    }
+    char conf_buf[100];  
     sprintf(conf_buf, "Config - map_width: %lf, map_height: %lf, drone_x: %lf, drone_y: %lf",
             config.map_width, config.map_height, config.drone_x, config.drone_y);
     logger(log_file, conf_buf);
@@ -89,9 +86,4 @@ void update_window(WINDOW *win, int drone_x, int drone_Y) {
     box(win, 0 , 0);
     mvwaddch(win, drone_Y, drone_x, 'X');
     wrefresh(win);
-}
-
-void logger(FILE * handler, const char *message) {
-    fprintf(handler, "%s\n", message);
-    fflush(handler);
 }
