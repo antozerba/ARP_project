@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <stdlib.h>
+#include "utils.h"
 
 int main(int arc, char ** argv) {
     //PIPE
@@ -64,7 +65,29 @@ int main(int arc, char ** argv) {
         setenv("OUT_FD", write_fd, 1);
         execlp("konsole", "konsole", "-e", "./input",NULL);
     }
-
+    //SIMULAZONE SERVER da MAIN
+    printf("DRONE SIMULATION INIT\n");
+    Drone drone = {5, 5};
+    for(;;){
+        char message[2];
+        read(ib_pipe[0], message, sizeof(message));
+        char cmd[2];
+        strcpy(cmd, message);
+        printf("Comando ricevuto: %s\n", cmd);
+        if (strcmp(cmd, "w") == 0) {
+            drone.y -= 1.0;
+        } else if (strcmp(cmd, "s") == 0) {
+            drone.y += 1.0;
+        } else if (strcmp(cmd, "a") == 0) {
+            drone.x -= 1.0;
+        } else if (strcmp(cmd, "d") == 0) {
+            drone.x += 1.0;
+        } else if (strcmp(cmd, "q") == 0)
+        {
+            /* code */
+        }
+        write(bw_pipe[1], &drone, sizeof(struct Drone));
+    }
     
     waitpid(i_pid, &i_status, 0);
     waitpid(w_pid, &w_status, 0);

@@ -59,10 +59,14 @@ int main(int argc, char **argv) {
     win = create_newwin(config.map_height, config.map_width, starty, startx);
     int drone_x = 1;
     int drone_y = 1;
-    //for(int i=0; i<10; i++){
-        //update_window(win, drone_x + i, drone_y);
-        //usleep(100000);
-    //}
+    Drone *drone;
+    for(;;){
+        read(read_fd, drone, sizeof(struct Drone));
+        update_window(win, drone -> x, drone -> y);
+        char input[100];
+        sprintf(input, "DRONE POSITION - x: %lf, y: %lf", drone -> x, drone -> y);
+        logger(log_file, input);
+    }
     getch();
     delwin(win);
     endwin();  

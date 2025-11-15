@@ -11,6 +11,13 @@ typedef struct Config
     double drone_y;
 }Config;
 
+typedef struct Drone
+{
+    double x;
+    double y;
+}Drone;
+
+
 void logger(FILE * handler, const char *message);
 int load_config(const char *filename, struct Config *config);
 

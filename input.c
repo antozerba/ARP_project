@@ -31,12 +31,22 @@ int main(int argc, char **argv) {
     noecho();
     keypad(stdscr, TRUE);
     curs_set(0);
-    create_input_win(20, 60, 0, 0);
-    getch();
-
-
-
-
+    WINDOW *win = create_input_win(20, 60, 0, 0);
+    for(;;){
+        int ch = getch();
+        char input = (char) ch;
+        char msg[2] = {input, '\0'};
+        sprintf(buffer, "Key pressed: %s", msg);
+        logger(log_file, buffer);
+        write(write_fd, msg, sizeof(msg));
+        if(ch == 'q'){
+            logger(log_file, "Input process exiting on 'q' keypress");
+            break;
+        }
+        logger(log_file, "MESSAGE SENT");
+    }
+    endwin();
+    fclose(log_file);
     return 0;
 }
 WINDOW *create_input_win(int height, int width, int starty, int startx) {
