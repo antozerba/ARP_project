@@ -3,4 +3,5 @@ Window started
 Read FD: 3, Write FD: 6
 Received message: ciao
 
-Config - map_width: 0.000000, map_height: 0.000000, drone_x: 0.000000, drone_y: 0.000000
+Config - map_width: 60.000000, map_height: 20.000000, drone_x: 5.000000, drone_y: 5.000000
+Creating new window at (0,0) with dimensions (20,60)

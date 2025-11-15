@@ -1,4 +1,4 @@
-map_width=30
-map_height=40
+map_width=60
+map_height=20
 drone_x=5
 drone_y=5
