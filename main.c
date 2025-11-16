@@ -32,8 +32,8 @@ int main(int arc, char ** argv) {
         return 1;
     }
 
-    int w_status, i_status;
-    pid_t w_pid, i_pid;
+    int w_status, i_status, b_status;
+    pid_t w_pid, i_pid, b_pid;
     if((w_pid = fork()) == 0){
 
         //window
@@ -65,29 +65,28 @@ int main(int arc, char ** argv) {
         setenv("OUT_FD", write_fd, 1);
         execlp("konsole", "konsole", "-e", "./input",NULL);
     }
-    //SIMULAZONE SERVER da MAIN
-    printf("DRONE SIMULATION INIT\n");
-    Drone drone = {5, 5};
-    for(;;){
-        char message[2];
-        read(ib_pipe[0], message, sizeof(message));
-        char cmd[2];
-        strcpy(cmd, message);
-        printf("Comando ricevuto: %s\n", cmd);
-        if (strcmp(cmd, "w") == 0) {
-            drone.y -= 1.0;
-        } else if (strcmp(cmd, "s") == 0) {
-            drone.y += 1.0;
-        } else if (strcmp(cmd, "a") == 0) {
-            drone.x -= 1.0;
-        } else if (strcmp(cmd, "d") == 0) {
-            drone.x += 1.0;
-        } else if (strcmp(cmd, "q") == 0)
-        {
-            /* code */
-        }
-        write(bw_pipe[1], &drone, sizeof(struct Drone));
-    }
+
+     if(fork() == 0){
+         //server-blackboard
+         close(bi_pipe[0]); //close read close(bw_pipe[0]); //close read
+         close(ib_pipe[1]); //close write
+         close(wb_pipe[1]); //close write
+         char read_input_fd[16];
+         char read_window_fd[16];
+         char write_input_fd[16];
+         char write_window_fd[16];
+         sprintf(read_input_fd, "%d", ib_pipe[0]);
+         sprintf(read_window_fd, "%d", wb_pipe[0]);
+         sprintf(write_input_fd, "%d", bi_pipe[1]);
+         sprintf(write_window_fd, "%d", bw_pipe[1]);
+         setenv("IN_INPUT_FD", read_input_fd, 1);
+         setenv("IN_WINDOW_FD", read_window_fd, 1);
+         setenv("OUT_INPUT_FD", write_input_fd, 1);
+         setenv("OUT_WINDOW_FD", write_window_fd, 1);
+        char * args[] = {"./server", NULL};
+        execvp("./server", args);
+     }
+    
     
     waitpid(i_pid, &i_status, 0);
     waitpid(w_pid, &w_status, 0);
