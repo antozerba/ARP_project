@@ -3,8 +3,79 @@
 #include <stdlib.h>
 #include "utils.h"
 #include <ncurses.h>
+#include <string.h>
+#include "protocol.h"
 
 WINDOW *create_input_win(int height, int width, int starty, int startx);
+int map_key_to_command(int key, InputCommand *cmd) {
+    float force_step = 1.0; // 1 Newton per pressione
+    
+    memset(cmd, 0, sizeof(InputCommand));
+    
+    switch(key) {
+        // WASD mapping
+        case 'w': case 'W':
+            cmd->type = CMD_FORCE_UP;
+            cmd->force_y = -force_step;
+            return 1;
+        case 's': case 'S':
+            cmd->type = CMD_BRAKE;
+            return 1;
+        case 'a': case 'A':
+            cmd->type = CMD_FORCE_LEFT;
+            cmd->force_x = -force_step;
+            return 1;
+        case 'd': case 'D':
+            cmd->type = CMD_FORCE_RIGHT;
+            cmd->force_x = force_step;
+            return 1;
+            
+        // Diagonali
+        case 'q': case 'Q':
+            cmd->type = CMD_FORCE_UP_LEFT;
+            cmd->force_x = -force_step * 0.707;
+            cmd->force_y = -force_step * 0.707;
+            return 1;
+        case 'e': case 'E':
+            cmd->type = CMD_FORCE_UP_RIGHT;
+            cmd->force_x = force_step * 0.707;
+            cmd->force_y = -force_step * 0.707;
+            return 1;
+        case 'z': case 'Z':
+            cmd->type = CMD_FORCE_DOWN_LEFT;
+            cmd->force_x = -force_step * 0.707;
+            cmd->force_y = force_step * 0.707;
+            return 1;
+        case 'c': case 'C':
+            cmd->type = CMD_FORCE_DOWN_RIGHT;
+            cmd->force_x = force_step * 0.707;
+            cmd->force_y = force_step * 0.707;
+            return 1;
+            
+        // X per giù
+        case 'x':
+            cmd->type = CMD_FORCE_DOWN;
+            cmd->force_y = force_step;
+            return 1;
+            
+        // Comandi speciali
+        case ' ':
+            cmd->type = CMD_BRAKE;
+            return 1;
+        case 'p': case 'P':
+            cmd->type = CMD_PAUSE;
+            return 1;
+        case 'r': case 'R':
+            cmd->type = CMD_RESET;
+            return 1;
+        case 'X': // X maiuscola per quit
+            cmd->type = CMD_QUIT;
+            return 1;
+            
+        default:
+            return 0;
+    }
+}
 
 FILE *log_file;
 
@@ -21,7 +92,7 @@ int main(int argc, char **argv) {
     }
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
-    char buffer[50];
+    char buffer[100];
     sprintf(buffer, "Read FD: %d, Write FD: %d", read_fd, write_fd);
     logger(log_file, buffer);
     //Ncurses init
@@ -34,16 +105,27 @@ int main(int argc, char **argv) {
     WINDOW *win = create_input_win(20, 60, 0, 0);
     for(;;){
         int ch = getch();
-        char input = (char) ch;
-        char msg[2] = {input, '\0'};
-        sprintf(buffer, "Key pressed: %s", msg);
-        logger(log_file, buffer);
-        write(write_fd, msg, sizeof(msg));
-        if(ch == 'q'){
-            logger(log_file, "Input process exiting on 'q' keypress");
-            break;
+        if(ch != ERR) {
+            InputCommand cmd;
+            if(map_key_to_command(ch, &cmd)) {
+                write(write_fd, &cmd, sizeof(InputCommand));   
+                sprintf(buffer, "Sent command of type %d with forces fx: %f, fy: %f", cmd.type, cmd.force_x, cmd.force_y);
+                logger(log_file, buffer);
+            } else {
+                sprintf(buffer, "Unmapped key pressed: %d", ch);
+                logger(log_file, buffer);    
+            }
         }
-        logger(log_file, "MESSAGE SENT");
+        // char input = (char) ch;
+        // char msg[2] = {input, '\0'};
+        // sprintf(buffer, "Key pressed: %s", msg);
+        // logger(log_file, buffer);
+        // write(write_fd, msg, sizeof(msg));
+        // if(ch == 'q'){
+        //     logger(log_file, "Input process exiting on 'q' keypress");
+        //     break;
+        // }
+        // logger(log_file, "MESSAGE SENT");
     }
     endwin();
     fclose(log_file);

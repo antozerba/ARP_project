@@ -6,8 +6,70 @@
 #include <stdlib.h>
 #include "utils.h"
 #include <sys/select.h>
+#include "protocol.h"
+#include <string.h>
+
+
 
 FILE * log_file;
+
+void init_world_state(WorldState * state){
+    memset(state, 0, sizeof(WorldState));
+    state->drone.x = 5.0f;
+    state->drone.y = 5.0f;
+}
+
+void handle_input_command(WorldState *state, InputCommand *cmd) {
+    switch(cmd->type) {
+        case CMD_BRAKE:
+            state->drone.fx = 0;
+            state->drone.fy = 0;
+            fprintf(stderr, "[SERVER] Brake applied\n");
+            break;
+            
+        // case CMD_PAUSE:
+        //     // state->paused = !state->paused;
+        //     // fprintf(stderr, "[SERVER] Pause toggled: %d\n", state->paused);
+        //     break;
+            
+        // case CMD_RESET:
+        //     init_world_state(state);
+        //     fprintf(stderr, "[SERVER] World reset\n");
+        //     break;
+            
+        // case CMD_QUIT:
+        //     fprintf(stderr, "[SERVER] Quit requested\n");
+        //     // running = 0;
+        //     break;
+            
+        default:
+            // Aggiorna forze comando
+            state->drone.fx += cmd->force_x;
+            state->drone.fy += cmd->force_y;
+            break;
+    }
+}
+void handle_message(WorldState *state, Message *msg) {
+    switch(msg->type) {
+        case 'D':
+            //modifico solo le pos e le vel del drone
+            state->drone.x = msg->data.drone.x;
+            state->drone.y = msg->data.drone.y;
+            state->drone.vx = msg->data.drone.vx;
+            state->drone.vy = msg->data.drone.vy;
+            break;
+        // case 'T':
+            // Aggiorna target
+        //     break;
+        // case 'O':
+            // Aggiorna ostacolo
+        //     break;
+        default:
+            logger(log_file, "Unknown message type received");
+            break;
+    }
+}
+
 
 int main(int argc, char **argv){
 
@@ -19,69 +81,93 @@ int main(int argc, char **argv){
     char * read_window_fd_char = getenv("IN_WINDOW_FD");
     char * write_input_fd_char = getenv("OUT_INPUT_FD");
     char * write_window_fd_char = getenv("OUT_WINDOW_FD");
+    char * read_dynamic_fd_char = getenv("IN_DYNAMIC_FD");
+    char * write_dynamic_fd_char = getenv("OUT_DYNAMIC_FD");
 
-    if(read_input_fd_char == NULL || write_input_fd_char == NULL || read_window_fd_char == NULL || write_window_fd_char == NULL){
-        logger(log_file, "Error getting file descriptors from environment variables"); 
-        return 1;
-    }
     int read_input_fd = atoi(read_input_fd_char);
     int write_input_fd = atoi(write_input_fd_char);
     int read_window_fd = atoi(read_window_fd_char);
     int write_window_fd = atoi(write_window_fd_char);
+    int read_dynamic_fd = atoi(read_dynamic_fd_char);
+    int write_dynamic_fd = atoi(write_dynamic_fd_char);
 
-    int initial_drone_x = 5;
-    int initial_drone_y = 5;
-    Drone drone = {initial_drone_x, initial_drone_y};
-
+    WorldState state;
+    init_world_state(&state);    
 
     for(;;){
+
         //SELECT
+        
         fd_set read_fds;
-        fd_set write_fds;
         FD_ZERO(&read_fds);
-        FD_ZERO(&write_fds);
         FD_SET(read_input_fd, &read_fds);
         FD_SET(read_window_fd, &read_fds);
-        FD_SET(write_input_fd, &write_fds);
-        FD_SET(write_window_fd, &write_fds);
+        FD_SET(read_dynamic_fd, &read_fds);
 
         int max_fd = 0;
         if(read_input_fd > max_fd) max_fd = read_input_fd;
         if(read_window_fd > max_fd) max_fd = read_window_fd;
-        if(write_input_fd > max_fd) max_fd = write_input_fd;
-        if(write_window_fd > max_fd) max_fd = write_window_fd;
+        if(read_dynamic_fd > max_fd) max_fd = read_dynamic_fd;
 
-        logger(log_file, "Server waiting for data..."); 
         int r = select(max_fd + 1, &read_fds, NULL, NULL, NULL); //ritorna numero di fd pronti
 
         if(r == -1){
             logger(log_file, "Error in select");
             return 1;
         }
-        if(FD_ISSET(read_input_fd, &read_fds)){
 
-            char msg_from_input[2];
-            ssize_t bytes_read = read(read_input_fd, msg_from_input, sizeof(msg_from_input));
-            char log_buff[50];
-            sprintf(log_buff, "COMANDO RECEIVED FROM INPUT: %s", msg_from_input);
-            logger(log_file, log_buff);
-            if (strcmp(msg_from_input, "w") == 0) {
-                drone.y -= 1.0;
-            } else if (strcmp(msg_from_input, "s") == 0) {
-                drone.y += 1.0;
-            } else if (strcmp(msg_from_input, "a") == 0) {
-                drone.x -= 1.0;
-            } else if (strcmp(msg_from_input, "d") == 0) {
-                drone.x += 1.0;
-            } else if (strcmp(msg_from_input, "q") == 0)
-            {
-                /* code */
-                
+
+
+        if(FD_ISSET(read_input_fd, &read_fds)){
+            logger(log_file, "Reading InputCommand from input...");
+            InputCommand cmd;
+            ssize_t bytes_read = read(read_input_fd, &cmd, sizeof(InputCommand));
+            if(bytes_read != sizeof(InputCommand)){
+                logger(log_file, "Error reading InputCommand from input");
+                continue;
             }
-            //invio Drone a window
-            write(write_window_fd, &drone, sizeof(struct Drone));
-            logger(log_file, "DRONE POSITION SENT TO WINDOW");
+            char buffer[200];
+            sprintf(buffer, "INPUT COMMAND RECEIVED - type: %d, force_x: %f, force_y: %f", cmd.type, cmd.force_x, cmd.force_y);
+            logger(log_file, buffer);
+            handle_input_command(&state, &cmd);
         }   
+        
+        
+        if(FD_ISSET(read_dynamic_fd, &read_fds)){
+            Message msg;
+            ssize_t bytes_read = read(read_dynamic_fd, &msg, sizeof(Message));
+            if(bytes_read != sizeof(Message)){
+                logger(log_file, "Error reading Message from dynamic");
+                continue;
+            }
+            handle_message(&state, &msg);
+
+    
+            //leggo da dynamic
+            //TODO: non sovrascrivere il drone ma aggiornalo 
+            // Drone drone_dynamic;
+            // read(read_dynamic_fd, &drone_dynamic, sizeof(struct Drone));
+            // state.drone.x = drone_dynamic.x;
+            // state.drone.vx = drone_dynamic.vx;
+            // state.drone.y = drone_dynamic.y;
+            // state.drone.vy = drone_dynamic.vy;
+            char buffer[200];
+            // sprintf(buffer, "DRONE UPDATE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f", state.drone.x,
+            //         state.drone.y, state.drone.vx, state.drone.vy);
+
+            sprintf(buffer, "DRONE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
+                    msg.data.drone.x, msg.data.drone.y, msg.data.drone.vx, msg.data.drone.vy, msg.data.drone.fx, msg.data.drone.fy);  
+
+            logger(log_file, buffer);
+
+            //invio a window
+            write(write_window_fd, &state.drone, sizeof(struct Drone));
+        }
+        
+        //invio a dynamic
+        write(write_dynamic_fd, &state, sizeof(struct WorldState));
+        usleep(10000);
+
     }
 
     

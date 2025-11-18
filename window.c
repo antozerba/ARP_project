@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "protocol.h"
 
 FILE* log_file;
 
@@ -40,9 +41,9 @@ int main(int argc, char **argv) {
       logger(log_file, "Error loading configuration");
       return 1;
     }
-    char conf_buf[100];  
-    sprintf(conf_buf, "Config - map_width: %lf, map_height: %lf, drone_x: %lf, drone_y: %lf",
-            config.map_width, config.map_height, config.drone_x, config.drone_y);
+    char conf_buf[200];  
+    sprintf(conf_buf, "Config - map_width: %lf, map_height: %lf, drone_x: %lf, drone_y: %lf, MASS: %f, K: %f, DT: %f, STEP_FORCE: %f, RHO: %f, ETA: %f",
+            config.map_width, config.map_height, config.drone_x, config.drone_y, config.MASS, config.K, config.DT, config.STEP_FORCE, config.RHO, config.ETA);
     logger(log_file, conf_buf);
 
 
@@ -57,14 +58,12 @@ int main(int argc, char **argv) {
 	startx = 0;
     curs_set(0);
     win = create_newwin(config.map_height, config.map_width, starty, startx);
-    int drone_x = 1;
-    int drone_y = 1;
-    Drone *drone;
+    Drone drone = {0, 0, 0, 0, 0, 0};
     for(;;){
-        read(read_fd, drone, sizeof(struct Drone));
-        update_window(win, drone -> x, drone -> y);
+        read(read_fd, &drone, sizeof(struct Drone));
+        update_window(win, drone.x, drone.y);
         char input[100];
-        sprintf(input, "DRONE POSITION - x: %lf, y: %lf", drone -> x, drone -> y);
+        sprintf(input, "DRONE POSITION - x: %lf, y: %lf", drone.x, drone.y);
         logger(log_file, input);
     }
     getch();
@@ -85,9 +84,17 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
     return local_win;
 }
 
-void update_window(WINDOW *win, int drone_x, int drone_Y) {
-    wclear(win);
+void update_window(WINDOW *win, int drone_x, int drone_y) {
+    // static int old_x = -1, old_y = -1;
+    // if (old_x != -1) {
+    //     mvwaddch(win, old_y, old_x, ' ');
+    // }
+    // mvwaddch(win, drone_y, drone_x, 'X');
+    // wrefresh(win);
+    // old_x = drone_x;
+    // old_y = drone_y;
+     wclear(win);
     box(win, 0 , 0);
-    mvwaddch(win, drone_Y, drone_x, 'X');
+    mvwaddch(win, drone_y, drone_x, 'X');
     wrefresh(win);
 }
