@@ -5,9 +5,13 @@
 #include <stdlib.h>
 #include "utils.h"
 #include "protocol.h"
+#include <fcntl.h>
+#include <errno.h>
 
 
 #define CLOCK_TICK 33000
+#define MARGIN_Y 0.5  // margine verticale
+#define MARGIN_X 1  // margine orizzontale
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
@@ -52,7 +56,9 @@ int main(int argc, char **argv) {
             config.map_width, config.map_height, config.drone_x, config.drone_y, config.MASS, config.K, config.DT, config.STEP_FORCE, config.RHO, config.ETA);
     logger(log_file, conf_buf);
 
-
+    //rendo read non blocking per gestire il frame rate a schermo con usleep
+    // int flags = fcntl(read_fd, F_GETFL, 0);
+    // fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
 
     WINDOW *win;
     int startx, starty, width, height;
@@ -72,8 +78,39 @@ int main(int argc, char **argv) {
     Drone drone = {0, 0, 0, 0, 0, 0};
 
     for(;;){
-        int ch;
-        if((ch = getch()) == KEY_RESIZE) {
+//         int ch;
+//         if((ch = getch()) == KEY_RESIZE) {
+//             resize_win(win);
+//             logger(log_file, "Window resized");
+//         }
+
+//         delete_drone(win, (int)drone.x, (int)drone.y);
+        
+        
+//         ssize_t bytes_read = read(read_fd, &drone, sizeof(struct Drone));
+//         if(bytes_read == sizeof(struct Drone)) {
+//             // Nuovo dato ricevuto, logga
+//             char input[100];
+//             sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf", 
+//                     drone.x, drone.y, drone.vx, drone.vy);
+//             logger(log_file, input);
+//         } 
+//         else if(bytes_read == -1 && errno == EAGAIN) {
+//             // Nessun dato disponibile, continuo
+//         }
+//         else if(bytes_read == 0) {
+//             logger(log_file, "Server disconnected");
+//             break;
+//         }
+
+
+//         update_drone(win, (int)drone.x, (int)drone.y);
+// //        update_window(win, drone.x, drone.y);
+//         usleep(CLOCK_TICK); 
+
+        //V1
+        int ch = getch();
+        if(ch  == KEY_RESIZE) {
             resize_win(win);
             logger(log_file, "Window resized");
         }
@@ -85,7 +122,6 @@ int main(int argc, char **argv) {
         sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf, fx: %lf, fy: %lf", drone.x, drone.y,
                 drone.vx, drone.vy, drone.fx, drone.fy);
         logger(log_file, input);
-        // usleep(CLOCK_TICK); 
     }
     delwin(win);
     endwin();  
@@ -120,21 +156,33 @@ void update_drone(WINDOW *win, int drone_x, int drone_y) {
 }
 
 void resize_win(WINDOW *win) {
-    werase(stdscr);
-    werase(win);
-    int H, W;
+     int H, W;
     getmaxyx(stdscr, H, W);
 
+    // Calcola le nuove dimensioni con margini
+    int new_height = H - 2 * MARGIN_Y;
+    int new_width  = W - 2 * MARGIN_X;
 
-    // Finestra con un margine fisso intorno
-    int wh = (H > 6) ? H - 6 : H;
-    int ww = (W > 10) ? W - 10 : W;
-    if (wh < 3) wh = 3;
-    if (ww < 3) ww = 3;
+    // Limiti minimi per la finestra
+    if (new_height < 3) new_height = 3;
+    if (new_width < 3)  new_width = 3;
 
-    wresize(win, H, W);
-    box(win, 0 , 0);
+    // Calcola posizione per centrare la finestra
+    int starty = (H - new_height) / 2;
+    int startx = (W - new_width) / 2;
+
+    // Ridimensiona e sposta la finestra
+    wresize(win, new_height, new_width);
+    mvwin(win, starty, startx);
+
+    // Pulisce e ridisegna
+    werase(win);
+    box(win, 0, 0);
     wrefresh(win);
-    mvwin(win, H / 2, W/ 2);
+
+    // Log
+    char msg[100];
+    sprintf(msg, "Resized window to %d x %d at (%d,%d)", new_height, new_width, starty, startx);
+    logger(log_file, msg);
 
 }

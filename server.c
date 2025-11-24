@@ -95,6 +95,8 @@ int main(int argc, char **argv){
     WorldState state;
     init_world_state(&state);    
 
+    
+
     for(;;){
 
         //SELECT
@@ -110,12 +112,19 @@ int main(int argc, char **argv){
         if(read_window_fd > max_fd) max_fd = read_window_fd;
         if(read_dynamic_fd > max_fd) max_fd = read_dynamic_fd;
 
-        int r = select(max_fd + 1, &read_fds, NULL, NULL, NULL); //ritorna numero di fd pronti
+
+        //set timer for select
+        struct timeval timeout;
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 33000;
+
+        int r = select(max_fd + 1, &read_fds, NULL, NULL, &timeout); //ritorna numero di fd pronti
 
         if(r == -1){
             logger(log_file, "Error in select");
             return 1;
         }
+        int send_dyn = 0;
 
 
 
@@ -131,6 +140,7 @@ int main(int argc, char **argv){
             sprintf(buffer, "INPUT COMMAND RECEIVED - type: %d, force_x: %f, force_y: %f", cmd.type, cmd.force_x, cmd.force_y);
             logger(log_file, buffer);
             handle_input_command(&state, &cmd);
+            send_dyn = 1;
         }   
         
         
@@ -142,25 +152,34 @@ int main(int argc, char **argv){
                 continue;
             }
             handle_message(&state, &msg);
-            char buffer[200];
-            sprintf(buffer, "DRONE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
-                    msg.data.drone.x, msg.data.drone.y, msg.data.drone.vx, msg.data.drone.vy, msg.data.drone.fx, msg.data.drone.fy);  
-
-            logger(log_file, buffer);
-
-            //invio a window
-            write(write_window_fd, &state.drone, sizeof(struct Drone));
+            char baf[256];
+            snprintf(baf, sizeof(baf),
+                     "DRONE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
+                     msg.data.drone.x, msg.data.drone.y,
+                     msg.data.drone.vx, msg.data.drone.vy,
+                     msg.data.drone.fx, msg.data.drone.fy);
+            logger(log_file, baf);
         }
         
+        //invio a window
+        // char buf[256];
+        // snprintf(buf, sizeof(buf), "DRONE SENT TO WINDOW   - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
+        //         state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
+        // logger(log_file, buf);
+        ssize_t written = write(write_window_fd, &state.drone, sizeof(struct Drone));
+        if(written < 0) {
+            logger(log_file, "Error writing to window");
+        }
+
+        if(send_dyn){
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(struct WorldState));
-        // usleep(CLOCK_TICK);
+        logger(log_file, "DRONE SENT TO DYNAMICS");
+        }
+        
 
     }
-
     
-
-
 
 
 
