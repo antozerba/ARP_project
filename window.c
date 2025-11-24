@@ -6,10 +6,16 @@
 #include "utils.h"
 #include "protocol.h"
 
-FILE* log_file;
 
+#define CLOCK_TICK 33000
+
+void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
 void update_window(WINDOW *win, int drone_x, int drone_Y);
+void delete_drone(WINDOW *win, int drone_x, int drone_y);
+void update_drone(WINDOW *win, int drone_x, int drone_y);
+
+FILE* log_file;
 
 int main(int argc, char **argv) {
     
@@ -54,22 +60,35 @@ int main(int argc, char **argv) {
     refresh();
     cbreak();
     keypad(stdscr, TRUE);
+    nodelay(stdscr, TRUE); // Non bloccare l'attesa dell'input
+    curs_set(0);
+
     starty = 0;
 	startx = 0;
-    curs_set(0);
-    win = create_newwin(config.map_height, config.map_width, starty, startx);
+    int height_max, width_max;
+    getmaxyx(stdscr, height_max, width_max);
+    win = create_newwin(height_max, width_max, starty, startx);
+
     Drone drone = {0, 0, 0, 0, 0, 0};
+
     for(;;){
+        int ch;
+        if((ch = getch()) == KEY_RESIZE) {
+            resize_win(win);
+            logger(log_file, "Window resized");
+        }
+        delete_drone(win, (int)drone.x, (int)drone.y);
         read(read_fd, &drone, sizeof(struct Drone));
-        update_window(win, drone.x, drone.y);
+        update_drone(win, (int)drone.x, (int)drone.y);
+//        update_window(win, drone.x, drone.y);
         char input[100];
-        sprintf(input, "DRONE POSITION - x: %lf, y: %lf", drone.x, drone.y);
+        sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf, fx: %lf, fy: %lf", drone.x, drone.y,
+                drone.vx, drone.vy, drone.fx, drone.fy);
         logger(log_file, input);
+        // usleep(CLOCK_TICK); 
     }
-    getch();
     delwin(win);
     endwin();  
-
     return 0;
 }
 
@@ -85,16 +104,37 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
 }
 
 void update_window(WINDOW *win, int drone_x, int drone_y) {
-    // static int old_x = -1, old_y = -1;
-    // if (old_x != -1) {
-    //     mvwaddch(win, old_y, old_x, ' ');
-    // }
-    // mvwaddch(win, drone_y, drone_x, 'X');
-    // wrefresh(win);
-    // old_x = drone_x;
-    // old_y = drone_y;
-     wclear(win);
-    box(win, 0 , 0);
+    //wclear(win);
+    //box(win, 0 , 0);
+    //mvwaddch(win, drone_y, drone_x, 'X');
+    //wrefresh(win);
+    
+    mvwprintw(win, 1, 1, "Drone Position: (%d, %d)    ", drone_x, drone_y);
+}
+void delete_drone(WINDOW *win, int drone_x, int drone_y) {
+    mvwaddch(win, drone_y, drone_x, ' ');
+}
+void update_drone(WINDOW *win, int drone_x, int drone_y) {
     mvwaddch(win, drone_y, drone_x, 'X');
     wrefresh(win);
+}
+
+void resize_win(WINDOW *win) {
+    werase(stdscr);
+    werase(win);
+    int H, W;
+    getmaxyx(stdscr, H, W);
+
+
+    // Finestra con un margine fisso intorno
+    int wh = (H > 6) ? H - 6 : H;
+    int ww = (W > 10) ? W - 10 : W;
+    if (wh < 3) wh = 3;
+    if (ww < 3) ww = 3;
+
+    wresize(win, H, W);
+    box(win, 0 , 0);
+    wrefresh(win);
+    mvwin(win, H / 2, W/ 2);
+
 }

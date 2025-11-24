@@ -6,6 +6,7 @@
 #include <string.h>
 #include "protocol.h"
 
+#define CLOCK_TICK 16000
 WINDOW *create_input_win(int height, int width, int starty, int startx);
 int map_key_to_command(int key, InputCommand *cmd) {
     float force_step = 1.0; // 1 Newton per pressione
@@ -116,16 +117,7 @@ int main(int argc, char **argv) {
                 logger(log_file, buffer);    
             }
         }
-        // char input = (char) ch;
-        // char msg[2] = {input, '\0'};
-        // sprintf(buffer, "Key pressed: %s", msg);
-        // logger(log_file, buffer);
-        // write(write_fd, msg, sizeof(msg));
-        // if(ch == 'q'){
-        //     logger(log_file, "Input process exiting on 'q' keypress");
-        //     break;
-        // }
-        // logger(log_file, "MESSAGE SENT");
+        // usleep(CLOCK_TICK);
     }
     endwin();
     fclose(log_file);

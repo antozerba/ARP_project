@@ -4,8 +4,11 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "utils.h"
 #include "protocol.h"
+
+#define CLOCK_TICK 10000
 
 FILE * log_file;
 
@@ -44,6 +47,7 @@ int main(int argc, char **argv){
         float ay = (state.drone.fy / config.MASS) - (config.K * state.drone.vy / config.MASS);
         state.drone.vx += ax * config.DT;
         state.drone.vy += ay * config.DT;
+        
         state.drone.x += state.drone.vx * config.DT;
         state.drone.y += state.drone.vy * config.DT;
 
@@ -61,6 +65,7 @@ int main(int argc, char **argv){
         logger(log_file, buffer);
         write(write_fd, &msg, sizeof(Message));
         logger(log_file, "Updated drone state sent to server");
+        usleep(config.DT*CLOCK_TICK);
 
     }
 

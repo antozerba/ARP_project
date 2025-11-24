@@ -10,6 +10,7 @@
 #include <string.h>
 
 
+// #define CLOCK_TICK 50000 //sincronizzato con dynamic
 
 FILE * log_file;
 
@@ -27,20 +28,20 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
             fprintf(stderr, "[SERVER] Brake applied\n");
             break;
             
-        // case CMD_PAUSE:
-        //     // state->paused = !state->paused;
-        //     // fprintf(stderr, "[SERVER] Pause toggled: %d\n", state->paused);
-        //     break;
+        case CMD_PAUSE:
+            // state->paused = !state->paused;
+            // fprintf(stderr, "[SERVER] Pause toggled: %d\n", state->paused);
+            break;
             
-        // case CMD_RESET:
-        //     init_world_state(state);
-        //     fprintf(stderr, "[SERVER] World reset\n");
-        //     break;
+        case CMD_RESET:
+            init_world_state(state);
+            fprintf(stderr, "[SERVER] World reset\n");
+            break;
             
-        // case CMD_QUIT:
-        //     fprintf(stderr, "[SERVER] Quit requested\n");
-        //     // running = 0;
-        //     break;
+        case CMD_QUIT:
+            fprintf(stderr, "[SERVER] Quit requested\n");
+            // running = 0;
+            break;
             
         default:
             // Aggiorna forze comando
@@ -141,20 +142,7 @@ int main(int argc, char **argv){
                 continue;
             }
             handle_message(&state, &msg);
-
-    
-            //leggo da dynamic
-            //TODO: non sovrascrivere il drone ma aggiornalo 
-            // Drone drone_dynamic;
-            // read(read_dynamic_fd, &drone_dynamic, sizeof(struct Drone));
-            // state.drone.x = drone_dynamic.x;
-            // state.drone.vx = drone_dynamic.vx;
-            // state.drone.y = drone_dynamic.y;
-            // state.drone.vy = drone_dynamic.vy;
             char buffer[200];
-            // sprintf(buffer, "DRONE UPDATE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f", state.drone.x,
-            //         state.drone.y, state.drone.vx, state.drone.vy);
-
             sprintf(buffer, "DRONE RECEIVED FROM DYNAMIC - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
                     msg.data.drone.x, msg.data.drone.y, msg.data.drone.vx, msg.data.drone.vy, msg.data.drone.fx, msg.data.drone.fy);  
 
@@ -166,7 +154,7 @@ int main(int argc, char **argv){
         
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(struct WorldState));
-        usleep(10000);
+        // usleep(CLOCK_TICK);
 
     }
 
