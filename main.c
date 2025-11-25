@@ -128,7 +128,7 @@ int main(int arc, char ** argv) {
      }
 
     if((d_pid = fork()) == 0){
-        //obstacles generator
+        //DYNAMIC
         close(bd_pipe[1]);
         close(db_pipe[0]);
         char write_fd[16];    
@@ -141,7 +141,7 @@ int main(int arc, char ** argv) {
 
     }
     if((o_pid = fork()) == 0){
-        //dynamic
+        //OBS
         close(bo_pipe[1]);
         close(ob_pipe[0]);
         char write_fd[16];    

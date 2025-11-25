@@ -1,0 +1,32 @@
+OBS Started
+OBSTACLE_GEN Started
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (5.9, 8.3) [Total: 1]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (30.1, 12.5) [Total: 2]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (14.3, 9.0) [Total: 3]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (30.0, 13.0) [Total: 4]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (8.6, 9.2) [Total: 5]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (39.1, 7.4) [Total: 6]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (25.5, 8.1) [Total: 7]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (44.7, 12.4) [Total: 8]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (8.5, 8.4) [Total: 9]
+
+ENTRO
+[OBSTACLE_GEN] Created obstacle at (5.5, 7.2) [Total: 10]
+

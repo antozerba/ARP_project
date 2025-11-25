@@ -68,6 +68,7 @@ void handle_message(WorldState *state, Message *msg) {
                 if (!state->obstacles[i].active) {
                     state->obstacles[i] = msg->data.obstacle;
                     state->num_obstacles++;
+
                     break;
                 }
             }
@@ -184,17 +185,19 @@ int main(int argc, char **argv){
         if (FD_ISSET(read_obs_fd, &read_fds)) {
             Message msg;
             ssize_t n = read(read_obs_fd, &msg, sizeof(Message));
+            char ob[256];
+            snprintf(ob, sizeof(ob),
+                    "OBS RECEIVED  - obs1: x: %lf, y: %lf",
+                    msg.data.obstacle.x, msg.data.obstacle.y
+                    );
+
+
             if (n == sizeof(Message)) {
                 handle_message(&state, &msg);
             }
         }
 
         
-        //invio a window
-        // char buf[256];
-        // snprintf(buf, sizeof(buf), "DRONE SENT TO WINDOW   - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
-        //         state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
-        // logger(log_file, buf);
         ssize_t written = write(write_window_fd, &state, sizeof(WorldState));
         if(written < 0) {
             logger(log_file, "Error writing to window");

@@ -19,7 +19,8 @@ float random_float(float min, float max) {
 
 int main(int argc, char *argv[]) {
 
-    log_file = fopen("/log/obstacles_log.txt", "w");
+    log_file = fopen("log/obstacles_log.txt", "w");
+    logger(log_file, "OBS Started");
     Config config = {};
     if(!load_config("config/parameters.txt", &config))
     {
@@ -42,7 +43,8 @@ int main(int argc, char *argv[]) {
     
     while (running) {
         // Genera nuovo ostacolo casualmente (probabilità ~10% ogni secondo)
-        if (obstacle_count < MAX_OBSTACLES && (rand() % 100) < 10) {
+        if (obstacle_count < MAX_OBSTACLES ) {
+            logger(log_file,"ENTRO");
             Message msg;
             msg.type = 'O';
             msg.data.obstacle.x = random_float(5, config.map_width-5);
