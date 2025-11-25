@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#define CLOCK_TICK 10000
+#define CLOCK_TICK 100000
 
 FILE * log_file;
 

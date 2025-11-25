@@ -7,6 +7,7 @@
 #include "protocol.h"
 #include <fcntl.h>
 #include <errno.h>
+#include <string.h>
 
 
 #define CLOCK_TICK 33000
@@ -16,10 +17,18 @@
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
 void update_window(WINDOW *win, int drone_x, int drone_Y);
-void delete_drone(WINDOW *win, int drone_x, int drone_y);
-void update_drone(WINDOW *win, int drone_x, int drone_y);
+void delete_drone();
+void update_drone();
+void update_world();
+void delete_world();
+void delete_obstacles();
+void draw_obstacles();
+void clear_screen();
 
 FILE* log_file;
+WorldState *state;
+WorldState *old_state;
+WINDOW *win;
 
 int main(int argc, char **argv) {
     
@@ -60,7 +69,6 @@ int main(int argc, char **argv) {
     // int flags = fcntl(read_fd, F_GETFL, 0);
     // fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
 
-    WINDOW *win;
     int startx, starty, width, height;
     initscr();
     refresh();
@@ -69,63 +77,96 @@ int main(int argc, char **argv) {
     nodelay(stdscr, TRUE); // Non bloccare l'attesa dell'input
     curs_set(0);
 
-    starty = 0;
-	startx = 0;
+    startx = 0;
+	starty = 0;
     int height_max, width_max;
     getmaxyx(stdscr, height_max, width_max);
     win = create_newwin(height_max, width_max, starty, startx);
+    
+    //State
+    state = malloc(sizeof(WorldState) );
+    memset(state, 0, sizeof(WorldState));
+    old_state = malloc(sizeof(WorldState));
+    memset(old_state, 0, sizeof(WorldState) );
 
-    Drone drone = {0, 0, 0, 0, 0, 0};
+    int flags = fcntl(read_fd, F_GETFL, 0);
+    fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
+    
+    
+    state->drone.x = config.drone_x;
+    state->drone.y = config.drone_y;
+    memcpy(old_state, state, sizeof(WorldState));
 
     for(;;){
-//         int ch;
-//         if((ch = getch()) == KEY_RESIZE) {
-//             resize_win(win);
-//             logger(log_file, "Window resized");
-//         }
-
-//         delete_drone(win, (int)drone.x, (int)drone.y);
-        
-        
-//         ssize_t bytes_read = read(read_fd, &drone, sizeof(struct Drone));
-//         if(bytes_read == sizeof(struct Drone)) {
-//             // Nuovo dato ricevuto, logga
-//             char input[100];
-//             sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf", 
-//                     drone.x, drone.y, drone.vx, drone.vy);
-//             logger(log_file, input);
-//         } 
-//         else if(bytes_read == -1 && errno == EAGAIN) {
-//             // Nessun dato disponibile, continuo
-//         }
-//         else if(bytes_read == 0) {
-//             logger(log_file, "Server disconnected");
-//             break;
-//         }
-
-
-//         update_drone(win, (int)drone.x, (int)drone.y);
-// //        update_window(win, drone.x, drone.y);
-//         usleep(CLOCK_TICK); 
-
-        //V1
         int ch = getch();
         if(ch  == KEY_RESIZE) {
             resize_win(win);
             logger(log_file, "Window resized");
         }
-        delete_drone(win, (int)drone.x, (int)drone.y);
-        read(read_fd, &drone, sizeof(struct Drone));
-        update_drone(win, (int)drone.x, (int)drone.y);
-//        update_window(win, drone.x, drone.y);
-        char input[100];
-        sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf, fx: %lf, fy: %lf", drone.x, drone.y,
-                drone.vx, drone.vy, drone.fx, drone.fy);
-        logger(log_file, input);
+        char buf[sizeof(WorldState)];
+        ssize_t n = read_all(read_fd, buf, sizeof(buf));
+        // ssize_t n = read(read_fd, state, sizeof(WorldState));
+        if (n == sizeof(WorldState)) {
+            // abbiamo nuovi dati: cancella la vecchia posizione e disegna quella nuova
+            logger(log_file, "LETTURA COMPLETATA");
+            deserialize_worldstate(buf, state);
+            char slog[256];
+            sprintf(slog, "DRONE: x:%lf, y:%lf, obs1: x:%lf, y:%lf", 
+                state->drone.x,state->drone.y, state->obstacles[1].x, state->obstacles[1].y);
+            logger(log_file, slog);
+            delete_world();
+            update_world();
+            
+        } else if (n == -1 && errno == EAGAIN) {
+            // nessun dato: non fare nulla (mantieni lo schermo così com'è)
+        } else if (n == 0) {
+            logger(log_file, "Server disconnected");
+            break;
+        } else {
+            // lettura parziale o errore
+            char tmp[100];
+            sprintf(tmp, "Unexpected read size: %zd (errno=%d)", n, errno);
+            logger(log_file, tmp);
+        }
+        memcpy(old_state, state, sizeof(WorldState));
+
+
+        // //V1
+        // int ch = getch();
+        // if(ch  == KEY_RESIZE) {
+        //     resize_win(win);
+        //     logger(log_file, "Window resized");
+        // }
+        // //before obs
+        // // delete_drone(win, (int)drone.x, (int)drone.y);
+        // // read(read_fd, &drone, sizeof(struct Drone));
+        // // update_drone(win, (int)drone.x, (int)drone.y);
+        // delete_world();
+        // read(read_fd, state, sizeof(WorldState));
+        // update_world();
+        // // char input[100];
+        // // sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf, fx: %lf, fy: %lf", drone.x, drone.y,
+        // //         drone.vx, drone.vy, drone.fx, drone.fy);
+        // // logger(log_file, input);
     }
     delwin(win);
     endwin();  
+    free(state);
+    free(old_state);
     return 0;
+}
+
+void delete_world(){
+    //clear_screen(); vediamo dopo se va
+    delete_drone();
+    delete_obstacles();
+
+}
+
+void update_world(){
+    update_drone();
+    draw_obstacles();
+    wrefresh(win);
 }
 
 WINDOW *create_newwin(int height, int width, int starty, int startx) {
@@ -147,12 +188,47 @@ void update_window(WINDOW *win, int drone_x, int drone_y) {
     
     mvwprintw(win, 1, 1, "Drone Position: (%d, %d)    ", drone_x, drone_y);
 }
-void delete_drone(WINDOW *win, int drone_x, int drone_y) {
-    mvwaddch(win, drone_y, drone_x, ' ');
+
+
+//VERSIONE NON BLOCK
+void delete_drone() {
+    mvwaddch(win, old_state->drone.y, old_state->drone.x, ' ');
 }
-void update_drone(WINDOW *win, int drone_x, int drone_y) {
-    mvwaddch(win, drone_y, drone_x, 'X');
-    wrefresh(win);
+void delete_obstacles(){
+    int n_obs = sizeof(old_state->obstacles) / sizeof(old_state->obstacles[0]);
+    for(int i=0; i < n_obs; i++){
+         if (old_state->obstacles[i].active) {
+            mvwaddch(win, old_state->obstacles[i].y , old_state->obstacles[i].x, ' ');
+        }
+    }
+}
+//BLOCK
+// void delete_drone() {
+//     mvwaddch(win, state->drone.y, state->drone.x, ' ');
+// }
+// void delete_obstacles(){
+//      int n_obs = sizeof(state->obstacles) / sizeof(state->obstacles[0]);
+//     for(int i=0; i < n_obs; i++){
+//          if (state->obstacles[i].active) {
+//             mvwaddch(win, state->obstacles[i].y , state->obstacles[i].x, ' ');
+//         }
+//     }
+// }
+
+void update_drone() {
+    mvwaddch(win, state->drone.y, state->drone.x, '+');
+}
+void draw_obstacles() {
+    int n_obs = sizeof(state->obstacles) / sizeof(state->obstacles[0]);
+    for(int i=0; i < n_obs; i++){
+         if (state->obstacles[i].active) {
+            mvwaddch(win, state->obstacles[i].y , state->obstacles[i].x, 'O');
+            char buf[256];
+            sprintf(buf, "Obstacle CREATED: x:%lf, y:%lf", state->obstacles[i].x, state->obstacles[i].y);
+            logger(log_file, buf);
+        }
+    }
+    
 }
 
 void resize_win(WINDOW *win) {
@@ -185,4 +261,9 @@ void resize_win(WINDOW *win) {
     sprintf(msg, "Resized window to %d x %d at (%d,%d)", new_height, new_width, starty, startx);
     logger(log_file, msg);
 
+}
+
+void clear_screen(){
+    werase(win);
+    box(win, 0, 0);
 }

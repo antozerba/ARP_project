@@ -1,6 +1,8 @@
 #ifndef __PROTOCOL_H__
 #define __PROTOCOL_H__
 
+#define MAX_OBS 10
+
 typedef struct Drone
 {
     float x;
@@ -17,19 +19,19 @@ typedef struct Drone
     //int active;
 //}Target;
 
-//typedef struct Obstacle{
-    //float x;
-    //float y;
-    //int active;
-//}Obstacle;
+typedef struct Obstacle{
+    float x;
+    float y;
+    int active;
+}Obstacle;
 
 typedef struct WorldState{
     Drone drone;
 //    Target targets[5];
-//    Obstacle obstacles[5];
+   Obstacle obstacles[10];
     
     //int num_active_targets;
-    //int num_active_obstacles;
+    int num_obstacles;
     //int target_reached;
     //int collisions;
     //float elapsed_time;
@@ -72,7 +74,7 @@ typedef struct {
     union {
         Drone drone;
         //Target target;
-        //Obstacle obstacle;
+        Obstacle obstacle;
     } data;
 } Message;
 
@@ -87,7 +89,7 @@ typedef struct {
  */
 typedef struct {
     float force_x, force_y;      // Forze comando correnti
-    //Obstacle obstacles[MAX_OBSTACLES]; // Ostacoli per repulsione
+    Obstacle obstacles[MAX_OBS]; // Ostacoli per repulsione
     //int num_obstacles;
     //int paused;                  // Flag pausa simulazione
 } DynamicsInput;

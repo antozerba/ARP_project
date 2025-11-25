@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
+#include "protocol.h"
+#include <string.h>
 
 int load_config(const char *filename, struct Config *config) {
     FILE * log= fopen("log/utils_log.text","w");
@@ -32,12 +35,54 @@ void logger(FILE * handler, const char *message) {
     fflush(handler);
 }
 
-ssize_t safe_read(int fd, void *buf, size_t size) {
+
+ssize_t write_all(int fd, const void *buf, size_t size) {
     size_t total = 0;
+    const char *p = buf;
     while (total < size) {
-        ssize_t n = read(fd, (char*)buf + total, size - total);
-        if (n <= 0) return n;  // errore o EOF
+        ssize_t n = write(fd, p + total, size - total);
+        if (n <= 0) return n; // errore o pipe chiusa
         total += n;
     }
     return total;
+}
+ssize_t read_all(int fd, void *buf, size_t size) {
+    size_t total = 0;
+    char *p = buf;
+    while (total < size) {
+        ssize_t n = read(fd, p + total, size - total);
+        if (n == 0) break;        // pipe chiusa
+        if (n < 0 && errno == EAGAIN) continue;
+        if (n < 0) return -1;     // errore
+        total += n;
+    }
+    return total;
+}
+// Serializza WorldState in buffer !!!!DA MODIFICARE OGNI VOLTA CHE CAMBIO WORLD
+//metodi implementato per evitare padding
+size_t serialize_worldstate(const WorldState *state, char *buf) {
+    //DRONE
+    char *p = buf;
+    memcpy(p, &state->drone, sizeof(Drone)); p += sizeof(Drone);
+    //OBSCACLES
+    for (int i = 0; i < 10; i++) {
+        memcpy(p, &state->obstacles[i], sizeof(Obstacle));
+        p += sizeof(Obstacle);
+    }
+    //NUM_OBS
+    memcpy(p, &state->num_obstacles, sizeof(int));
+    p += sizeof(int);
+    return p - buf;
+}
+void deserialize_worldstate(const char *buf, WorldState *state) {
+    const char *p = buf;
+    //DRONE
+    memcpy(&state->drone, p, sizeof(Drone)); p += sizeof(Drone);
+    //OBS
+    for (int i = 0; i < 10; i++) {
+        memcpy(&state->obstacles[i], p, sizeof(Obstacle));
+        p += sizeof(Obstacle);
+    }
+    //NUM_OBS
+    memcpy(&state->num_obstacles, p, sizeof(int));
 }
