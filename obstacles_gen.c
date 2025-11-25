@@ -6,7 +6,7 @@
 #include <time.h>
 #include "protocol.h"
 #include "utils.h"
-
+#include <fcntl.h>
 
 static volatile sig_atomic_t running = 1;
 
@@ -33,22 +33,35 @@ int main(int argc, char *argv[]) {
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
     
+    int flags = fcntl(read_fd, F_GETFL, 0);
+    fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
     
     srand(time(NULL) ^ getpid());
     
     logger(log_file, "OBSTACLE_GEN Started");
     
     int obstacle_count = 0;
-    const int MAX_OBSTACLES = 10;
-    
+    const int MAX_OBSTACLES = MAX_OBS;
+    int mapx = config.map_width-5 ;
+    int mapy = config.map_height-5;
+    ResizeMessage res;
+
     while (running) {
-        // Genera nuovo ostacolo casualmente (probabilità ~10% ogni secondo)
+
+        size_t n = read(read_fd, &res, sizeof(ResizeMessage));
+        if(n ==sizeof(ResizeMessage))
+        {
+            logger(log_file, "ENTRO");
+            mapx = res.x;
+            mapy = res.y;
+            obstacle_count = 0;
+        }
+        
         if (obstacle_count < MAX_OBSTACLES ) {
-            logger(log_file,"ENTRO");
             Message msg;
             msg.type = 'O';
-            msg.data.obstacle.x = random_float(5, config.map_width-5);
-            msg.data.obstacle.y = random_float(5, config.map_height-5);
+            msg.data.obstacle.x = random_float(5, mapx);
+            msg.data.obstacle.y = random_float(5, mapy);
 
             msg.data.obstacle.active = 1;
             
@@ -63,20 +76,6 @@ int main(int argc, char *argv[]) {
             }
         }
         
-        // Possibilità di rimuovere ostacolo (probabilità ~5% ogni secondo)
-        // if (obstacle_count > 0 && (rand() % 100) < 5) {
-        //     Message msg;
-        //     msg.type = 'O';
-        //     msg.data.obstacle.active = 0; // Disattiva
-        //     msg.data.obstacle.x = 0;
-        //     msg.data.obstacle.y = 0;
-            
-        //     write(pipe_fd, &msg, sizeof(Message));
-        //     obstacle_count--;
-        //     fprintf(stderr, "[OBSTACLE_GEN] Removed obstacle [Total: %d]\n", obstacle_count);
-        // }
-        
-        usleep(1000000);
     }
     
     close(write_fd);

@@ -13,6 +13,7 @@
 #define CLOCK_TICK 33000
 #define MARGIN_Y 0.5  // margine verticale
 #define MARGIN_X 1  // margine orizzontale
+#define RATIO 2;
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
@@ -25,10 +26,12 @@ void delete_obstacles();
 void draw_obstacles();
 void clear_screen();
 
+
 FILE* log_file;
 WorldState *state;
 WorldState *old_state;
 WINDOW *win;
+
 
 int main(int argc, char **argv) {
     
@@ -101,7 +104,19 @@ int main(int argc, char **argv) {
         int ch = getch();
         if(ch  == KEY_RESIZE) {
             resize_win(win);
-            logger(log_file, "Window resized");
+
+            //invio server
+            int newwin_x;
+            int newwin_y;
+            getmaxyx(win, newwin_y, newwin_x );
+            ResizeMessage msg;
+            msg.x = newwin_x;
+            msg.y = newwin_y;
+            write(write_fd, &msg, sizeof(ResizeMessage));
+            char buf[100];
+            sprintf(buf, "Window Rezised: x: %d, y: %d", newwin_x, newwin_y);
+            logger(log_file, buf);
+            
         }
         ssize_t n = read(read_fd, state, sizeof(WorldState));
         // ssize_t n = read(read_fd, state, sizeof(WorldState));
@@ -109,10 +124,11 @@ int main(int argc, char **argv) {
             // abbiamo nuovi dati: cancella la vecchia posizione e disegna quella nuova
             logger(log_file, "LETTURA COMPLETATA");
             char slog[256];
-            sprintf(slog, "DRONE: x:%lf, y:%lf, obs1: x:%lf, y:%lf", 
-                state->drone.x,state->drone.y, state->obstacles[1].x, state->obstacles[1].y);
-            logger(log_file, slog);
-            delete_world();
+            // sprintf(slog, "DRONE: x:%lf, y:%lf, obs1: x:%lf, y:%lf", 
+            //     state->drone.x,state->drone.y, state->obstacles[1].x, state->obstacles[1].y);
+            // logger(log_file, slog);
+            // delete_world();
+            clear_screen();
             update_world();
             
         } else if (n == -1 && errno == EAGAIN) {
@@ -190,37 +206,37 @@ void update_window(WINDOW *win, int drone_x, int drone_y) {
 
 //VERSIONE NON BLOCK
 void delete_drone() {
-    mvwaddch(win, old_state->drone.y, old_state->drone.x, ' ');
+    int term_y = old_state->drone.y/RATIO;
+    mvwaddch(win, term_y, old_state->drone.x, ' ');
+    
 }
 void delete_obstacles(){
     int n_obs = sizeof(old_state->obstacles) / sizeof(old_state->obstacles[0]);
     for(int i=0; i < n_obs; i++){
          if (old_state->obstacles[i].active) {
-            mvwaddch(win, old_state->obstacles[i].y , old_state->obstacles[i].x, ' ');
+            int term_y = old_state->obstacles[i].y/RATIO;
+            mvwaddch(win, term_y, old_state->obstacles[i].x, ' ');
         }
     }
 }
-//BLOCK
-// void delete_drone() {
-//     mvwaddch(win, state->drone.y, state->drone.x, ' ');
-// }
-// void delete_obstacles(){
-//      int n_obs = sizeof(state->obstacles) / sizeof(state->obstacles[0]);
-//     for(int i=0; i < n_obs; i++){
-//          if (state->obstacles[i].active) {
-//             mvwaddch(win, state->obstacles[i].y , state->obstacles[i].x, ' ');
-//         }
-//     }
-// }
 
 void update_drone() {
-    mvwaddch(win, state->drone.y, state->drone.x, '+');
+    int term_y = state->drone.y/RATIO;
+    int term_x = state->drone.x;
+    int win_width ;
+    int win_height;
+    getmaxyx(win, win_height, win_width);
+
+     
+    mvwaddch(win, term_y, state->drone.x, '+');
 }
 void draw_obstacles() {
     int n_obs = sizeof(state->obstacles) / sizeof(state->obstacles[0]);
     for(int i=0; i < n_obs; i++){
          if (state->obstacles[i].active) {
-            mvwaddch(win, state->obstacles[i].y , state->obstacles[i].x, 'O');
+            int term_y = state->obstacles[i].y/RATIO;
+            int term_x = state->obstacles[i].x;
+            mvwaddch(win, term_y, term_x, 'O');
             char buf[256];
             sprintf(buf, "Obstacle CREATED: x:%lf, y:%lf", state->obstacles[i].x, state->obstacles[i].y);
             logger(log_file, buf);
@@ -252,6 +268,7 @@ void resize_win(WINDOW *win) {
     // Pulisce e ridisegna
     werase(win);
     box(win, 0, 0);
+    update_world();
     wrefresh(win);
 
     // Log
@@ -265,3 +282,5 @@ void clear_screen(){
     werase(win);
     box(win, 0, 0);
 }
+
+

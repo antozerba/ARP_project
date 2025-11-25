@@ -1,7 +1,8 @@
 #ifndef __PROTOCOL_H__
 #define __PROTOCOL_H__
 
-#define MAX_OBS 10
+#define MAX_OBS 5
+#define MAX_TAR 3
 
 typedef struct Drone
 {
@@ -12,12 +13,12 @@ typedef struct Drone
     float fx, fy;
 }Drone;
 
-//typedef struct Target{
-    //int id;
-    //float x;
-    //float y;
-    //int active;
-//}Target;
+typedef struct Target{
+    int id;
+    float x;
+    float y;
+    int active;
+}Target;
 
 typedef struct Obstacle{
     float x;
@@ -27,12 +28,12 @@ typedef struct Obstacle{
 
 typedef struct WorldState{
     Drone drone;
-//    Target targets[5];
-   Obstacle obstacles[10];
+   Target targets[MAX_TAR];
+   Obstacle obstacles[MAX_OBS];
     
-    //int num_active_targets;
+    int num_active_targets;
     int num_obstacles;
-    //int target_reached;
+    int target_reached;
     //int collisions;
     //float elapsed_time;
     //int paused;
@@ -62,7 +63,7 @@ typedef struct InputCommand{
 typedef enum {
     MSG_DRONE_UPDATE = 'D',    // Aggiornamento posizione drone
     MSG_TARGET = 'T',          // Nuovo/rimosso target
-    MSG_OBSTACLE = 'O'         // Nuovo/rimosso ostacolo
+    MSG_OBSTACLE = 'O',         // Nuovo/rimosso ostacolo
 } MessageType;
 
 /**
@@ -73,10 +74,25 @@ typedef struct {
     char type;            // 'D', 'T', o 'O' (vedi MessageType)
     union {
         Drone drone;
-        //Target target;
+        Target target;
         Obstacle obstacle;
     } data;
+
 } Message;
+typedef struct 
+{
+    int x;
+    int y;
+    /* data */
+}ResizeMessage;
+
+typedef struct {
+    Drone drone;
+    Target targets[MAX_TAR];
+    int num_targets;
+    int targets_reached;
+} PartialState;
+
 
 // ============================================
 // MESSAGGI SPECIALIZZATI

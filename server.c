@@ -19,6 +19,11 @@ void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
     state->drone.x = config.drone_x;
     state->drone.y = config.drone_y;
+    for (int i = 0; i < MAX_OBS; i++) {
+        state->obstacles[i].active = 0;
+        state->obstacles[i].x = -1;
+        state->obstacles[i].y = -1;
+    }
 }
 
 void handle_input_command(WorldState *state, InputCommand *cmd) {
@@ -64,15 +69,15 @@ void handle_message(WorldState *state, Message *msg) {
             // Aggiorna target
         //     break;
         case 'O':
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < MAX_OBS; i++) {
                 if (!state->obstacles[i].active) {
                     state->obstacles[i] = msg->data.obstacle;
                     state->num_obstacles++;
-
                     break;
                 }
             }
             break;
+
         default:
             logger(log_file, "Unknown message type received");
             break;
@@ -186,15 +191,32 @@ int main(int argc, char **argv){
             Message msg;
             ssize_t n = read(read_obs_fd, &msg, sizeof(Message));
             char ob[256];
-            snprintf(ob, sizeof(ob),
+            sprintf(ob,
                     "OBS RECEIVED  - obs1: x: %lf, y: %lf",
                     msg.data.obstacle.x, msg.data.obstacle.y
                     );
+            logger(log_file, ob);
 
 
             if (n == sizeof(Message)) {
                 handle_message(&state, &msg);
             }
+        }
+        if (FD_ISSET(read_window_fd, &read_fds)){
+            ResizeMessage msg;
+            ssize_t n = read(read_window_fd, &msg, sizeof(ResizeMessage));
+            char buf[100];
+            sprintf(buf, "Window Rezised: x: %d, y: %d", msg.x, msg.y);
+            logger(log_file, buf);
+            
+            if (n == sizeof(ResizeMessage)) {
+                // write
+                memset(state.obstacles, 0, sizeof(state.obstacles));
+                state.num_obstacles = 0;
+                write(write_obs_fd, &msg, sizeof(ResizeMessage));
+
+            }
+            
         }
 
         

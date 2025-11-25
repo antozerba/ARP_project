@@ -25,6 +25,7 @@ int load_config(const char *filename, struct Config *config) {
     fscanf(file, "STEP_FORCE=%f\n", &config->STEP_FORCE);
     fscanf(file, "RHO=%f\n", &config->RHO);
     fscanf(file, "ETA=%f\n", &config->ETA);
+
     logger(log, "Configuration loaded successfully");
     fclose(file);
     return 1;
