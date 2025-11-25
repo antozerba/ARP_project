@@ -1,0 +1,9 @@
+Missing:
+-target
+-obs dynamic 
+-target dynamic
+-score
+-wall repulsion
+-colors
+-input window resizable
+-closing

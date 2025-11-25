@@ -224,17 +224,21 @@ int main(int argc, char **argv){
         if(written < 0) {
             logger(log_file, "Error writing to window");
         }
+        ssize_t i_write = write(write_input_fd, &state.drone, sizeof(Drone));
+        if(i_write < 0) {
+            logger(log_file, "Error writing to input");
+        }
         
         char ops[256];
-            snprintf(ops, sizeof(ops),
-                     "DRONE SENT TO WINDOW - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
-                     state.drone.x, state.drone.y,
-                     state.drone.vx, state.drone.vy,
-                     state.drone.fx, state.drone.fy);
-            logger(log_file, ops);
+        snprintf(ops, sizeof(ops),
+                    "DRONE SENT TO WINDOW - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
+                    state.drone.x, state.drone.y,
+                    state.drone.vx, state.drone.vy,
+                    state.drone.fx, state.drone.fy);
+        logger(log_file, ops);
         if(send_dyn){
         //invio a dynamic
-        write(write_dynamic_fd, &state.drone, sizeof(struct Drone));
+        write(write_dynamic_fd, &state, sizeof(WorldState));
         logger(log_file, "DRONE SENT TO DYNAMICS");
         }
         

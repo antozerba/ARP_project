@@ -11,6 +11,7 @@
 #include <math.h>
 #include "protocol.h"
 
+
 static volatile sig_atomic_t running = 1;
 
 
