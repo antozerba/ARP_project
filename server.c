@@ -195,9 +195,7 @@ int main(int argc, char **argv){
         // snprintf(buf, sizeof(buf), "DRONE SENT TO WINDOW   - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
         //         state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
         // logger(log_file, buf);
-        char buf[sizeof(WorldState)];
-        serialize_worldstate(&state, buf);
-        ssize_t written = write_all(write_window_fd, buf, sizeof(buf));
+        ssize_t written = write(write_window_fd, &state, sizeof(WorldState));
         if(written < 0) {
             logger(log_file, "Error writing to window");
         }

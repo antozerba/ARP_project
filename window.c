@@ -103,13 +103,11 @@ int main(int argc, char **argv) {
             resize_win(win);
             logger(log_file, "Window resized");
         }
-        char buf[sizeof(WorldState)];
-        ssize_t n = read_all(read_fd, buf, sizeof(buf));
+        ssize_t n = read(read_fd, state, sizeof(WorldState));
         // ssize_t n = read(read_fd, state, sizeof(WorldState));
         if (n == sizeof(WorldState)) {
             // abbiamo nuovi dati: cancella la vecchia posizione e disegna quella nuova
             logger(log_file, "LETTURA COMPLETATA");
-            deserialize_worldstate(buf, state);
             char slog[256];
             sprintf(slog, "DRONE: x:%lf, y:%lf, obs1: x:%lf, y:%lf", 
                 state->drone.x,state->drone.y, state->obstacles[1].x, state->obstacles[1].y);

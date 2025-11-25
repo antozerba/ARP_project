@@ -22,8 +22,4 @@ typedef struct Config
 
 void logger(FILE * handler, const char *message);
 int load_config(const char *filename, struct Config *config);
-ssize_t write_all(int fd, const void *buf, size_t size) ;
-ssize_t read_all(int fd, void *buf, size_t size);
-size_t serialize_worldstate(const WorldState *state, char *buf) ;
-void deserialize_worldstate(const char *buf, WorldState *state) ;
 #endif
