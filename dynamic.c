@@ -36,7 +36,7 @@ int main(int argc, char **argv){
     int write_fd = atoi(write_fd_char);
 
     //RENDERE PIPE NON BLOCCANTE: questo mi permette di non dover invare a dynamic dal server ogni volta.
-     int flags = fcntl(read_fd, F_GETFL, 0);
+    int flags = fcntl(read_fd, F_GETFL, 0);
     fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
 
     WorldState state;

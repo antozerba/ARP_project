@@ -8,6 +8,20 @@
         "iterator": "c",
         "memory": "c",
         "random": "c",
-        "functional": "c"
+        "functional": "c",
+        "array": "c",
+        "bitset": "c",
+        "string": "c",
+        "vector": "c",
+        "string_view": "c",
+        "iomanip": "c",
+        "istream": "c",
+        "limits": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "sstream": "c",
+        "stop_token": "c",
+        "streambuf": "c",
+        "tuple": "c"
     }
 }

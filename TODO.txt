@@ -1,7 +1,7 @@
 Missing:
--target
--obs dynamic 
--target dynamic
+-target 
+-obs dynamic X
+-target dynamic X
 -score
 -wall repulsion
 -colors

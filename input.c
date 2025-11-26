@@ -19,7 +19,6 @@ int map_key_to_command(int key, InputCommand *cmd) {
     memset(cmd, 0, sizeof(InputCommand));
     
     switch(key) {
-        // WASD mapping
         case 'w': case 'W':
             cmd->type = CMD_FORCE_UP;
             cmd->force_y = -force_step;
@@ -35,7 +34,6 @@ int map_key_to_command(int key, InputCommand *cmd) {
             cmd->type = CMD_FORCE_RIGHT;
             cmd->force_x = force_step;
             return 1;
-            
         // Diagonali
         case 'q': case 'Q':
             cmd->type = CMD_FORCE_UP_LEFT;
@@ -180,10 +178,7 @@ int main(int argc, char **argv) {
 WINDOW *create_input_win(int height, int width, int starty, int startx) {
     WINDOW *win;
     win = newwin(height, width, starty, startx);
-    box(win, 0 , 0);       /* 0, 0 gives default characters 
-                               for the vertical and horizontal 
-                               lines */
-
+    box(win, 0 , 0);     
     mvwprintw(win,starty, startx + width*3/6, "INPUT WINDOW"); 
     mvwaddch(win,starty + height*2/6, startx+ width* 2/6, 'q');
     mvwaddch(win,starty + height*2/6, startx+ width *3/6, 'w');
@@ -196,7 +191,7 @@ WINDOW *create_input_win(int height, int width, int starty, int startx) {
     mvwaddch(win,starty + height*4/6, startx+ width *4/6, 'c');
 
 
-    wrefresh(win);         /* Show that box */
+    wrefresh(win);         
     return win;
 }
 WINDOW *create_input_win_2(int height, int width, int starty, int startx) {

@@ -17,7 +17,6 @@
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
-void update_window(WINDOW *win, int drone_x, int drone_Y);
 void delete_drone();
 void update_drone();
 void update_world();
@@ -25,6 +24,7 @@ void delete_world();
 void delete_obstacles();
 void draw_obstacles();
 void clear_screen();
+void draw_targets();
 
 
 FILE* log_file;
@@ -123,11 +123,6 @@ int main(int argc, char **argv) {
         if (n == sizeof(WorldState)) {
             // abbiamo nuovi dati: cancella la vecchia posizione e disegna quella nuova
             logger(log_file, "LETTURA COMPLETATA");
-            char slog[256];
-            // sprintf(slog, "DRONE: x:%lf, y:%lf, obs1: x:%lf, y:%lf", 
-            //     state->drone.x,state->drone.y, state->obstacles[1].x, state->obstacles[1].y);
-            // logger(log_file, slog);
-            // delete_world();
             clear_screen();
             update_world();
             
@@ -143,25 +138,6 @@ int main(int argc, char **argv) {
             logger(log_file, tmp);
         }
         memcpy(old_state, state, sizeof(WorldState));
-
-
-        // //V1
-        // int ch = getch();
-        // if(ch  == KEY_RESIZE) {
-        //     resize_win(win);
-        //     logger(log_file, "Window resized");
-        // }
-        // //before obs
-        // // delete_drone(win, (int)drone.x, (int)drone.y);
-        // // read(read_fd, &drone, sizeof(struct Drone));
-        // // update_drone(win, (int)drone.x, (int)drone.y);
-        // delete_world();
-        // read(read_fd, state, sizeof(WorldState));
-        // update_world();
-        // // char input[100];
-        // // sprintf(input, "DRONE POSITION - x: %lf, y: %lf, vx: %lf, vy: %lf, fx: %lf, fy: %lf", drone.x, drone.y,
-        // //         drone.vx, drone.vy, drone.fx, drone.fy);
-        // // logger(log_file, input);
     }
     delwin(win);
     endwin();  
@@ -180,6 +156,8 @@ void delete_world(){
 void update_world(){
     update_drone();
     draw_obstacles();
+    draw_targets();
+    
     wrefresh(win);
 }
 
@@ -192,15 +170,6 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
     box(local_win, 0 , 0);
     wrefresh(local_win);
     return local_win;
-}
-
-void update_window(WINDOW *win, int drone_x, int drone_y) {
-    //wclear(win);
-    //box(win, 0 , 0);
-    //mvwaddch(win, drone_y, drone_x, 'X');
-    //wrefresh(win);
-    
-    mvwprintw(win, 1, 1, "Drone Position: (%d, %d)    ", drone_x, drone_y);
 }
 
 
@@ -239,6 +208,20 @@ void draw_obstacles() {
             mvwaddch(win, term_y, term_x, 'O');
             char buf[256];
             sprintf(buf, "Obstacle CREATED: x:%lf, y:%lf", state->obstacles[i].x, state->obstacles[i].y);
+            logger(log_file, buf);
+        }
+    }
+    
+}
+void draw_targets() {
+    int n_tar = sizeof(state->targets) / sizeof(state->targets[0]);
+    for(int i=0; i < n_tar; i++){
+         if (state->targets[i].active) {
+            int term_y = state->targets[i].y/RATIO;
+            int term_x = state->targets[i].x;
+            mvwaddch(win, term_y, term_x, 'T');
+            char buf[256];
+            sprintf(buf, "Target CREATED: x:%lf, y:%lf", state->targets[i].x, state->targets[i].y);
             logger(log_file, buf);
         }
     }

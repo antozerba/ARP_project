@@ -65,11 +65,20 @@ void handle_message(WorldState *state, Message *msg) {
             state->drone.vx = msg->data.drone.vx;
             state->drone.vy = msg->data.drone.vy;
             break;
-        // case 'T':
-            // Aggiorna target
-        //     break;
+        case 'T':
+            for (int i = 0; i < MAX_TAR; i++) {
+                if (!state->targets[i].active) {
+                    state->targets[i] = msg->data.target;
+                    state->num_active_targets++;
+                    
+                    break;
+                }
+            }
+            break;
+            
+            break;
         case 'O':
-        for (int i = 0; i < MAX_OBS; i++) {
+            for (int i = 0; i < MAX_OBS; i++) {
                 if (!state->obstacles[i].active) {
                     state->obstacles[i] = msg->data.obstacle;
                     state->num_obstacles++;
@@ -99,6 +108,8 @@ int main(int argc, char **argv){
     char * write_dynamic_fd_char = getenv("OUT_DYNAMIC_FD");
     char * write_obs_fd_char = getenv("OUT_OBS_FD");
     char * read_obs_fd_char = getenv("IN_OBS_FD");
+    char * write_tar_fd_char = getenv("OUT_TAR_FD");
+    char * read_tar_fd_char = getenv("IN_TAR_FD");
 
     int read_input_fd = atoi(read_input_fd_char);
     int write_input_fd = atoi(write_input_fd_char);
@@ -108,6 +119,8 @@ int main(int argc, char **argv){
     int write_dynamic_fd = atoi(write_dynamic_fd_char);
     int read_obs_fd = atoi(read_obs_fd_char);
     int write_obs_fd = atoi(write_obs_fd_char);
+    int read_tar_fd = atoi(read_tar_fd_char);
+    int write_tar_fd = atoi(write_tar_fd_char);
 
     if(!load_config("config/parameters.txt", &config))
     {
@@ -116,11 +129,7 @@ int main(int argc, char **argv){
     }
     WorldState state;
     init_world_state(&state);
-
-
-
     
-
     for(;;){
 
         //SELECT
@@ -131,13 +140,16 @@ int main(int argc, char **argv){
         FD_SET(read_window_fd, &read_fds);
         FD_SET(read_dynamic_fd, &read_fds);
         FD_SET(read_obs_fd, &read_fds );
+        FD_SET(read_tar_fd, &read_fds);
 
         int max_fd = 0;
         if(read_input_fd > max_fd) max_fd = read_input_fd;
         if(read_window_fd > max_fd) max_fd = read_window_fd;
         if(read_dynamic_fd > max_fd) max_fd = read_dynamic_fd;
         if(read_obs_fd > max_fd) max_fd = read_obs_fd;
-
+        if(read_tar_fd > max_fd) max_fd = read_tar_fd;
+        //flag per capire se mandare a dynamics in base a input
+        int send_dyn = 0;
 
         //set timer for select
         struct timeval timeout;
@@ -150,10 +162,6 @@ int main(int argc, char **argv){
             logger(log_file, "Error in select");
             return 1;
         }
-        int send_dyn = 0;
-
-
-
         if(FD_ISSET(read_input_fd, &read_fds)){
             logger(log_file, "Reading InputCommand from input...");
             InputCommand cmd;
@@ -192,7 +200,7 @@ int main(int argc, char **argv){
             ssize_t n = read(read_obs_fd, &msg, sizeof(Message));
             char ob[256];
             sprintf(ob,
-                    "OBS RECEIVED  - obs1: x: %lf, y: %lf",
+                    "OBS RECEIVED  - obs: x: %lf, y: %lf",
                     msg.data.obstacle.x, msg.data.obstacle.y
                     );
             logger(log_file, ob);
@@ -202,6 +210,22 @@ int main(int argc, char **argv){
                 handle_message(&state, &msg);
             }
         }
+        if (FD_ISSET(read_tar_fd, &read_fds)) {
+            Message msg;
+            ssize_t n = read(read_tar_fd, &msg, sizeof(Message));
+            char tar[256];
+            sprintf(tar,
+                    "TARGET RECEIVED  - tar: x: %lf, y: %lf",
+                    msg.data.target.x, msg.data.target.y
+                    );
+            logger(log_file, tar);
+
+
+            if (n == sizeof(Message)) {
+                handle_message(&state, &msg);
+            }
+        }
+
         if (FD_ISSET(read_window_fd, &read_fds)){
             ResizeMessage msg;
             ssize_t n = read(read_window_fd, &msg, sizeof(ResizeMessage));
@@ -212,8 +236,13 @@ int main(int argc, char **argv){
             if (n == sizeof(ResizeMessage)) {
                 // write
                 memset(state.obstacles, 0, sizeof(state.obstacles));
+                memset(state.targets, 0, sizeof(state.targets));
+                state.num_active_targets = 0;
+                
                 state.num_obstacles = 0;
                 write(write_obs_fd, &msg, sizeof(ResizeMessage));
+                write(write_tar_fd, &msg, sizeof(ResizeMessage));
+        
 
             }
             
@@ -236,6 +265,19 @@ int main(int argc, char **argv){
                     state.drone.vx, state.drone.vy,
                     state.drone.fx, state.drone.fy);
         logger(log_file, ops);
+        
+        char wtar[512];
+        int pos = 0;
+        pos += snprintf(wtar + pos, sizeof(wtar) - pos, "TAR SENT TO DRONE - active targets:");
+        for (int ti = 0; ti < MAX_TAR && pos < (int)sizeof(wtar); ++ti) {
+            if (state.targets[ti].active) {
+            pos += snprintf(wtar + pos, sizeof(wtar) - pos,
+                            " [%d]=(%.2f,%.2f)",
+                            state.targets[ti].id,
+                            state.targets[ti].x, state.targets[ti].y);
+            }
+        }
+        logger(log_file, wtar);
         if(send_dyn){
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(WorldState));

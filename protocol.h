@@ -79,6 +79,7 @@ typedef struct {
     } data;
 
 } Message;
+
 typedef struct 
 {
     int x;
