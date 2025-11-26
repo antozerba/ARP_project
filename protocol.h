@@ -1,7 +1,7 @@
 #ifndef __PROTOCOL_H__
 #define __PROTOCOL_H__
 
-#define MAX_OBS 5
+#define MAX_OBS 10
 #define MAX_TAR 3
 
 typedef struct Drone

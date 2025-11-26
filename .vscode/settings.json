@@ -2,6 +2,12 @@
     "files.associations": {
         "ncurses.h": "c",
         "stdio.h": "c",
-        "protocol.h": "c"
+        "protocol.h": "c",
+        "chrono": "c",
+        "algorithm": "c",
+        "iterator": "c",
+        "memory": "c",
+        "random": "c",
+        "functional": "c"
     }
 }
