@@ -6,7 +6,19 @@
 #include <stdlib.h>
 #include "utils.h"
 
+
 int main(int arc, char ** argv) {
+
+    FILE * log_file = fopen("log/main_log.text","w");
+
+    logger(log_file, "Window started");
+    
+    Config config = {};
+    if(!load_config("/config/parameters.txt", &config))
+    {
+      logger(log_file, "Error loading configuration");
+      return 1;
+    }
     //PIPE
     //BLACK-WHINDOW
     int bw_pipe[2]; //prime lettura //seconda scrittura
@@ -67,35 +79,7 @@ int main(int arc, char ** argv) {
 
     int w_status, i_status, b_status, d_status, o_status, t_status;
     pid_t w_pid, i_pid, b_pid, d_pid, o_pid, t_pid;
-    if((w_pid = fork()) == 0){
-
-        //window
-        close(bw_pipe[1]);
-        close(wb_pipe[0]);
-        char write_fd[16];
-        char read_fd[16];
-        sprintf(read_fd, "%d", bw_pipe[0]);
-        sprintf(write_fd, "%d", wb_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1);
-        execlp("konsole", "konsole", "-e", "./window",NULL);
-        
-    }
-
-    if((i_pid = fork()) == 0){
-        //input
-        close(bi_pipe[1]); //close write
-        close(ib_pipe[0]); //close read
-        char write_fd[16];
-        char read_fd[16];
-        sprintf(read_fd, "%d", bi_pipe[0]);
-        sprintf(write_fd, "%d", ib_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1);
-        execlp("konsole", "konsole", "-e", "./input",NULL);
-    }
-
-     if((b_pid = fork() )== 0){
+    if((b_pid = fork() )== 0){
          //server-blackboard
         close(bi_pipe[0]); //close read close(bw_pipe[0]); //close read
         close(ib_pipe[1]); //close write
@@ -142,6 +126,34 @@ int main(int arc, char ** argv) {
         char * args[] = {"./server", NULL};   
         execvp("./server", args);
      }
+
+    if((w_pid = fork()) == 0){
+
+        //window
+        close(bw_pipe[1]);
+        close(wb_pipe[0]);
+        char write_fd[16];
+        char read_fd[16];
+        sprintf(read_fd, "%d", bw_pipe[0]);
+        sprintf(write_fd, "%d", wb_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1);
+        execlp("konsole", "konsole", "-e", "./window",NULL); 
+
+    }
+    if((i_pid = fork()) == 0){
+        //input
+        close(bi_pipe[1]); //close write
+        close(ib_pipe[0]); //close read
+        char write_fd[16];
+        char read_fd[16];
+        sprintf(read_fd, "%d", bi_pipe[0]);
+        sprintf(write_fd, "%d", ib_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1);
+
+        execlp("konsole", "konsole", "-e", "./input",NULL);
+    }
 
     if((d_pid = fork()) == 0){
         //DYNAMIC

@@ -37,6 +37,8 @@ typedef struct WorldState{
     //int collisions;
     //float elapsed_time;
     //int paused;
+    int mapx;
+    int mapy;
 }WorldState;
 
 typedef enum CommandType{

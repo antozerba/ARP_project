@@ -12,7 +12,7 @@
 
 #define CLOCK_TICK 33000
 #define MARGIN_Y 0.5  // margine verticale
-#define MARGIN_X 1  // margine orizzontale
+#define MARGIN_X 3  // margine orizzontale
 #define RATIO 2;
 
 void resize_win(WINDOW *win);
@@ -138,6 +138,10 @@ int main(int argc, char **argv) {
             logger(log_file, tmp);
         }
         memcpy(old_state, state, sizeof(WorldState));
+        char buf[50];
+        sprintf(buf, "WINDOW SIZE: x:%d, y:%d", width_max, height_max);
+        logger(log_file, buf);
+        
     }
     delwin(win);
     endwin();  
@@ -208,7 +212,7 @@ void draw_obstacles() {
             mvwaddch(win, term_y, term_x, 'O');
             char buf[256];
             sprintf(buf, "Obstacle CREATED: x:%lf, y:%lf", state->obstacles[i].x, state->obstacles[i].y);
-            logger(log_file, buf);
+            // logger(log_file, buf);
         }
     }
     
@@ -222,7 +226,7 @@ void draw_targets() {
             mvwaddch(win, term_y, term_x, 'T');
             char buf[256];
             sprintf(buf, "Target CREATED: x:%lf, y:%lf", state->targets[i].x, state->targets[i].y);
-            logger(log_file, buf);
+            // logger(log_file, buf);
         }
     }
     

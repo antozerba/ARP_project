@@ -24,6 +24,8 @@ void init_world_state(WorldState * state){
         state->obstacles[i].x = -1;
         state->obstacles[i].y = -1;
     }
+    state->mapx = config.map_width;
+    state->mapy = config.map_height;
 }
 
 void handle_input_command(WorldState *state, InputCommand *cmd) {
@@ -64,13 +66,14 @@ void handle_message(WorldState *state, Message *msg) {
             state->drone.y = msg->data.drone.y;
             state->drone.vx = msg->data.drone.vx;
             state->drone.vy = msg->data.drone.vy;
+            state->drone.fx = msg->data.drone.fx;
+            state->drone.fy = msg->data.drone.fy;
             break;
         case 'T':
             for (int i = 0; i < MAX_TAR; i++) {
                 if (!state->targets[i].active) {
                     state->targets[i] = msg->data.target;
                     state->num_active_targets++;
-                    
                     break;
                 }
             }
@@ -238,11 +241,13 @@ int main(int argc, char **argv){
                 memset(state.obstacles, 0, sizeof(state.obstacles));
                 memset(state.targets, 0, sizeof(state.targets));
                 state.num_active_targets = 0;
+                state.mapx = msg.x;
+                state.mapy = msg.y;
                 
                 state.num_obstacles = 0;
                 write(write_obs_fd, &msg, sizeof(ResizeMessage));
                 write(write_tar_fd, &msg, sizeof(ResizeMessage));
-        
+                send_dyn = 1;
 
             }
             

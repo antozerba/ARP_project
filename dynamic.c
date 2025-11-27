@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 #define CLOCK_TICK 300000
+#define MARGIN 1
 
 void compute_repulsive_forces(WorldState *state, Config *config, float *frx, float *fry) ;
 
@@ -43,6 +44,8 @@ int main(int argc, char **argv){
     memset(&state, 0, sizeof(WorldState));
     state.drone.x = config.drone_x;
     state.drone.y = config.drone_y;
+    state.mapx = config.map_width;
+    state.mapy = config.map_height;
 
 
     for(;;){
@@ -55,6 +58,9 @@ int main(int argc, char **argv){
         sprintf(buffer, "DRONE STATE RECEIVED - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
                 state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
         logger(log_file, buffer);
+        char map[50];
+        sprintf(map, "MAPPA ATTUALE: xm: %d , ym: %d", state.mapx, state.mapy);
+        logger(log_file, map);
         } 
         else if(bytes_read == -1 && errno == EAGAIN) {
             // Nessun nuovo dato, normale, continua con stato precedente
@@ -79,6 +85,7 @@ int main(int argc, char **argv){
             break;
         }
 
+
         // Calcola forze repulsive dagli ostacoli (Latombe)
         float frx = 0.0f, fry = 0.0f;
         compute_repulsive_forces(&state, &config, &frx, &fry);
@@ -102,19 +109,40 @@ int main(int argc, char **argv){
         state.drone.x += state.drone.vx * config.DT;
         state.drone.y += state.drone.vy * config.DT;
 
-        // // clamp within map
-        // if (state.drone.x < 0) { state.drone.x = 0; state.drone.vx = 0; }
-        // if (state.drone.y < 0) { state.drone.y = 0; state.drone.vy = 0; }
-        // if (state.drone.x > config.map_width- 1) { state.drone.x = (float)(config.map_width - 1); state.drone.vx = 0; }
-        // if (state.drone.y > config.map_height - 1) { state.drone.y = (float)(config.map_height - 1); state.drone.vy = 0; }
+        // clamp within map
+        if (state.drone.x < MARGIN) { 
+            state.drone.x = MARGIN; 
+            state.drone.vx = -state.drone.vx; 
+            state.drone.fx = -state.drone.fx;
+            logger(log_file,"ENTRA");
+        }
+        if (state.drone.y < MARGIN) { 
+            state.drone.y = MARGIN; 
+            state.drone.vy = -state.drone.vy; 
+            state.drone.fy = -state.drone.fy;
+            logger(log_file,"ENTRA");
+        }
+        if (state.drone.x > state.mapx- MARGIN) {
+            state.drone.x = (float) state.mapx -MARGIN;
+            state.drone.vx = -state.drone.vx; 
+            state.drone.fx = -state.drone.fx;
+            logger(log_file,"ENTRA");
+        }
+        if (state.drone.y > state.mapy- MARGIN) {
+            state.drone.y = (float) state.mapy -MARGIN;
+            state.drone.vy = -state.drone.vy; 
+            state.drone.fy = -state.drone.fy;
+            logger(log_file,"ENTRA");
+        }
+
+        char buf[50];
+        sprintf(buf, "WINDOW SIZE: x:%d, y:%d", state.mapx, state.mapy);
+        logger(log_file, buf);
 
         Message msg;
         msg.type = MSG_DRONE_UPDATE;
         msg.data.drone = state.drone;
-        // char buffer_state[200];
-        // sprintf(buffer_state, "Updated DRONE STATE - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
-        //         msg.data.drone.x, msg.data.drone.y, msg.data.drone.vx, msg.data.drone.vy, msg.data.drone.fx, msg.data.drone.fy); 
-        // logger(log_file, buffer_state);
+        char buffer_state[200];
         sprintf(buffer, "Updated DRONE STATE - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
                 state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
         logger(log_file, buffer);
@@ -127,61 +155,79 @@ int main(int argc, char **argv){
 
     return 0;
 }
-
 void compute_repulsive_forces(WorldState *state, Config *config, float *frx, float *fry) {
-    *frx = 0.0f;
-    *fry = 0.0f;
-    
+
+    float Px = 0.0f;
+    float Py = 0.0f;
+
     float drone_x = state->drone.x;
     float drone_y = state->drone.y;
-    
-    // Itera su tutti gli ostacoli attivi
+
     for(int i = 0; i < MAX_OBS; i++) {
         if(!state->obstacles[i].active) continue;
-        
-        float obs_x = (float)state->obstacles[i].x;
-        float obs_y = (float)state->obstacles[i].y;
-        
-        // Distanza drone-ostacolo
-        float dist = sqrt((state->drone.x-obs_x)*(state->drone.x-obs_x)+(state->drone.y-obs_y)*(state->drone.y-obs_y));
-        // if(dist < 0.1f) {
-    
-        //     dist = 0.1f;
-        // }
-        
-        // Forza repulsiva di Latombe:
-        // F_rep = ETA * (1/d - 1/RHO) * (1/d^2) * direzione
-        // dove:
-        // - ETA: intensità della forza repulsiva
-        // - RHO: raggio di influenza dell'ostacolo
-        // - d: distanza dall'ostacolo
-        
+
+        float ox = state->obstacles[i].x;
+        float oy = state->obstacles[i].y;
+
+        float dx = drone_x - ox;
+        float dy = drone_y - oy;
+
+        float dist = sqrt(dx*dx + dy*dy);
+        if(dist < 0.0001f) dist = 0.0001f;
+
         if(dist < config->RHO) {
-            // Calcola l'intensità della forza
-            float repulsion_magnitude = config->ETA * 
-                                       (1.0f / dist - 1.0f / config->RHO) * 
-                                       (1.0f / (dist * dist));
-            
-            // Direzione del vettore repulsivo (da ostacolo verso drone)
-            float dx = drone_x - obs_x;
-            float dy = drone_y - obs_y;
-            
-            // Normalizza il vettore direzione
-            float norm = sqrt(dx * dx + dy * dy);
-            if(norm > 0.001f) {
-                dx /= norm;
-                dy /= norm;
-            }
-            
-            // Aggiungi la componente repulsiva
-            *frx += repulsion_magnitude * dx;
-            *fry += repulsion_magnitude * dy;
-            
-            // Log per debug
-            char log_buf[200];
-            sprintf(log_buf, "Obstacle %d at (%.1f,%.1f) dist=%.2f, F_rep=(%.2f,%.2f)", 
-                    i, obs_x, obs_y, dist, repulsion_magnitude * dx, repulsion_magnitude * dy);
-            logger(log_file, log_buf);
+
+            float magn = config->ETA * (1.0/dist - 1.0/config->RHO) * (1.0/(dist*dist));
+
+            float nx = dx / dist;
+            float ny = dy / dist;
+
+            Px += magn * nx;
+            Py += magn * ny;
         }
     }
+
+    if(Px == 0 && Py == 0) {
+        *frx = 0;
+        *fry = 0;
+        return;
+    }
+
+    // 8 direzioni normalizzate
+    static const float dirs[8][2] = {
+        { 1,  0},
+        { 1, -1},
+        { 0, -1},
+        {-1, -1},
+        {-1,  0},
+        {-1,  1},
+        { 0,  1},
+        { 1,  1}
+    };
+    //Non voglio che le diagonali pesinodi più
+    float normdirs[8][2];
+    for(int i = 0; i < 8; i++){
+        float n = sqrt(dirs[i][0]*dirs[i][0] + dirs[i][1]*dirs[i][1]);
+        normdirs[i][0] = dirs[i][0]/n;
+        normdirs[i][1] = dirs[i][1]/n;
+    }
+
+    // Proiezione di P sulle 8 direzioni
+    float proj[8];
+    for(int i = 0; i < 8; i++){
+        proj[i] = Px * normdirs[i][0] + Py * normdirs[i][1];
+    }
+
+    // Prendo il massimo delle proiezioni
+    float maxVal = proj[0];
+    int maxIdx = 0;
+    for(int i=1; i<8; i++){
+        if(proj[i] > maxVal){
+            maxVal = proj[i];
+            maxIdx = i;
+        }
+    }
+
+    *frx = maxVal * normdirs[maxIdx][0];
+    *fry = maxVal * normdirs[maxIdx][1];
 }
