@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     log_file = fopen("log/targets_log.txt","w");
     logger(log_file, "Target Generator Started");
     Config config = {};
-    if(!load_config("config/parameters.txt", &config))
+    if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
@@ -51,10 +51,6 @@ int main(int argc, char *argv[]) {
     // int next_target_id = 1;
     // const float REACH_RADIUS = 3.0; // Raggio per considerare target raggiunto
     
-    
-    // PartialState state;
-    // memset(&state, 0, sizeof(PartialState));
-
     int target_count = 0;
     int mapx = config.map_width-5;
     int mapy = config.map_height -5;
@@ -64,6 +60,7 @@ int main(int argc, char *argv[]) {
 
     while (running) {
 
+        //Gestione Rezise
         size_t n = read(read_fd, &res, sizeof(ResizeMessage));
         if(n ==sizeof(ResizeMessage))
         {
@@ -71,12 +68,12 @@ int main(int argc, char *argv[]) {
             mapy = res.y;
             target_count = 0;
         }
-        
+        //Creazione target
         if (target_count < MAX_TAR ) {
             Message msg;
             msg.type = 'T';
-            msg.data.target.x = random_float(5, mapx);
-            msg.data.target.y = random_float(5, mapy);
+            msg.data.target.x = random_float(5, mapx-5);
+            msg.data.target.y = random_float(5, mapy-5);
 
             msg.data.target.id = target_count;
             msg.data.target.active = 1;
@@ -93,64 +90,6 @@ int main(int argc, char *argv[]) {
         }
         
     }
-
-
-
-    
-    // // Genera primo target
-    // Target current_target;
-    // current_target.active = 0;
-    // Message msg;
-    // msg.type = 'T';
-    // msg.data.target.id = next_target_id++;
-    // msg.data.target.x = random_float(15.0, 85.0);
-    // msg.data.target.y = random_float(15.0, 85.0);
-    // msg.data.target.active = 1;
-    
-    // write(pipe_to_server, &msg, sizeof(Message));
-    // current_target = msg.data.target;
-    
-    // fprintf(stderr, "[TARGET_GEN] Created target %d at (%.1f, %.1f)\n",
-    //         current_target.id, current_target.x, current_target.y);
-    
-    // while (running) {
-    //     // Leggi stato dal server per controllare posizione drone
-    //     if (pipe_from_server >= 0) {
-    //         ssize_t n = read(pipe_from_server, &state, sizeof(PartialState));
-            
-    //         if (n > 0 && current_target.active) {
-    //             // Controlla se drone ha raggiunto il target
-    //             float dist = distance(state.drone.x, state.drone.y,
-    //                                  current_target.x, current_target.y);
-                
-    //             if (dist < REACH_RADIUS) {
-    //                 fprintf(stderr, "[TARGET_GEN] Target %d REACHED! Distance: %.2fm\n",
-    //                         current_target.id, dist);
-                    
-    //                 // Disattiva target corrente
-    //                 msg.type = 'T';
-    //                 msg.data.target = current_target;
-    //                 msg.data.target.active = 0;
-    //                 write(pipe_to_server, &msg, sizeof(Message));
-                    
-    //                 // Genera nuovo target dopo breve pausa
-    //                 usleep(500000); // 500ms
-                    
-    //                 msg.data.target.id = next_target_id++;
-    //                 msg.data.target.x = random_float(15.0, 85.0);
-    //                 msg.data.target.y = random_float(15.0, 85.0);
-    //                 msg.data.target.active = 1;
-                    
-    //                 write(pipe_to_server, &msg, sizeof(Message));
-    //                 current_target = msg.data.target;
-                    
-    //                 fprintf(stderr, "[TARGET_GEN] Created target %d at (%.1f, %.1f)\n",
-    //                         current_target.id, current_target.x, current_target.y);
-    //             }
-    //         }
-    //     }
-        
-    // }
     
     close(write_fd);
     

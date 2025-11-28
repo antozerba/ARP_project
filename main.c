@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "utils.h"
+#include <signal.h>
 
 
 int main(int arc, char ** argv) {
@@ -14,7 +15,7 @@ int main(int arc, char ** argv) {
     logger(log_file, "Window started");
     
     Config config = {};
-    if(!load_config("/config/parameters.txt", &config))
+    if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
@@ -138,6 +139,16 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", wb_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1);
+
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
+
         execlp("konsole", "konsole", "-e", "./window",NULL); 
 
     }
@@ -152,6 +163,16 @@ int main(int arc, char ** argv) {
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1);
 
+
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
+
         execlp("konsole", "konsole", "-e", "./input",NULL);
     }
 
@@ -165,6 +186,17 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", db_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+
+
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
+
         execlp("./dynamic", "./dynamic", NULL);
 
     }
@@ -178,11 +210,22 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", ob_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+
+
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
+
         execlp("./obs_gen", "./obs_gen", NULL);
 
     }
     if((t_pid = fork()) == 0){
-        //OBS
+        //TARGET
         close(bt_pipe[1]);
         close(tb_pipe[0]);
         char write_fd[16];    
@@ -191,12 +234,44 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", tb_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+
+        //chiusura pipe non utilizzate
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        
+
         execlp("./tar_gen", "./tar_gen", NULL);
 
     }
+    //chiusura tutte pipes nel padre
+    close(bw_pipe[0]); close(bw_pipe[1]);
+    close(wb_pipe[0]); close(wb_pipe[1]);
+    close(bi_pipe[0]); close(bi_pipe[1]);
+    close(ib_pipe[0]); close(ib_pipe[1]);
+    close(bd_pipe[0]); close(bd_pipe[1]);
+    close(db_pipe[0]); close(db_pipe[1]);
+    close(bo_pipe[0]); close(bo_pipe[1]);
+    close(ob_pipe[0]); close(ob_pipe[1]);
+    close(bt_pipe[0]); close(bt_pipe[1]);
+    close(tb_pipe[0]); close(tb_pipe[1]);
+
+    //server chiuso 
+    waitpid(b_pid, &b_status, 0);
+    //comando chiusare uqindi mando segnale a tutti i figli
+    kill(w_pid, SIGTERM);
+    kill(t_pid, SIGTERM);
+    kill(o_pid, SIGTERM);
+    kill(d_pid, SIGTERM);
+    kill(i_pid, SIGTERM);
+
     waitpid(t_pid, &t_status,0);
     waitpid(o_pid, &o_status,0);
-    waitpid(b_pid, &b_status, 0);
     waitpid(d_pid, &d_status, 0);
     waitpid(i_pid, &i_status, 0);
     waitpid(w_pid, &w_status, 0);

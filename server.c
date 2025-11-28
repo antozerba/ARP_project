@@ -10,10 +10,13 @@
 #include <string.h>
 
 
-// #define CLOCK_TICK 50000 //sincronizzato con dynamic
-
 FILE * log_file;
 Config config = {};
+int read_input_fd, write_input_fd;
+int read_window_fd, write_window_fd;
+int read_dynamic_fd, write_dynamic_fd;
+int read_obs_fd, write_obs_fd;
+int read_tar_fd, write_tar_fd;
 
 void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
@@ -28,6 +31,25 @@ void init_world_state(WorldState * state){
     state->mapy = config.map_height;
 }
 
+void handle_quit(){
+    //chiudo tutti i fds
+    close(read_input_fd);
+    close(write_input_fd);
+    close(read_window_fd);
+    close(write_window_fd);
+    close(read_dynamic_fd);
+    close(write_dynamic_fd);
+    close(read_obs_fd);
+    close(write_obs_fd);
+    close(read_tar_fd);
+    close(write_tar_fd);
+
+    //chiusura logger
+    fclose(log_file);
+    exit(0);
+
+}
+
 void handle_input_command(WorldState *state, InputCommand *cmd) {
     switch(cmd->type) {
         case CMD_BRAKE:
@@ -37,18 +59,17 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
             break;
             
         case CMD_PAUSE:
-            // state->paused = !state->paused;
-            // fprintf(stderr, "[SERVER] Pause toggled: %d\n", state->paused);
+            //TODDO da implementare nel second ass
             break;
             
         case CMD_RESET:
-            init_world_state(state);
-            fprintf(stderr, "[SERVER] World reset\n");
+            //TODDO da implementare nel second ass
             break;
             
         case CMD_QUIT:
-            fprintf(stderr, "[SERVER] Quit requested\n");
-            // running = 0;
+            logger(log_file, "CHIUSURA SERVER");
+            handle_quit();
+
             break;
             
         default:
@@ -99,6 +120,7 @@ void handle_message(WorldState *state, Message *msg) {
 
 int main(int argc, char **argv){
 
+    //Logger
     log_file = fopen("log/server_log.text","w");
     logger(log_file, "Server started");
 
@@ -114,18 +136,18 @@ int main(int argc, char **argv){
     char * write_tar_fd_char = getenv("OUT_TAR_FD");
     char * read_tar_fd_char = getenv("IN_TAR_FD");
 
-    int read_input_fd = atoi(read_input_fd_char);
-    int write_input_fd = atoi(write_input_fd_char);
-    int read_window_fd = atoi(read_window_fd_char);
-    int write_window_fd = atoi(write_window_fd_char);
-    int read_dynamic_fd = atoi(read_dynamic_fd_char);
-    int write_dynamic_fd = atoi(write_dynamic_fd_char);
-    int read_obs_fd = atoi(read_obs_fd_char);
-    int write_obs_fd = atoi(write_obs_fd_char);
-    int read_tar_fd = atoi(read_tar_fd_char);
-    int write_tar_fd = atoi(write_tar_fd_char);
+    read_input_fd = atoi(read_input_fd_char);
+    write_input_fd = atoi(write_input_fd_char);
+    read_window_fd = atoi(read_window_fd_char);
+    write_window_fd = atoi(write_window_fd_char);
+    read_dynamic_fd = atoi(read_dynamic_fd_char);
+    write_dynamic_fd = atoi(write_dynamic_fd_char);
+    read_obs_fd = atoi(read_obs_fd_char);
+    write_obs_fd = atoi(write_obs_fd_char);
+    read_tar_fd = atoi(read_tar_fd_char);
+    write_tar_fd = atoi(write_tar_fd_char);
 
-    if(!load_config("config/parameters.txt", &config))
+    if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
@@ -136,7 +158,6 @@ int main(int argc, char **argv){
     for(;;){
 
         //SELECT
-        
         fd_set read_fds;
         FD_ZERO(&read_fds);
         FD_SET(read_input_fd, &read_fds);
@@ -160,11 +181,11 @@ int main(int argc, char **argv){
         timeout.tv_usec = 15000;
 
         int r = select(max_fd + 1, &read_fds, NULL, NULL, &timeout); //ritorna numero di fd pronti
-
         if(r == -1){
             logger(log_file, "Error in select");
             return 1;
         }
+
         if(FD_ISSET(read_input_fd, &read_fds)){
             logger(log_file, "Reading InputCommand from input...");
             InputCommand cmd;
@@ -180,7 +201,7 @@ int main(int argc, char **argv){
             send_dyn = 1;
         }   
         
-        
+        //Leggo dynamic
         if(FD_ISSET(read_dynamic_fd, &read_fds)){
             Message msg;
             ssize_t bytes_read = read(read_dynamic_fd, &msg, sizeof(Message));
@@ -213,6 +234,7 @@ int main(int argc, char **argv){
                 handle_message(&state, &msg);
             }
         }
+        // Ricevo target 
         if (FD_ISSET(read_tar_fd, &read_fds)) {
             Message msg;
             ssize_t n = read(read_tar_fd, &msg, sizeof(Message));
@@ -228,22 +250,21 @@ int main(int argc, char **argv){
                 handle_message(&state, &msg);
             }
         }
-
+        //Leggo dalla window se avviene un resize
         if (FD_ISSET(read_window_fd, &read_fds)){
             ResizeMessage msg;
             ssize_t n = read(read_window_fd, &msg, sizeof(ResizeMessage));
             char buf[100];
-            sprintf(buf, "Window Rezised: x: %d, y: %d", msg.x, msg.y);
-            logger(log_file, buf);
             
             if (n == sizeof(ResizeMessage)) {
                 // write
+                sprintf(buf, "Window Rezised: x: %d, y: %d", msg.x, msg.y);
+                logger(log_file, buf);
                 memset(state.obstacles, 0, sizeof(state.obstacles));
                 memset(state.targets, 0, sizeof(state.targets));
                 state.num_active_targets = 0;
                 state.mapx = msg.x;
                 state.mapy = msg.y;
-                
                 state.num_obstacles = 0;
                 write(write_obs_fd, &msg, sizeof(ResizeMessage));
                 write(write_tar_fd, &msg, sizeof(ResizeMessage));
@@ -253,16 +274,17 @@ int main(int argc, char **argv){
             
         }
 
-        
+        //Invio dello stato alla window per il rendering 
         ssize_t written = write(write_window_fd, &state, sizeof(WorldState));
         if(written < 0) {
             logger(log_file, "Error writing to window");
         }
+        //Invio del drone a input per gestire la collisione con i muri che invertono forza e vel del drone (possibile alternativa implementare la repulsione questo mi sembra più semplice e bello)
         ssize_t i_write = write(write_input_fd, &state.drone, sizeof(Drone));
         if(i_write < 0) {
             logger(log_file, "Error writing to input");
         }
-        
+        //Log per controllare
         char ops[256];
         snprintf(ops, sizeof(ops),
                     "DRONE SENT TO WINDOW - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
@@ -270,7 +292,6 @@ int main(int argc, char **argv){
                     state.drone.vx, state.drone.vy,
                     state.drone.fx, state.drone.fy);
         logger(log_file, ops);
-        
         char wtar[512];
         int pos = 0;
         pos += snprintf(wtar + pos, sizeof(wtar) - pos, "TAR SENT TO DRONE - active targets:");
@@ -283,6 +304,7 @@ int main(int argc, char **argv){
             }
         }
         logger(log_file, wtar);
+        //Invio a dynamic solo se ho ricevuto da input per limitare il traffico
         if(send_dyn){
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(WorldState));
@@ -292,9 +314,7 @@ int main(int argc, char **argv){
 
     }
     
-
-
-
+    fclose(log_file);
     return 0;
     
 }

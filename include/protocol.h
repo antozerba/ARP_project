@@ -68,10 +68,6 @@ typedef enum {
     MSG_OBSTACLE = 'O',         // Nuovo/rimosso ostacolo
 } MessageType;
 
-/**
- * Message - Messaggio generico tra processi
- * Usato da: DYNAMICS, TARGET_GEN, OBSTACLE_GEN → SERVER
- */
 typedef struct {
     char type;            // 'D', 'T', o 'O' (vedi MessageType)
     union {
@@ -95,37 +91,6 @@ typedef struct {
     int num_targets;
     int targets_reached;
 } PartialState;
-
-
-// ============================================
-// MESSAGGI SPECIALIZZATI
-// ============================================
-
-/**
- * DynamicsInput - Input per processo DYNAMICS
- * SERVER → DYNAMICS
- * Contiene solo le info necessarie per calcolo fisica
- */
-typedef struct {
-    float force_x, force_y;      // Forze comando correnti
-    Obstacle obstacles[MAX_OBS]; // Ostacoli per repulsione
-    //int num_obstacles;
-    //int paused;                  // Flag pausa simulazione
-} DynamicsInput;
-
-/**
- * DynamicsOutput - Output da processo DYNAMICS
- * DYNAMICS → SERVER
- * Contiene solo posizione/velocità aggiornate
- * (le forze rimangono gestite dal SERVER)
- */
-typedef struct {
-    float x, y;           // Posizione aggiornata
-    float vx, vy;         // Velocità aggiornata
-} DynamicsOutput;
-
-
-
 
 
 #endif // __PROTOCOL_H__

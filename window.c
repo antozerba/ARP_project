@@ -12,8 +12,8 @@
 
 #define CLOCK_TICK 33000
 #define MARGIN_Y 0.5  // margine verticale
-#define MARGIN_X 3  // margine orizzontale
-#define RATIO 2;
+#define MARGIN_X 2  // margine orizzontale
+#define RATIO 1
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
@@ -35,12 +35,11 @@ WINDOW *win;
 
 int main(int argc, char **argv) {
     
+    //Loggger
     log_file = fopen("log/window_log.text","w");
     logger(log_file, "Window started");
 
-    for(int i=0; i<argc; i++){
-        logger(log_file, argv[i]);
-    }
+    //Fd from env
     char * read_fd_char = getenv("IN_FD");
     char * write_fd_char = getenv("OUT_FD");
     if(read_fd_char == NULL || write_fd_char == NULL){
@@ -57,20 +56,20 @@ int main(int argc, char **argv) {
     sprintf(buffer, "Received message: %s", message);
     logger(log_file, buffer);
 
+    //Load param from config
     Config config = {};
-    if(!load_config("/config/parameters.txt", &config))
+    if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
     }
+    logger(log_file, "PARAM PATH: ");
+    logger(log_file, PARAM_PATH);
     char conf_buf[200];  
     sprintf(conf_buf, "Config - map_width: %lf, map_height: %lf, drone_x: %lf, drone_y: %lf, MASS: %f, K: %f, DT: %f, STEP_FORCE: %f, RHO: %f, ETA: %f",
             config.map_width, config.map_height, config.drone_x, config.drone_y, config.MASS, config.K, config.DT, config.STEP_FORCE, config.RHO, config.ETA);
     logger(log_file, conf_buf);
 
-    //rendo read non blocking per gestire il frame rate a schermo con usleep
-    // int flags = fcntl(read_fd, F_GETFL, 0);
-    // fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
 
     int startx, starty, width, height;
     initscr();
@@ -92,6 +91,7 @@ int main(int argc, char **argv) {
     old_state = malloc(sizeof(WorldState));
     memset(old_state, 0, sizeof(WorldState) );
 
+    //Setto read non blocking per gestire anche le letture parziali e non bloccare il processo
     int flags = fcntl(read_fd, F_GETFL, 0);
     fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
     
@@ -99,13 +99,21 @@ int main(int argc, char **argv) {
     state->drone.x = config.drone_x;
     state->drone.y = config.drone_y;
     memcpy(old_state, state, sizeof(WorldState));
+    int newwin_x;
+    int newwin_y;
+    getmaxyx(win, newwin_y, newwin_x );
+    ResizeMessage msg;
+    msg.x = newwin_x;
+    msg.y = newwin_y;
+    write(write_fd, &msg, sizeof(ResizeMessage));
 
     for(;;){
+        //Rezise case
         int ch = getch();
         if(ch  == KEY_RESIZE) {
             resize_win(win);
 
-            //invio server
+            //invio server-blackboard
             int newwin_x;
             int newwin_y;
             getmaxyx(win, newwin_y, newwin_x );
@@ -138,9 +146,6 @@ int main(int argc, char **argv) {
             logger(log_file, tmp);
         }
         memcpy(old_state, state, sizeof(WorldState));
-        char buf[50];
-        sprintf(buf, "WINDOW SIZE: x:%d, y:%d", width_max, height_max);
-        logger(log_file, buf);
         
     }
     delwin(win);
@@ -150,18 +155,11 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void delete_world(){
-    //clear_screen(); vediamo dopo se va
-    delete_drone();
-    delete_obstacles();
-
-}
 
 void update_world(){
     update_drone();
     draw_obstacles();
     draw_targets();
-    
     wrefresh(win);
 }
 
@@ -177,21 +175,29 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
 }
 
 
+//Commentato perche adesso uso clear_screen
+
+// void delete_world(){
+//     //clear_screen(); vediamo dopo se va
+//     delete_drone();
+//     delete_obstacles();
+// }
+
 //VERSIONE NON BLOCK
-void delete_drone() {
-    int term_y = old_state->drone.y/RATIO;
-    mvwaddch(win, term_y, old_state->drone.x, ' ');
+// void delete_drone() {
+//     int term_y = old_state->drone.y/RATIO;
+//     mvwaddch(win, term_y, old_state->drone.x, ' ');
     
-}
-void delete_obstacles(){
-    int n_obs = sizeof(old_state->obstacles) / sizeof(old_state->obstacles[0]);
-    for(int i=0; i < n_obs; i++){
-         if (old_state->obstacles[i].active) {
-            int term_y = old_state->obstacles[i].y/RATIO;
-            mvwaddch(win, term_y, old_state->obstacles[i].x, ' ');
-        }
-    }
-}
+// }
+// void delete_obstacles(){
+//     int n_obs = sizeof(old_state->obstacles) / sizeof(old_state->obstacles[0]);
+//     for(int i=0; i < n_obs; i++){
+//          if (old_state->obstacles[i].active) {
+//             int term_y = old_state->obstacles[i].y/RATIO;
+//             mvwaddch(win, term_y, old_state->obstacles[i].x, ' ');
+//         }
+//     }
+// }
 
 void update_drone() {
     int term_y = state->drone.y/RATIO;
@@ -212,7 +218,7 @@ void draw_obstacles() {
             mvwaddch(win, term_y, term_x, 'O');
             char buf[256];
             sprintf(buf, "Obstacle CREATED: x:%lf, y:%lf", state->obstacles[i].x, state->obstacles[i].y);
-            // logger(log_file, buf);
+            logger(log_file, buf);
         }
     }
     
@@ -226,7 +232,7 @@ void draw_targets() {
             mvwaddch(win, term_y, term_x, 'T');
             char buf[256];
             sprintf(buf, "Target CREATED: x:%lf, y:%lf", state->targets[i].x, state->targets[i].y);
-            // logger(log_file, buf);
+            logger(log_file, buf);
         }
     }
     
@@ -258,10 +264,6 @@ void resize_win(WINDOW *win) {
     update_world();
     wrefresh(win);
 
-    // Log
-    char msg[100];
-    sprintf(msg, "Resized window to %d x %d at (%d,%d)", new_height, new_width, starty, startx);
-    logger(log_file, msg);
 
 }
 

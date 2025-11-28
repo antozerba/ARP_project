@@ -1,6 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#define PARAM_PATH "config/parameters.txt"
+
 #include <stdio.h>
 #include <unistd.h>
 #include "protocol.h"

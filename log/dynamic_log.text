@@ -83,1447 +83,521 @@ Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
 WINDOW SIZE: x:80, y:40
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
+DRONE STATE RECEIVED - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
+MAPPA ATTUALE: xm: 161 , ym: 32
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
 Updated drone state sent to server
 Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
+WINDOW SIZE: x:161, y:32
 Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (0.00,0.00), repulsive: (0.00,0.00), total: (0.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 0.000000, fy: 0.000000
-Updated drone state sent to server
-DRONE STATE RECEIVED - x: 5.000000, y: 5.000000, vx: 0.000000, vy: 0.000000, fx: 1.000000, fy: 0.000000
-MAPPA ATTUALE: xm: 80 , ym: 40
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.002500, y: 5.000000, vx: 0.050000, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.007375, y: 5.000000, vx: 0.097500, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.014506, y: 5.000000, vx: 0.142625, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.023781, y: 5.000000, vx: 0.185494, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.035092, y: 5.000000, vx: 0.226219, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.048337, y: 5.000000, vx: 0.264908, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.063421, y: 5.000000, vx: 0.301663, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.080250, y: 5.000000, vx: 0.336580, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.098737, y: 5.000000, vx: 0.369751, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.118800, y: 5.000000, vx: 0.401263, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.140360, y: 5.000000, vx: 0.431200, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.163342, y: 5.000000, vx: 0.459640, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.187675, y: 5.000000, vx: 0.486658, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.213292, y: 5.000000, vx: 0.512325, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.240127, y: 5.000000, vx: 0.536709, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.268121, y: 5.000000, vx: 0.559873, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.297215, y: 5.000000, vx: 0.581880, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.327354, y: 5.000000, vx: 0.602786, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.358487, y: 5.000000, vx: 0.622646, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.390563, y: 5.000000, vx: 0.641514, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.423534, y: 5.000000, vx: 0.659438, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.457358, y: 5.000000, vx: 0.676467, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.491990, y: 5.000000, vx: 0.692643, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.527390, y: 5.000000, vx: 0.708011, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.563521, y: 5.000000, vx: 0.722611, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.600345, y: 5.000000, vx: 0.736480, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.637828, y: 5.000000, vx: 0.749656, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.675937, y: 5.000000, vx: 0.762173, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.714640, y: 5.000000, vx: 0.774065, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.753908, y: 5.000000, vx: 0.785361, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.793713, y: 5.000000, vx: 0.796093, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.834027, y: 5.000000, vx: 0.806289, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.874825, y: 5.000000, vx: 0.815974, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.916084, y: 5.000000, vx: 0.825175, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.957780, y: 5.000000, vx: 0.833917, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 5.999891, y: 5.000000, vx: 0.842221, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.042396, y: 5.000000, vx: 0.850110, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.085276, y: 5.000000, vx: 0.857604, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.128512, y: 5.000000, vx: 0.864724, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.172087, y: 5.000000, vx: 0.871488, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.215982, y: 5.000000, vx: 0.877914, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.260183, y: 5.000000, vx: 0.884018, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.304674, y: 5.000000, vx: 0.889817, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.349441, y: 5.000000, vx: 0.895326, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.394469, y: 5.000000, vx: 0.900560, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.439745, y: 5.000000, vx: 0.905532, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.485258, y: 5.000000, vx: 0.910255, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.530995, y: 5.000000, vx: 0.914742, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.576946, y: 5.000000, vx: 0.919005, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.623098, y: 5.000000, vx: 0.923055, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.669444, y: 5.000000, vx: 0.926902, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.715971, y: 5.000000, vx: 0.930557, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.762673, y: 5.000000, vx: 0.934029, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.809539, y: 5.000000, vx: 0.937328, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.856563, y: 5.000000, vx: 0.940461, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.903735, y: 5.000000, vx: 0.943438, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.951048, y: 5.000000, vx: 0.946266, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 6.998496, y: 5.000000, vx: 0.948953, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.046071, y: 5.000000, vx: 0.951505, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.093768, y: 5.000000, vx: 0.953930, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.141579, y: 5.000000, vx: 0.956234, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.189500, y: 5.000000, vx: 0.958422, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.237525, y: 5.000000, vx: 0.960501, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.285649, y: 5.000000, vx: 0.962476, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.333867, y: 5.000000, vx: 0.964352, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.382174, y: 5.000000, vx: 0.966134, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.430565, y: 5.000000, vx: 0.967828, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.479037, y: 5.000000, vx: 0.969436, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.527586, y: 5.000000, vx: 0.970965, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.576206, y: 5.000000, vx: 0.972416, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.624896, y: 5.000000, vx: 0.973796, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.673651, y: 5.000000, vx: 0.975106, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.722469, y: 5.000000, vx: 0.976350, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.771346, y: 5.000000, vx: 0.977533, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.820279, y: 5.000000, vx: 0.978656, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.869265, y: 5.000000, vx: 0.979724, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.918302, y: 5.000000, vx: 0.980737, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 7.967387, y: 5.000000, vx: 0.981700, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.016518, y: 5.000000, vx: 0.982615, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.065692, y: 5.000000, vx: 0.983485, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.114907, y: 5.000000, vx: 0.984310, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.164162, y: 5.000000, vx: 0.985095, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.213453, y: 5.000000, vx: 0.985840, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.262781, y: 5.000000, vx: 0.986548, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.312142, y: 5.000000, vx: 0.987221, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.361535, y: 5.000000, vx: 0.987860, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.410958, y: 5.000000, vx: 0.988467, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.460410, y: 5.000000, vx: 0.989043, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.509890, y: 5.000000, vx: 0.989591, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.559395, y: 5.000000, vx: 0.990112, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (1.00,0.00), repulsive: (0.00,0.00), total: (1.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.608925, y: 5.000000, vx: 0.990606, vy: 0.000000, fx: 1.000000, fy: 0.000000
-Updated drone state sent to server
-DRONE STATE RECEIVED - x: 8.608925, y: 5.000000, vx: 0.990606, vy: 0.000000, fx: 2.000000, fy: 0.000000
-MAPPA ATTUALE: xm: 80 , ym: 40
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.660978, y: 5.000000, vx: 1.041076, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.715429, y: 5.000000, vx: 1.089022, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.772158, y: 5.000000, vx: 1.134571, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.831050, y: 5.000000, vx: 1.177842, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.891997, y: 5.000000, vx: 1.218950, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 8.954898, y: 5.000000, vx: 1.258003, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.019653, y: 5.000000, vx: 1.295102, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.086171, y: 5.000000, vx: 1.330347, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.154363, y: 5.000000, vx: 1.363830, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.224145, y: 5.000000, vx: 1.395638, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.295438, y: 5.000000, vx: 1.425857, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.368166, y: 5.000000, vx: 1.454564, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.442258, y: 5.000000, vx: 1.481836, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.517645, y: 5.000000, vx: 1.507744, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.594263, y: 5.000000, vx: 1.532357, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.672050, y: 5.000000, vx: 1.555739, vy: 0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.750948, y: 5.000000, vx: 1.577952, vy: -0.000000, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.830900, y: 5.000000, vx: 1.599054, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.911856, y: 5.000000, vx: 1.619102, vy: -0.000006, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 9.993763, y: 4.999999, vx: 1.638147, vy: -0.000012, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.076575, y: 4.999998, vx: 1.656239, vy: -0.000018, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.160247, y: 4.999997, vx: 1.673427, vy: -0.000026, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.244735, y: 4.999995, vx: 1.689756, vy: -0.000035, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.329998, y: 4.999992, vx: 1.705268, vy: -0.000044, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.415998, y: 4.999990, vx: 1.720005, vy: -0.000054, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.502699, y: 4.999986, vx: 1.734004, vy: -0.000063, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.590064, y: 4.999982, vx: 1.747304, vy: -0.000072, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.678061, y: 4.999979, vx: 1.759939, vy: -0.000081, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.766658, y: 4.999974, vx: 1.771942, vy: -0.000089, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.855825, y: 4.999969, vx: 1.783345, vy: -0.000095, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 10.945535, y: 4.999964, vx: 1.794178, vy: -0.000101, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.035758, y: 4.999959, vx: 1.804469, vy: -0.000105, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.126471, y: 4.999954, vx: 1.814245, vy: -0.000108, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.217648, y: 4.999949, vx: 1.823533, vy: -0.000108, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.309265, y: 4.999943, vx: 1.832357, vy: -0.000107, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,-0.00), total: (2.00,-0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.401302, y: 4.999938, vx: 1.840739, vy: -0.000103, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.493737, y: 4.999933, vx: 1.848702, vy: -0.000098, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.586551, y: 4.999928, vx: 1.856267, vy: -0.000093, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.679724, y: 4.999924, vx: 1.863453, vy: -0.000088, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.773238, y: 4.999920, vx: 1.870281, vy: -0.000084, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.867077, y: 4.999916, vx: 1.876767, vy: -0.000080, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 11.961224, y: 4.999912, vx: 1.882928, vy: -0.000076, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.055663, y: 4.999908, vx: 1.888782, vy: -0.000072, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.150380, y: 4.999905, vx: 1.894343, vy: -0.000068, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.245361, y: 4.999902, vx: 1.899626, vy: -0.000065, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.340593, y: 4.999899, vx: 1.904644, vy: -0.000062, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.436064, y: 4.999896, vx: 1.909412, vy: -0.000059, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.531761, y: 4.999893, vx: 1.913942, vy: -0.000056, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.627673, y: 4.999890, vx: 1.918244, vy: -0.000053, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.723790, y: 4.999888, vx: 1.922332, vy: -0.000050, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.820101, y: 4.999886, vx: 1.926216, vy: -0.000048, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 12.916596, y: 4.999883, vx: 1.929905, vy: -0.000045, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.013267, y: 4.999881, vx: 1.933410, vy: -0.000043, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.110104, y: 4.999879, vx: 1.936739, vy: -0.000041, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.207099, y: 4.999877, vx: 1.939902, vy: -0.000039, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.304244, y: 4.999875, vx: 1.942907, vy: -0.000037, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.401532, y: 4.999873, vx: 1.945762, vy: -0.000035, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.498956, y: 4.999872, vx: 1.948474, vy: -0.000033, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.596508, y: 4.999870, vx: 1.951050, vy: -0.000032, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.694183, y: 4.999869, vx: 1.953497, vy: -0.000030, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.791974, y: 4.999867, vx: 1.955823, vy: -0.000029, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.889875, y: 4.999866, vx: 1.958031, vy: -0.000027, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 13.987882, y: 4.999865, vx: 1.960130, vy: -0.000026, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.085988, y: 4.999863, vx: 1.962123, vy: -0.000025, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.184189, y: 4.999862, vx: 1.964017, vy: -0.000023, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.282479, y: 4.999861, vx: 1.965816, vy: -0.000022, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.380856, y: 4.999860, vx: 1.967526, vy: -0.000021, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.479313, y: 4.999859, vx: 1.969149, vy: -0.000020, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.577847, y: 4.999858, vx: 1.970692, vy: -0.000019, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.676455, y: 4.999857, vx: 1.972157, vy: -0.000018, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.775133, y: 4.999856, vx: 1.973549, vy: -0.000017, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.873877, y: 4.999856, vx: 1.974872, vy: -0.000016, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 14.972683, y: 4.999855, vx: 1.976128, vy: -0.000015, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.071549, y: 4.999854, vx: 1.977322, vy: -0.000015, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.170472, y: 4.999853, vx: 1.978456, vy: -0.000014, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.269449, y: 4.999853, vx: 1.979533, vy: -0.000013, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.368477, y: 4.999852, vx: 1.980556, vy: -0.000013, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.467553, y: 4.999852, vx: 1.981528, vy: -0.000012, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.566676, y: 4.999851, vx: 1.982452, vy: -0.000011, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.665843, y: 4.999851, vx: 1.983329, vy: -0.000011, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.765051, y: 4.999850, vx: 1.984163, vy: -0.000010, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.864299, y: 4.999850, vx: 1.984955, vy: -0.000010, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 15.963584, y: 4.999849, vx: 1.985707, vy: -0.000009, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.062904, y: 4.999849, vx: 1.986422, vy: -0.000009, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.162260, y: 4.999848, vx: 1.987101, vy: -0.000008, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.261648, y: 4.999848, vx: 1.987746, vy: -0.000008, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.361067, y: 4.999847, vx: 1.988358, vy: -0.000008, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.460514, y: 4.999847, vx: 1.988940, vy: -0.000007, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.559988, y: 4.999846, vx: 1.989493, vy: -0.000007, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.659489, y: 4.999846, vx: 1.990019, vy: -0.000006, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.759014, y: 4.999846, vx: 1.990518, vy: -0.000006, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.858564, y: 4.999845, vx: 1.990992, vy: -0.000006, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 16.958136, y: 4.999845, vx: 1.991442, vy: -0.000006, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.057730, y: 4.999844, vx: 1.991870, vy: -0.000005, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.157343, y: 4.999844, vx: 1.992277, vy: -0.000005, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.256975, y: 4.999844, vx: 1.992663, vy: -0.000005, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.356627, y: 4.999844, vx: 1.993030, vy: -0.000005, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.456295, y: 4.999844, vx: 1.993378, vy: -0.000004, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.555981, y: 4.999844, vx: 1.993709, vy: -0.000004, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.655682, y: 4.999844, vx: 1.994024, vy: -0.000004, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.755398, y: 4.999844, vx: 1.994323, vy: -0.000004, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.855127, y: 4.999844, vx: 1.994606, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 17.954870, y: 4.999844, vx: 1.994876, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.054626, y: 4.999844, vx: 1.995132, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.154396, y: 4.999844, vx: 1.995376, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.254177, y: 4.999844, vx: 1.995607, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.353968, y: 4.999844, vx: 1.995827, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.453770, y: 4.999844, vx: 1.996035, vy: -0.000003, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.553581, y: 4.999844, vx: 1.996234, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.653402, y: 4.999844, vx: 1.996422, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.753233, y: 4.999844, vx: 1.996601, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.853071, y: 4.999844, vx: 1.996771, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 18.952917, y: 4.999844, vx: 1.996932, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.052771, y: 4.999844, vx: 1.997086, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.152632, y: 4.999844, vx: 1.997231, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.252501, y: 4.999844, vx: 1.997370, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.352375, y: 4.999844, vx: 1.997501, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.452257, y: 4.999844, vx: 1.997626, vy: -0.000002, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.552145, y: 4.999844, vx: 1.997745, vy: -0.000001, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.652039, y: 4.999844, vx: 1.997858, vy: -0.000001, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.751936, y: 4.999844, vx: 1.997965, vy: -0.000001, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.851839, y: 4.999844, vx: 1.998067, vy: -0.000001, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 19.951748, y: 4.999844, vx: 1.998163, vy: -0.000001, fx: 2.000000, fy: 0.000000
-Updated drone state sent to server
-Forces - cmd: (2.00,0.00), repulsive: (0.00,0.00), total: (2.00,0.00)
-WINDOW SIZE: x:80, y:40
-Updated DRONE STATE - x: 20.051661, y: 4.999844, vx: 1.998255, vy: -0.000001, fx: 2.000000, fy: 0.000000
 Updated drone state sent to server

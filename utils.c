@@ -6,10 +6,12 @@
 #include "protocol.h"
 #include <string.h>
 
+//FILE FUNZIONI COMUNI A TUTTI I PROCESSI
+
 int load_config(const char *filename, struct Config *config) {
     FILE * log= fopen("log/utils_log.text","w");
     logger(log, "Loading configuration");
-    FILE *file = fopen("config/parameters.txt", "r");
+    FILE *file = fopen(filename, "r");
     if (file == NULL) {
         perror("Error opening config file");
         logger(log, "Error opening config file");

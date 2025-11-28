@@ -24,7 +24,7 @@ int main(int argc, char **argv){
     logger(log_file, "Dynamic module started");
 
     Config config = {};
-    if(!load_config("config/parameters.txt", &config))
+    if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
@@ -204,21 +204,16 @@ void compute_repulsive_forces(WorldState *state, Config *config, float *frx, flo
         { 0,  1},
         { 1,  1}
     };
-    //Non voglio che le diagonali pesinodi più
     float normdirs[8][2];
     for(int i = 0; i < 8; i++){
         float n = sqrt(dirs[i][0]*dirs[i][0] + dirs[i][1]*dirs[i][1]);
         normdirs[i][0] = dirs[i][0]/n;
         normdirs[i][1] = dirs[i][1]/n;
     }
-
-    // Proiezione di P sulle 8 direzioni
     float proj[8];
     for(int i = 0; i < 8; i++){
         proj[i] = Px * normdirs[i][0] + Py * normdirs[i][1];
     }
-
-    // Prendo il massimo delle proiezioni
     float maxVal = proj[0];
     int maxIdx = 0;
     for(int i=1; i<8; i++){
