@@ -10,6 +10,8 @@
 #include <string.h>
 
 
+#define COLL_RAD 0.5
+
 FILE * log_file;
 Config config = {};
 int read_input_fd, write_input_fd;
@@ -117,6 +119,41 @@ void handle_message(WorldState *state, Message *msg) {
     }
 }
 
+void checking_target(WorldState * state){
+    int drone_x = state->drone.x;
+    int drone_y = state->drone.y;
+    for(int i=0; i<MAX_TAR; i++){
+        if(state->targets[i].active){
+            if(abs(state->targets[i].x - drone_x)< COLL_RAD && abs(state->targets[i].y - drone_y)< COLL_RAD)
+            {
+                logger(log_file, "TARGET REACHED ;)");
+                state->targets[i].active = 0;
+                state->num_active_targets--;
+                state->target_reached++;
+            }
+        }
+    }
+
+}
+void checking_obs(WorldState * state){
+    int drone_x = state->drone.x;
+    int drone_y = state->drone.y;
+    for(int i=0; i<MAX_TAR; i++){
+        if(state->obstacles[i].active){
+            if(abs(state->obstacles[i].x - drone_x)< COLL_RAD && abs(state->obstacles[i].y - drone_y)< COLL_RAD)
+            {
+                logger(log_file, "OBS COLLISION :(");
+                state->obstacles[i].active = 0;
+                state->num_obstacles--;
+            }
+        }
+    }
+
+}
+void checking_collisions(WorldState *state){
+    // checking_obs(state);
+    checking_target(state);
+}
 
 int main(int argc, char **argv){
 
@@ -156,7 +193,7 @@ int main(int argc, char **argv){
     init_world_state(&state);
     
     for(;;){
-
+        
         //SELECT
         fd_set read_fds;
         FD_ZERO(&read_fds);
@@ -273,6 +310,9 @@ int main(int argc, char **argv){
             }
             
         }
+        //Checking
+        checking_collisions(&state);
+
 
         //Invio dello stato alla window per il rendering 
         ssize_t written = write(write_window_fd, &state, sizeof(WorldState));
@@ -280,7 +320,7 @@ int main(int argc, char **argv){
             logger(log_file, "Error writing to window");
         }
         //Invio del drone a input per gestire la collisione con i muri che invertono forza e vel del drone (possibile alternativa implementare la repulsione questo mi sembra più semplice e bello)
-        ssize_t i_write = write(write_input_fd, &state.drone, sizeof(Drone));
+        ssize_t i_write = write(write_input_fd, &state, sizeof(WorldState));
         if(i_write < 0) {
             logger(log_file, "Error writing to input");
         }

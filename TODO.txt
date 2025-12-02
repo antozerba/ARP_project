@@ -1,9 +1,10 @@
 Missing:
--target 
+-target X
 -obs dynamic X
 -target dynamic X
 -score
 -wall repulsion
--colors
+-colors 
 -input window resizable
--closing
+-closing X
+-target regenerating

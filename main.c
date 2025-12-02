@@ -8,6 +8,7 @@
 #include <signal.h>
 
 
+
 int main(int arc, char ** argv) {
 
     FILE * log_file = fopen("log/main_log.text","w");
@@ -84,7 +85,7 @@ int main(int arc, char ** argv) {
          //server-blackboard
         close(bi_pipe[0]); //close read close(bw_pipe[0]); //close read
         close(ib_pipe[1]); //close write
-        close(bw_pipe[0]); //close write
+        close(bw_pipe[0]); //close read
         close(wb_pipe[1]); //close write
         close(bd_pipe[0]);     
         close(db_pipe[1]);      
@@ -126,6 +127,8 @@ int main(int arc, char ** argv) {
         setenv("OUT_TAR_FD", write_tar_fd, 1);     
         char * args[] = {"./server", NULL};   
         execvp("./server", args);
+        perror("process failed");
+        exit(1);
      }
 
     if((w_pid = fork()) == 0){
@@ -133,12 +136,6 @@ int main(int arc, char ** argv) {
         //window
         close(bw_pipe[1]);
         close(wb_pipe[0]);
-        char write_fd[16];
-        char read_fd[16];
-        sprintf(read_fd, "%d", bw_pipe[0]);
-        sprintf(write_fd, "%d", wb_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1);
 
         close(bi_pipe[0]); close(bi_pipe[1]);
         close(ib_pipe[0]); close(ib_pipe[1]);
@@ -148,11 +145,29 @@ int main(int arc, char ** argv) {
         close(ob_pipe[0]); close(ob_pipe[1]);
         close(bt_pipe[0]); close(bt_pipe[1]);
         close(tb_pipe[0]); close(tb_pipe[1]);
+        
+        char write_fd[16];
+        char read_fd[16];
+        sprintf(read_fd, "%d", bw_pipe[0]);
+        sprintf(write_fd, "%d", wb_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1);
 
         execlp("konsole", "konsole", "-e", "./window",NULL); 
 
+        perror("process failed");
+        exit(1);
     }
     if((i_pid = fork()) == 0){
+
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
         //input
         close(bi_pipe[1]); //close write
         close(ib_pipe[0]); //close read
@@ -164,22 +179,23 @@ int main(int arc, char ** argv) {
         setenv("OUT_FD", write_fd, 1);
 
 
-        close(bw_pipe[0]); close(bw_pipe[1]);
-        close(wb_pipe[0]); close(wb_pipe[1]);
-        close(bd_pipe[0]); close(bd_pipe[1]);
-        close(db_pipe[0]); close(db_pipe[1]);
-        close(bo_pipe[0]); close(bo_pipe[1]);
-        close(ob_pipe[0]); close(ob_pipe[1]);
-        close(bt_pipe[0]); close(bt_pipe[1]);
-        close(tb_pipe[0]); close(tb_pipe[1]);
-
         execlp("konsole", "konsole", "-e", "./input",NULL);
+        perror("process failed");
+        exit(1);
     }
 
     if((d_pid = fork()) == 0){
         //DYNAMIC
         close(bd_pipe[1]);
         close(db_pipe[0]);
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
         char write_fd[16];    
         char read_fd[16];
         sprintf(read_fd, "%d", bd_pipe[0]);
@@ -188,30 +204,16 @@ int main(int arc, char ** argv) {
         setenv("OUT_FD", write_fd, 1); 
 
 
-        close(bw_pipe[0]); close(bw_pipe[1]);
-        close(wb_pipe[0]); close(wb_pipe[1]);
-        close(bi_pipe[0]); close(bi_pipe[1]);
-        close(ib_pipe[0]); close(ib_pipe[1]);
-        close(bo_pipe[0]); close(bo_pipe[1]);
-        close(ob_pipe[0]); close(ob_pipe[1]);
-        close(bt_pipe[0]); close(bt_pipe[1]);
-        close(tb_pipe[0]); close(tb_pipe[1]);
 
         execlp("./dynamic", "./dynamic", NULL);
+        perror("process failed");
+        exit(1);
 
     }
     if((o_pid = fork()) == 0){
         //OBS
         close(bo_pipe[1]);
         close(ob_pipe[0]);
-        char write_fd[16];    
-        char read_fd[16];
-        sprintf(read_fd, "%d", bo_pipe[0]);
-        sprintf(write_fd, "%d", ob_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1); 
-
-
         close(bw_pipe[0]); close(bw_pipe[1]);
         close(wb_pipe[0]); close(wb_pipe[1]);
         close(bi_pipe[0]); close(bi_pipe[1]);
@@ -221,20 +223,22 @@ int main(int arc, char ** argv) {
         close(bt_pipe[0]); close(bt_pipe[1]);
         close(tb_pipe[0]); close(tb_pipe[1]);
 
+        char write_fd[16];    
+        char read_fd[16];
+        sprintf(read_fd, "%d", bo_pipe[0]);
+        sprintf(write_fd, "%d", ob_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1); 
+
         execlp("./obs_gen", "./obs_gen", NULL);
 
+        perror("process failed");
+        exit(1);
     }
     if((t_pid = fork()) == 0){
         //TARGET
         close(bt_pipe[1]);
         close(tb_pipe[0]);
-        char write_fd[16];    
-        char read_fd[16];
-        sprintf(read_fd, "%d", bt_pipe[0]);
-        sprintf(write_fd, "%d", tb_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1); 
-
         //chiusura pipe non utilizzate
         close(bw_pipe[0]); close(bw_pipe[1]);
         close(wb_pipe[0]); close(wb_pipe[1]);
@@ -244,10 +248,17 @@ int main(int arc, char ** argv) {
         close(db_pipe[0]); close(db_pipe[1]);
         close(bo_pipe[0]); close(bo_pipe[1]);
         close(ob_pipe[0]); close(ob_pipe[1]);
-        
+
+        char write_fd[16];    
+        char read_fd[16];
+        sprintf(read_fd, "%d", bt_pipe[0]);
+        sprintf(write_fd, "%d", tb_pipe[1]);
+        setenv("IN_FD", read_fd, 1);
+        setenv("OUT_FD", write_fd, 1); 
 
         execlp("./tar_gen", "./tar_gen", NULL);
-
+        perror("process failed");
+        exit(1);
     }
     //chiusura tutte pipes nel padre
     close(bw_pipe[0]); close(bw_pipe[1]);
@@ -261,19 +272,28 @@ int main(int arc, char ** argv) {
     close(bt_pipe[0]); close(bt_pipe[1]);
     close(tb_pipe[0]); close(tb_pipe[1]);
 
+    
     //server chiuso 
     waitpid(b_pid, &b_status, 0);
-    //comando chiusare uqindi mando segnale a tutti i figli
-    kill(w_pid, SIGTERM);
+    //comando chiusura quindi mando segnale a tutti i figli
     kill(t_pid, SIGTERM);
     kill(o_pid, SIGTERM);
     kill(d_pid, SIGTERM);
-    kill(i_pid, SIGTERM);
+    pid_t pgw = getpgid(w_pid); //w_pid continer il pid di konsole ma io voglio tutti i porcessi eseguiti da konsole tra cui window
+    kill(-pgw, SIGTERM);
+    pid_t pgi = getpgid(i_pid); //i_pid continer il pid di konsole  ma io voglio tutti i porcessi eseguiti da konsole tra cui input
+    kill(-pgi, SIGTERM);
+
+    //sleep per far terminare tutti i processi in modo corretto
+    sleep(1);
 
     waitpid(t_pid, &t_status,0);
     waitpid(o_pid, &o_status,0);
     waitpid(d_pid, &d_status, 0);
     waitpid(i_pid, &i_status, 0);
     waitpid(w_pid, &w_status, 0);
+
+    logger(log_file, "All Processes Terminated Successfully");
+    fclose(log_file);
     return 0;
 }

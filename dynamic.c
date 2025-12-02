@@ -10,13 +10,24 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
+#include <signal.h>
 
 #define CLOCK_TICK 300000
 #define MARGIN 1
 
 void compute_repulsive_forces(WorldState *state, Config *config, float *frx, float *fry) ;
 
+volatile sig_atomic_t running = 1;
 FILE * log_file;
+
+void termination_handler(int signum){
+    //gestione terminazione 
+    logger(log_file, "Dynamic Terminated");
+    running =0;
+    
+}
+
+
 
 int main(int argc, char **argv){
 
@@ -47,8 +58,17 @@ int main(int argc, char **argv){
     state.mapx = config.map_width;
     state.mapy = config.map_height;
 
+    struct sigaction sa;
+    sa.sa_handler = termination_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if(sigaction(SIGTERM, &sa, NULL) == -1) {
+        perror("sigaction");
+        logger(log_file, "Failed to install SIGTERM handler");
+    }
 
-    for(;;){
+
+    while(running){
         ssize_t bytes_read = read(read_fd, &state, sizeof(WorldState));
         
         char buffer[200];
@@ -151,8 +171,10 @@ int main(int argc, char **argv){
         usleep(config.DT*CLOCK_TICK);
 
     }
-
-
+    //closing fds
+    close(read_fd);
+    close(write_fd);
+    fclose(log_file);
     return 0;
 }
 void compute_repulsive_forces(WorldState *state, Config *config, float *frx, float *fry) {

@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <signal.h>
 
 
 #define CLOCK_TICK 33000
@@ -17,20 +18,27 @@
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
-void delete_drone();
+// void delete_drone();
 void update_drone();
 void update_world();
-void delete_world();
-void delete_obstacles();
+// void delete_world();
+// void delete_obstacles();
 void draw_obstacles();
 void clear_screen();
 void draw_targets();
 
-
+volatile sig_atomic_t running = 1;
 FILE* log_file;
 WorldState *state;
 WorldState *old_state;
 WINDOW *win;
+
+void termination_handler(int signum){
+    //gestione terminazione 
+    logger(log_file, "Window Terminated");
+    running =0;
+    
+}
 
 
 int main(int argc, char **argv) {
@@ -94,6 +102,16 @@ int main(int argc, char **argv) {
     //Setto read non blocking per gestire anche le letture parziali e non bloccare il processo
     int flags = fcntl(read_fd, F_GETFL, 0);
     fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
+
+    // Setting sigaction for SIGTERM
+    struct sigaction sa;
+    sa.sa_handler = termination_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if(sigaction(SIGTERM, &sa, NULL) == -1) {
+        perror("sigaction");
+        logger(log_file, "Failed to install SIGTERM handler");
+    }
     
     
     state->drone.x = config.drone_x;
@@ -107,7 +125,7 @@ int main(int argc, char **argv) {
     msg.y = newwin_y;
     write(write_fd, &msg, sizeof(ResizeMessage));
 
-    for(;;){
+    while(running){
         //Rezise case
         int ch = getch();
         if(ch  == KEY_RESIZE) {
@@ -148,6 +166,10 @@ int main(int argc, char **argv) {
         memcpy(old_state, state, sizeof(WorldState));
         
     }
+    //closing fds
+    close(read_fd);
+    close(write_fd);
+
     delwin(win);
     endwin();  
     free(state);

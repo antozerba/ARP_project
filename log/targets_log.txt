@@ -1,13 +1,13 @@
 Target Generator Started
-[TARGET_GEN] Created target at (27.5, 19.2) [Total: 1]
+[TARGET_GEN] Created target at (26.3, 20.4) [Total: 1]
 
-[TARGET_GEN] Created target at (47.8, 18.3) [Total: 2]
+[TARGET_GEN] Created target at (49.4, 10.6) [Total: 2]
 
-[TARGET_GEN] Created target at (22.5, 11.5) [Total: 3]
+[TARGET_GEN] Created target at (55.8, 21.2) [Total: 3]
 
-[TARGET_GEN] Created target at (110.4, 7.3) [Total: 1]
+[TARGET_GEN] Created target at (81.9, 18.3) [Total: 1]
 
-[TARGET_GEN] Created target at (75.2, 18.2) [Total: 2]
+[TARGET_GEN] Created target at (83.3, 24.8) [Total: 2]
 
-[TARGET_GEN] Created target at (62.1, 14.7) [Total: 3]
+[TARGET_GEN] Created target at (22.9, 13.6) [Total: 3]
 

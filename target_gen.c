@@ -8,11 +8,16 @@
 #include "protocol.h"
 #include "utils.h"
 #include "fcntl.h"
+#include <signal.h>
 
 
 static volatile sig_atomic_t running = 1;
 FILE *log_file;
 
+void termination_handler(int signum){
+    logger(log_file, "Target Generator Terminated");
+    running =0;
+}
 
 float random_float(float min, float max) {
     return min + (float)rand() / RAND_MAX * (max - min);
@@ -41,10 +46,9 @@ int main(int argc, char *argv[]) {
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
     
+    //Read non bloking
     int flags = fcntl(read_fd, F_GETFL, 0);
     fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
-    
-    
     srand(time(NULL) ^ getpid());
     
     
@@ -55,6 +59,15 @@ int main(int argc, char *argv[]) {
     int mapx = config.map_width-5;
     int mapy = config.map_height -5;
 
+    //Setting sigaction
+    struct sigaction sa;
+    sa.sa_handler = termination_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if(sigaction(SIGTERM, &sa, NULL) == -1) {
+        perror("sigaction");
+        logger(log_file, "Failed to install SIGTERM handler");
+    }
 
     ResizeMessage res;
 
@@ -90,10 +103,9 @@ int main(int argc, char *argv[]) {
         }
         
     }
-    
+    //Closing fds
     close(write_fd);
-    
-    logger(log_file, "[TARGET_GEN] Terminated");
-    
+    close(read_fd);
+    fclose(log_file);
     return 0;
 }

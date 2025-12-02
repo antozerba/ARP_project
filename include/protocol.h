@@ -63,9 +63,9 @@ typedef struct InputCommand{
 }InputCommand;
 
 typedef enum {
-    MSG_DRONE_UPDATE = 'D',    // Aggiornamento posizione drone
-    MSG_TARGET = 'T',          // Nuovo/rimosso target
-    MSG_OBSTACLE = 'O',         // Nuovo/rimosso ostacolo
+    MSG_DRONE_UPDATE = 'D',   
+    MSG_TARGET = 'T',         
+    MSG_OBSTACLE = 'O',     
 } MessageType;
 
 typedef struct {
@@ -82,7 +82,6 @@ typedef struct
 {
     int x;
     int y;
-    /* data */
 }ResizeMessage;
 
 typedef struct {

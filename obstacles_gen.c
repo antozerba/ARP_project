@@ -9,12 +9,17 @@
 #include <fcntl.h>
 
 static volatile sig_atomic_t running = 1;
-
 FILE  * log_file;
 
 
 float random_float(float min, float max) {
     return min + (float)rand() / RAND_MAX * (max - min);
+}
+
+void termination_handler(int signum)
+{
+    logger(log_file, "Obstacles Generator Terminted");
+    running =0;
 }
 
 int main(int argc, char *argv[]) {
@@ -49,6 +54,15 @@ int main(int argc, char *argv[]) {
     int mapy = config.map_height-5;
     ResizeMessage res;
 
+    struct sigaction sa;
+    sa.sa_handler = termination_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    if(sigaction(SIGTERM, &sa, NULL) == -1) {
+        perror("sigaction");
+        logger(log_file, "Failed to install SIGTERM handler");
+    }
+
     while (running) {
         //Caso rezise
         char buf[50];
@@ -81,8 +95,9 @@ int main(int argc, char *argv[]) {
         }
         
     }
-    
+    //chiusura fds
+    close(read_fd);
     close(write_fd);
-    logger(log_file, "OBSTACLE_GEN Terminated");
+    fclose(log_file);
     return 0;
 }

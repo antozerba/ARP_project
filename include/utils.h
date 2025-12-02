@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "protocol.h"
+
+//Struttura load configuaration
 typedef struct Config
 {
     double map_width;
@@ -21,7 +23,8 @@ typedef struct Config
 }Config;
 
 
-
+//logger function
 void logger(FILE * handler, const char *message);
+//function to load configuration file 
 int load_config(const char *filename, struct Config *config);
 #endif

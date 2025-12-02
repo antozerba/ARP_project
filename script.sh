@@ -1,4 +1,4 @@
-gcc main.c utils.c -I include 
+gcc main.c utils.c -I include -o game
 gcc server.c utils.c -I include -o server
 gcc window.c utils.c -I include  -lncurses -o window
 gcc input.c utils.c -I include -lncurses -o input
