@@ -18,6 +18,7 @@ Project structure (summary)
 
 Requirements
 - `gcc` compiler
+- `ncurses` library installed 
 - Useful tools: `make`, `bash`.
 
 Build
@@ -34,9 +35,11 @@ Run
 ```bash
 ./game
 ```
+Notes:
+- Make sure to run the exec form the main project folder
 
 Configuration files
-- `config/parameters.txt` contains adjustable parameters. Review and edit it before running the program.
+- `config/parameters.txt` contains adjustable parameters. Review and edit it before running the program. It is possibile to change some parameters such ad the `ETA` value to compute the repulsion force of the obstacles.
 
 Logs
 - Logs are written to the `log/` folder (e.g. `main_log.text`, `input_log.text`, etc.). Each process has its own log file. 
