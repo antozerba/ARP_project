@@ -22,9 +22,14 @@ The following keyboard commands control the robot during gameplay.
 | ----------------- | -------------------- | 
 | **w**             | moving up            | 
 | **a**             | moving left         | 
-| **s**             | break              | 
 | **d**             | moving right       | 
 | **x**             | moving down        |
+| **s**             | break              | 
+| **q**             | moving left up          | 
+| **e**             | moving right up          | 
+| **z**             | moving left down          | 
+| **c**             | moving right down          | 
+| **X**             | quit game       |
 
 
 ### Requirements
