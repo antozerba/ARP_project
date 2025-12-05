@@ -84,12 +84,12 @@ typedef struct
     int y;
 }ResizeMessage;
 
-typedef struct {
-    Drone drone;
-    Target targets[MAX_TAR];
-    int num_targets;
-    int targets_reached;
-} PartialState;
+// typedef struct {
+//     Drone drone;
+//     Target targets[MAX_TAR];
+//     int num_targets;
+//     int targets_reached;
+// } PartialState;
 
 
 #endif // __PROTOCOL_H__
