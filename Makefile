@@ -7,25 +7,45 @@ PROGRAMS = game server window input dynamic obs_gen tar_gen
 
 all: $(PROGRAMS)
 
-game: main.c utils.c
+# game: main.c utils.c
+# 	$(CC) $^ $(CFLAGS) -o $@
+
+# server: server.c utils.c
+# 	$(CC) $^ $(CFLAGS) -o $@
+
+# window: window.c utils.c
+# 	$(CC) $^ $(CFLAGS) -lncurses -o $@
+
+# input: input.c utils.c
+# 	$(CC) $^ $(CFLAGS) -lncurses -o $@
+
+# dynamic: dynamic.c utils.c
+# 	$(CC) $^ $(CFLAGS) -lm -o $@
+
+# obs_gen: obstacles_gen.c utils.c
+# 	$(CC) $^ $(CFLAGS) -o $@
+
+# tar_gen: target_gen.c utils.c
+# 	$(CC) $^ $(CFLAGS) -lm -o $@
+game: src/main.c src/utils.c
 	$(CC) $^ $(CFLAGS) -o $@
 
-server: server.c utils.c
+server: src/server.c src/utils.c
 	$(CC) $^ $(CFLAGS) -o $@
 
-window: window.c utils.c
+window: src/window.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lncurses -o $@
 
-input: input.c utils.c
+input: src/input.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lncurses -o $@
 
-dynamic: dynamic.c utils.c
+dynamic: src/dynamic.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lm -o $@
 
-obs_gen: obstacles_gen.c utils.c
+obs_gen: src/obstacles_gen.c src/utils.c
 	$(CC) $^ $(CFLAGS) -o $@
 
-tar_gen: target_gen.c utils.c
+tar_gen: src/target_gen.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lm -o $@
 
 clean:

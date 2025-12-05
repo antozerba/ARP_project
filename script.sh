@@ -1,8 +1,8 @@
-gcc main.c utils.c -I include -o game
-gcc server.c utils.c -I include -o server
-gcc window.c utils.c -I include  -lncurses -o window
-gcc input.c utils.c -I include -lncurses -o input
-gcc dynamic.c utils.c -I include -o dynamic -lm 
-gcc obstacles_gen.c utils.c -I include  -o obs_gen
-gcc target_gen.c utils.c -I include -o tar_gen -lm
+gcc src/main.c src/utils.c -I include -o game
+gcc src/server.c src/utils.c -I include -o server
+gcc src/window.c src/utils.c -I include  -lncurses -o window
+gcc src/input.c src/utils.c -I include -lncurses -o input
+gcc src/dynamic.c src/utils.c -I include -o dynamic -lm 
+gcc src/obstacles_gen.c src/utils.c -I include  -o obs_gen
+gcc src/target_gen.c src/utils.c -I include -o tar_gen -lm
 
