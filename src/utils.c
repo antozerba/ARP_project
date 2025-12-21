@@ -5,6 +5,7 @@
 #include <errno.h>
 #include "protocol.h"
 #include <string.h>
+#include <sys/file.h>
 
 //FILE FUNZIONI COMUNI A TUTTI I PROCESSI
 
@@ -36,5 +37,11 @@ int load_config(const char *filename, struct Config *config) {
 void logger(FILE * handler, const char *message) {
     fprintf(handler, "%s\n", message);
     fflush(handler);
+}
+void safe_logger(FILE * handler, const char *message) {
+    flock(fileno(handler), LOCK_EX);
+    fprintf(handler, "%s\n", message);
+    fflush(handler);
+    flock(fileno(handler), LOCK_UN);
 }
 

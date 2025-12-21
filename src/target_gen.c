@@ -9,10 +9,12 @@
 #include "utils.h"
 #include "fcntl.h"
 #include <signal.h>
+#include <sys/file.h>
 
 
 static volatile sig_atomic_t running = 1;
 FILE *log_file;
+pid_t watchdog_pid = -1;
 
 void termination_handler(int signum){
     logger(log_file, "Target Generator Terminated");
@@ -29,10 +31,28 @@ float distance(float x1, float y1, float x2, float y2) {
     return sqrt(dx * dx + dy * dy);
 }
 
+void send_heartbeat() {
+    if(watchdog_pid > 0) {
+        kill(watchdog_pid, SIGUSR1);
+        logger(log_file, "Heartbeat sent to watchdog");
+    }
+}
 int main(int argc, char *argv[]) {
 
     log_file = fopen("log/targets_log.txt","w");
     logger(log_file, "Target Generator Started");
+
+    //scrittura pid in pid.txt
+    FILE * pid_file = fopen("pid.txt","a");
+    if(pid_file){
+        //lock to avoid race condition
+        flock(fileno(pid_file), LOCK_EX);
+        fprintf(pid_file,"%s %d\n", "tar_gen", getpid());
+        // fflush(pid_file);
+        flock(fileno(pid_file), LOCK_UN);
+        fclose(pid_file);
+    }
+
     Config config = {};
     if(!load_config(PARAM_PATH, &config))
     {
@@ -43,6 +63,8 @@ int main(int argc, char *argv[]) {
     //PIPE from ENV
     char * read_fd_char = getenv("IN_FD");
     char * write_fd_char = getenv("OUT_FD");
+    char * watchdog_pid_str = getenv("WATCHDOG_PID");
+    watchdog_pid = atoi(watchdog_pid_str);
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
     
@@ -71,8 +93,20 @@ int main(int argc, char *argv[]) {
 
     ResizeMessage res;
 
+    // Heartbeat variables for watchdog
+    time_t last_heartbeat = time(NULL);
+    float heartbeat_interval = 1.5f; // Invia ogni 1.5s
+
+
+
     while (running) {
 
+        // Invia heartbeat periodicamente
+        time_t now = time(NULL);
+        if(difftime(now, last_heartbeat) >= heartbeat_interval) {
+            send_heartbeat();
+            last_heartbeat = now;
+        }
         //Gestione Rezise
         size_t n = read(read_fd, &res, sizeof(ResizeMessage));
         if(n ==sizeof(ResizeMessage))

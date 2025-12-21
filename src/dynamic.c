@@ -11,6 +11,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <signal.h>
+#include <sys/file.h>
+#include <time.h>
 
 #define CLOCK_TICK 300000
 #define MARGIN 1
@@ -19,12 +21,20 @@ void compute_repulsive_forces(WorldState *state, Config *config, float *frx, flo
 
 volatile sig_atomic_t running = 1;
 FILE * log_file;
+FILE * wd_log_file;
+pid_t watchdog_pid = -1;
 
 void termination_handler(int signum){
     //gestione terminazione 
     logger(log_file, "Dynamic Terminated");
     running =0;
     
+}
+void send_heartbeat(){
+    if(watchdog_pid > 0){
+        kill(watchdog_pid, SIGUSR1);
+        logger(log_file, "Heartbeat sent to Watchdog");
+    }
 }
 
 
@@ -33,6 +43,18 @@ int main(int argc, char **argv){
 
     log_file = fopen("log/dynamic_log.text","w");
     logger(log_file, "Dynamic module started");
+    wd_log_file= fopen(WD_LOG_PATH, "a");
+
+    //scrittura pid in pid.txt
+    FILE * pid_file = fopen("pid.txt","a");
+    if(pid_file){
+        //lock to avoid race condition
+        flock(fileno(pid_file), LOCK_EX);
+        fprintf(pid_file,"%s %d\n", "dynamic", getpid());
+        // fflush(pid_file);
+        flock(fileno(pid_file), LOCK_UN);
+        fclose(pid_file);
+    }
 
     Config config = {};
     if(!load_config(PARAM_PATH, &config))
@@ -44,6 +66,8 @@ int main(int argc, char **argv){
     //PIPE from ENV
     char * read_fd_char = getenv("IN_FD");
     char * write_fd_char = getenv("OUT_FD");
+    char * watchdog_pid_fd = getenv("WATCHDOG_PID");
+    watchdog_pid = atoi(watchdog_pid_fd);
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
 
@@ -67,8 +91,25 @@ int main(int argc, char **argv){
         logger(log_file, "Failed to install SIGTERM handler");
     }
 
+    //Haartbeat 
+    time_t last_hartbeat = time(NULL);
+    float heartbeat_interval = 1.5f; // ogni 1.5s
+
+    int iteration = 0;
 
     while(running){
+        iteration +=1;
+
+        time_t now = time(NULL);
+        if(difftime(now, last_hartbeat) >= heartbeat_interval) {
+            send_heartbeat();
+            last_hartbeat = now;
+            char buf[100];
+            sprintf(buf, "<%ld><%s><%s::iteration:%d>", time(NULL), "dynamic", "main", iteration);
+            safe_logger(wd_log_file, buf);
+        }
+
+        
         ssize_t bytes_read = read(read_fd, &state, sizeof(WorldState));
         
         char buffer[200];

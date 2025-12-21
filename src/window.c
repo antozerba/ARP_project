@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
+#include <sys/file.h>
+#include <time.h>
 
 
 #define CLOCK_TICK 33000
@@ -32,6 +34,15 @@ FILE* log_file;
 WorldState *state;
 WorldState *old_state;
 WINDOW *win;
+pid_t watchdog_pid = -1;
+
+void send_heartbeat() {
+    if(watchdog_pid > 0) {
+        kill(watchdog_pid, SIGUSR1);
+        logger(log_file, "Heartbeat sent to watchdog");
+    }
+}
+
 
 void termination_handler(int signum){
     //gestione terminazione 
@@ -47,6 +58,17 @@ int main(int argc, char **argv) {
     log_file = fopen("log/window_log.text","w");
     logger(log_file, "Window started");
 
+    //scrittura pid in pid.txt
+    FILE * pid_file = fopen("pid.txt","a");
+    if(pid_file){
+        //lock to avoid race condition
+        flock(fileno(pid_file), LOCK_EX);
+        fprintf(pid_file,"%s %d\n", "window", getpid());
+        // fflush(pid_file);
+        flock(fileno(pid_file), LOCK_UN);
+        fclose(pid_file);
+    }
+
     //Fd from env
     char * read_fd_char = getenv("IN_FD");
     char * write_fd_char = getenv("OUT_FD");
@@ -56,6 +78,8 @@ int main(int argc, char **argv) {
     }
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
+    char * watchdog_pid_str = getenv("WATCHDOG_PID");
+    watchdog_pid = atoi(watchdog_pid_str);
     char buffer[50];
     sprintf(buffer, "Read FD: %d, Write FD: %d", read_fd, write_fd);
     logger(log_file, buffer);
@@ -113,6 +137,9 @@ int main(int argc, char **argv) {
         logger(log_file, "Failed to install SIGTERM handler");
     }
     
+    // Heartbeat variables for watchdog
+    time_t last_heartbeat = time(NULL);
+    float heartbeat_interval = 1.5f; // Invia ogni 1.5s
     
     state->drone.x = config.drone_x;
     state->drone.y = config.drone_y;
@@ -126,6 +153,13 @@ int main(int argc, char **argv) {
     write(write_fd, &msg, sizeof(ResizeMessage));
 
     while(running){
+        // Invia heartbeat periodicamente
+        time_t now = time(NULL);
+        if(difftime(now, last_heartbeat) >= heartbeat_interval) {
+            send_heartbeat();
+            last_heartbeat = now;
+        }
+
         //Rezise case
         int ch = getch();
         if(ch  == KEY_RESIZE) {

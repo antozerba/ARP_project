@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -I include
 
 # Programs
-PROGRAMS = game server window input dynamic obs_gen tar_gen
+PROGRAMS = game server window input dynamic obs_gen tar_gen watchdog
 
 all: $(PROGRAMS)
 
@@ -47,6 +47,9 @@ obs_gen: src/obstacles_gen.c src/utils.c
 
 tar_gen: src/target_gen.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lm -o $@
+
+watchdog: src/watchdog.c src/utils.c
+	$(CC) $^ $(CFLAGS)  -lncurses -o $@
 
 clean:
 	rm -f $(PROGRAMS)

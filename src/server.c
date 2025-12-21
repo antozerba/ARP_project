@@ -8,12 +8,15 @@
 #include <sys/select.h>
 #include "protocol.h"
 #include <string.h>
-
+#include <sys/file.h>
+#include <signal.h>
+#include <time.h>
 
 #define COLL_RAD 0.5
 
 FILE * log_file;
 Config config = {};
+pid_t watchdog_pid = -1;
 int read_input_fd, write_input_fd;
 int read_window_fd, write_window_fd;
 int read_dynamic_fd, write_dynamic_fd;
@@ -155,6 +158,13 @@ void checking_collisions(WorldState *state){
     checking_target(state);
 }
 
+void send_heartbeat(){
+    if(watchdog_pid > 0){
+        kill(watchdog_pid, SIGUSR1);
+        logger(log_file, "Heartbeat sent to Watchdog");
+    }
+}
+
 int main(int argc, char **argv){
 
     //Logger
@@ -172,7 +182,9 @@ int main(int argc, char **argv){
     char * read_obs_fd_char = getenv("IN_OBS_FD");
     char * write_tar_fd_char = getenv("OUT_TAR_FD");
     char * read_tar_fd_char = getenv("IN_TAR_FD");
+    char *watchdog_pid_str = getenv("WATCHDOG_PID");
 
+    watchdog_pid = atoi(watchdog_pid_str);
     read_input_fd = atoi(read_input_fd_char);
     write_input_fd = atoi(write_input_fd_char);
     read_window_fd = atoi(read_window_fd_char);
@@ -184,6 +196,17 @@ int main(int argc, char **argv){
     read_tar_fd = atoi(read_tar_fd_char);
     write_tar_fd = atoi(write_tar_fd_char);
 
+    //scrittura pid 
+    FILE * pid_file = fopen("pid.txt", "a"); //append mode
+    if(pid_file){
+        //lock to avoid race condition
+        flock(fileno(pid_file), LOCK_EX);
+        fprintf(pid_file,"%s %d\n", "server", getpid());
+        // fflush(pid_file);
+        flock(fileno(pid_file), LOCK_UN);
+        fclose(pid_file);
+    }
+
     if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
@@ -191,8 +214,18 @@ int main(int argc, char **argv){
     }
     WorldState state;
     init_world_state(&state);
+
+    // Heartbeat variables for watchdog
+    time_t last_heartbeat = time(NULL);
+    float heartbeat_interval = 1.5f; // Invia ogni 1.5s
     
     for(;;){
+        // Invia heartbeat periodicamente
+        time_t now = time(NULL);
+        if(difftime(now, last_heartbeat) >= heartbeat_interval) {
+            send_heartbeat();
+            last_heartbeat = now;
+        }
         
         //SELECT
         fd_set read_fds;

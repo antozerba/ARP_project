@@ -1,0 +1,298 @@
+Watchdog started
+Registered process: obs_gen (PID 6107)
+Registered process: tar_gen (PID 6108)
+Registered process: dynamic (PID 6106)
+Registered process: server (PID 6103)
+Registered process: input (PID 6125)
+Registered process: window (PID 6131)
+Ncurses window created at (2,7) size 70x15
+Watchdog monitoring 6 processes with poll interval 2.0s
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316693] Signal received from input (PID 6125) - count: 1
+[1766316693] Signal received from obs_gen (PID 6107) - count: 1
+Arrivo
+[1766316693] Signal received from window (PID 6131) - count: 1
+[1766316693] Signal received from dynamic (PID 6106) - count: 1
+Arrivo
+[1766316693] Signal received from server (PID 6103) - count: 1
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316695] Signal received from window (PID 6131) - count: 2
+[1766316695] Signal received from tar_gen (PID 6108) - count: 1
+Arrivo
+[1766316695] Signal received from dynamic (PID 6106) - count: 2
+Arrivo
+[1766316695] Signal received from server (PID 6103) - count: 2
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316697] Signal received from tar_gen (PID 6108) - count: 2
+[1766316697] Signal received from obs_gen (PID 6107) - count: 2
+Arrivo
+[1766316697] Signal received from dynamic (PID 6106) - count: 3
+Arrivo
+[1766316697] Signal received from server (PID 6103) - count: 3
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316699] Signal received from tar_gen (PID 6108) - count: 3
+[1766316699] Signal received from obs_gen (PID 6107) - count: 3
+[1766316699] Signal received from server (PID 6103) - count: 4
+Arrivo
+[1766316699] Signal received from window (PID 6131) - count: 3
+Arrivo
+[1766316699] Signal received from dynamic (PID 6106) - count: 4
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 6125) not responding! Last signal 7 seconds ago
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316701] Signal received from window (PID 6131) - count: 4
+[1766316701] Signal received from obs_gen (PID 6107) - count: 4
+Arrivo
+Arrivo
+[1766316701] Signal received from server (PID 6103) - count: 5
+[1766316701] Signal received from dynamic (PID 6106) - count: 5
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 6125) not responding! Last signal 9 seconds ago
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316703] Signal received from window (PID 6131) - count: 5
+[1766316703] Signal received from tar_gen (PID 6108) - count: 4
+Arrivo
+[1766316703] Signal received from dynamic (PID 6106) - count: 6
+Arrivo
+[1766316703] Signal received from server (PID 6103) - count: 6
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 6125) not responding! Last signal 11 seconds ago
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316705] Signal received from window (PID 6131) - count: 6
+[1766316705] Signal received from tar_gen (PID 6108) - count: 5
+Arrivo
+[1766316705] Signal received from dynamic (PID 6106) - count: 7
+Arrivo
+[1766316705] Signal received from server (PID 6103) - count: 7
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 6125) not responding! Last signal 13 seconds ago
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316707] Signal received from input (PID 6125) - count: 2
+[1766316707] Signal received from tar_gen (PID 6108) - count: 6
+Arrivo
+[1766316707] Signal received from dynamic (PID 6106) - count: 8
+Arrivo
+Arrivo
+[1766316707] Signal received from window (PID 6131) - count: 7
+[1766316707] Signal received from server (PID 6103) - count: 8
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+ARRIVO 2
+ALERT: Process obs_gen (PID 6107) not responding! Last signal 7 seconds ago
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+[1766316709] Signal received from tar_gen (PID 6108) - count: 7
+Arrivo
+[1766316709] Signal received from window (PID 6131) - count: 8
+Arrivo
+[1766316709] Signal received from dynamic (PID 6106) - count: 9
+Arrivo
+[1766316709] Signal received from server (PID 6103) - count: 9
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo
+Arrivo

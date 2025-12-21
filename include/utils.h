@@ -2,6 +2,8 @@
 #define __UTILS_H__
 
 #define PARAM_PATH "config/parameters.txt"
+#define WD_LOG_PATH "log/watchdog_log_msg.txt"
+#define WATCHDOG_FILE "watchdog.txt"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -25,6 +27,8 @@ typedef struct Config
 
 //logger function
 void logger(FILE * handler, const char *message);
+void safe_logger(FILE * handler, const char *message);
 //function to load configuration file 
 int load_config(const char *filename, struct Config *config);
+
 #endif

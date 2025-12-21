@@ -12,7 +12,11 @@
 int main(int arc, char ** argv) {
 
     FILE * log_file = fopen("log/main_log.text","w");
-
+    //pulire il file pid.txt all'avvio
+    FILE * pid_file = fopen("pid.txt","w");
+    FILE * wd_file = fopen(WD_LOG_PATH,"w");
+    fclose(pid_file);
+    fclose(wd_file);
     logger(log_file, "Window started");
     
     Config config = {};
@@ -79,8 +83,46 @@ int main(int arc, char ** argv) {
         return -1;
     }
 
-    int w_status, i_status, b_status, d_status, o_status, t_status;
-    pid_t w_pid, i_pid, b_pid, d_pid, o_pid, t_pid;
+    int w_status, i_status, b_status, d_status, o_status, t_status, wd_status;
+    pid_t w_pid, i_pid, b_pid, d_pid, o_pid, t_pid, wd_pid;
+
+    if((wd_pid = fork()) == 0){
+        //watchdog
+        close(bi_pipe[0]); close(bi_pipe[1]);
+        close(ib_pipe[0]); close(ib_pipe[1]);
+        close(bw_pipe[0]); close(bw_pipe[1]);
+        close(wb_pipe[0]); close(wb_pipe[1]);
+        close(bd_pipe[0]); close(bd_pipe[1]);
+        close(db_pipe[0]); close(db_pipe[1]);
+        close(bo_pipe[0]); close(bo_pipe[1]);
+        close(ob_pipe[0]); close(ob_pipe[1]);
+        close(bt_pipe[0]); close(bt_pipe[1]);
+        close(tb_pipe[0]); close(tb_pipe[1]);
+        
+        execlp("konsole", "konsole", "-e", "./watchdog", NULL);
+        perror("process failed");
+        exit(1);
+    }
+    wd_pid = -1;
+    FILE *f = NULL;
+
+    for (int i = 0; i < 50; i++) {  
+        f = fopen(WATCHDOG_FILE, "r");
+        if (f) break;
+        usleep(100000); // 100 ms
+    }
+
+    if (!f) {
+        fprintf(stderr, "Watchdog PID file not found\n");
+        exit(1);
+    }
+
+    fscanf(f, "%d", &wd_pid);
+    fclose(f);
+
+    printf("REAL WATCHDOG PID = %d\n", wd_pid);
+
+
     if((b_pid = fork() )== 0){
          //server-blackboard
         close(bi_pipe[0]); //close read close(bw_pipe[0]); //close read
@@ -104,6 +146,10 @@ int main(int arc, char ** argv) {
         char write_obs_fd[16];
         char read_tar_fd[16];
         char write_tar_fd[16];
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
         sprintf(read_input_fd, "%d", ib_pipe[0]);
         sprintf(read_window_fd, "%d", wb_pipe[0]);
@@ -145,6 +191,10 @@ int main(int arc, char ** argv) {
         close(ob_pipe[0]); close(ob_pipe[1]);
         close(bt_pipe[0]); close(bt_pipe[1]);
         close(tb_pipe[0]); close(tb_pipe[1]);
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
         
         char write_fd[16];
         char read_fd[16];
@@ -177,6 +227,10 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", ib_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1);
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
 
         execlp("konsole", "konsole", "-e", "./input",NULL);
@@ -202,6 +256,10 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", db_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
 
 
@@ -229,6 +287,10 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", ob_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
         execlp("./obs_gen", "./obs_gen", NULL);
 
@@ -255,6 +317,10 @@ int main(int arc, char ** argv) {
         sprintf(write_fd, "%d", tb_pipe[1]);
         setenv("IN_FD", read_fd, 1);
         setenv("OUT_FD", write_fd, 1); 
+        //watchdog
+        char watchdog_pid_fd[16];
+        sprintf(watchdog_pid_fd, "%d", wd_pid);
+        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
         execlp("./tar_gen", "./tar_gen", NULL);
         perror("process failed");
@@ -272,10 +338,10 @@ int main(int arc, char ** argv) {
     close(bt_pipe[0]); close(bt_pipe[1]);
     close(tb_pipe[0]); close(tb_pipe[1]);
 
-    
     //server chiuso 
     waitpid(b_pid, &b_status, 0);
     //comando chiusura quindi mando segnale a tutti i figli
+    logger(log_file, "ARRIVO");
     kill(t_pid, SIGTERM);
     kill(o_pid, SIGTERM);
     kill(d_pid, SIGTERM);
@@ -283,6 +349,8 @@ int main(int arc, char ** argv) {
     kill(-pgw, SIGTERM);
     pid_t pgi = getpgid(i_pid); //i_pid continer il pid di konsole  ma io voglio tutti i porcessi eseguiti da konsole tra cui input
     kill(-pgi, SIGTERM);
+    pid_t pgwd = getpgid(wd_pid); //i_pid continer il pid di konsole  ma io voglio tutti i porcessi eseguiti da konsole tra cui input
+    kill(-pgwd, SIGTERM);
 
     //sleep per far terminare tutti i processi in modo corretto
     sleep(1);
@@ -295,5 +363,7 @@ int main(int arc, char ** argv) {
 
     logger(log_file, "All Processes Terminated Successfully");
     fclose(log_file);
+
     return 0;
+
 }

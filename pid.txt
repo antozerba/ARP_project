@@ -1,0 +1,6 @@
+obs_gen 6107
+tar_gen 6108
+dynamic 6106
+server 6103
+input 6125
+window 6131
