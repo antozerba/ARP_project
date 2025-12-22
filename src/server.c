@@ -15,6 +15,7 @@
 #define COLL_RAD 0.5
 
 FILE * log_file;
+FILE * wd_log_file;
 Config config = {};
 pid_t watchdog_pid = -1;
 int read_input_fd, write_input_fd;
@@ -170,6 +171,8 @@ int main(int argc, char **argv){
     //Logger
     log_file = fopen("log/server_log.text","w");
     logger(log_file, "Server started");
+    wd_log_file = fopen(WD_LOG_PATH, "a");
+
 
     //PIPE from EN
     char * read_input_fd_char = getenv("IN_INPUT_FD");
@@ -197,7 +200,7 @@ int main(int argc, char **argv){
     write_tar_fd = atoi(write_tar_fd_char);
 
     //scrittura pid 
-    FILE * pid_file = fopen("pid.txt", "a"); //append mode
+    FILE * pid_file = fopen(PID_FILE, "a"); //append mode
     if(pid_file){
         //lock to avoid race condition
         flock(fileno(pid_file), LOCK_EX);
@@ -219,12 +222,19 @@ int main(int argc, char **argv){
     time_t last_heartbeat = time(NULL);
     float heartbeat_interval = 1.5f; // Invia ogni 1.5s
     
+    int iteration = 0;
     for(;;){
+        iteration++;
         // Invia heartbeat periodicamente
         time_t now = time(NULL);
         if(difftime(now, last_heartbeat) >= heartbeat_interval) {
             send_heartbeat();
             last_heartbeat = now;
+            char buf[100];
+            char *t = ctime(&now);
+            t[strlen(t) - 1] = '\0';
+            sprintf(buf, "<%s><%s><%s::iteration:%d>", t, "server", "main", iteration);
+            safe_logger(wd_log_file, buf);
         }
         
         //SELECT

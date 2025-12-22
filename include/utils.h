@@ -3,7 +3,8 @@
 
 #define PARAM_PATH "config/parameters.txt"
 #define WD_LOG_PATH "log/watchdog_log_msg.txt"
-#define WATCHDOG_FILE "watchdog.txt"
+#define WATCHDOG_FILE "config/watchdog.txt"
+#define PID_FILE "config/pid.txt"
 
 #include <stdio.h>
 #include <unistd.h>

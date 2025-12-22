@@ -46,7 +46,7 @@ int main(int argc, char **argv){
     wd_log_file= fopen(WD_LOG_PATH, "a");
 
     //scrittura pid in pid.txt
-    FILE * pid_file = fopen("pid.txt","a");
+    FILE * pid_file = fopen(PID_FILE,"a");
     if(pid_file){
         //lock to avoid race condition
         flock(fileno(pid_file), LOCK_EX);
@@ -105,7 +105,9 @@ int main(int argc, char **argv){
             send_heartbeat();
             last_hartbeat = now;
             char buf[100];
-            sprintf(buf, "<%ld><%s><%s::iteration:%d>", time(NULL), "dynamic", "main", iteration);
+            char *t = ctime(&now);
+            t[strlen(t) - 1] = '\0';
+            sprintf(buf, "<%s><%s><%s::iteration:%d>", t, "dynamic", "main", iteration);
             safe_logger(wd_log_file, buf);
         }
 

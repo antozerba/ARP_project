@@ -176,8 +176,8 @@ int main(int argc, char **argv) {
     // Registra processi (leggi PID da file o environment)
     // Per semplicità, leggi da file PIDs
 
-    usleep(1000000); //to allow porcesso to store pids
-    FILE *pid_file = fopen("pid.txt", "r");
+    usleep(3000000); //to allow porcesso to store pids
+    FILE *pid_file = fopen(PID_FILE, "r");
     if(pid_file) {
         char name[32];
         pid_t pid;
@@ -232,7 +232,6 @@ int main(int argc, char **argv) {
         
         update_status_window();
         usleep(100000); // 100ms
-        logger(log_file, "Arrivo");
     }
     
     // Cleanup

@@ -13,11 +13,10 @@ int main(int arc, char ** argv) {
 
     FILE * log_file = fopen("log/main_log.text","w");
     //pulire il file pid.txt all'avvio
-    FILE * pid_file = fopen("pid.txt","w");
+    FILE * pid_file = fopen(PID_FILE,"w");
     FILE * wd_file = fopen(WD_LOG_PATH,"w");
     fclose(pid_file);
     fclose(wd_file);
-    logger(log_file, "Window started");
     
     Config config = {};
     if(!load_config(PARAM_PATH, &config))
@@ -106,22 +105,19 @@ int main(int arc, char ** argv) {
     wd_pid = -1;
     FILE *f = NULL;
 
-    for (int i = 0; i < 50; i++) {  
-        f = fopen(WATCHDOG_FILE, "r");
-        if (f) break;
-        usleep(100000); // 100 ms
-    }
+    usleep(1000000); //to allow watchdog to store pid
+    f = fopen(WATCHDOG_FILE, "r");
 
     if (!f) {
-        fprintf(stderr, "Watchdog PID file not found\n");
+        logger(log_file, "Watchdog PID file not found\n");
         exit(1);
     }
 
     fscanf(f, "%d", &wd_pid);
     fclose(f);
-
-    printf("REAL WATCHDOG PID = %d\n", wd_pid);
-
+    char buf[40];
+    sprintf(buf, "REAL WATCHDOG PID = %d\n", wd_pid);
+    logger(log_file, buf);
 
     if((b_pid = fork() )== 0){
          //server-blackboard
