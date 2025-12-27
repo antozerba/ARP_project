@@ -10,7 +10,7 @@
 //FILE FUNZIONI COMUNI A TUTTI I PROCESSI
 
 int load_config(const char *filename, struct Config *config) {
-    FILE * log= fopen("log/utils_log.text","w");
+    FILE * log= fopen("log/utils_log.txt","w");
     logger(log, "Loading configuration");
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -28,6 +28,8 @@ int load_config(const char *filename, struct Config *config) {
     fscanf(file, "STEP_FORCE=%f\n", &config->STEP_FORCE);
     fscanf(file, "RHO=%f\n", &config->RHO);
     fscanf(file, "ETA=%f\n", &config->ETA);
+    fscanf(file, "server_port=%i\n", &config->server_port);
+    fscanf(file, "server_ip=%15s\n", config->server_ip);
 
     logger(log, "Configuration loaded successfully");
     fclose(file);

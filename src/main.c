@@ -6,24 +6,91 @@
 #include <stdlib.h>
 #include "utils.h"
 #include <signal.h>
+#include <protocol.h>
 
 
+FILE * log_file;
+
+NetworkMode ask_network_mode(){
+    printf("\n=== DRONE SIMULATOR ===\n");
+    printf("Select mode:\n");
+    printf("1. Standalone (local)\n");
+    printf("2. Network Server\n");
+    printf("3. Network Client\n");
+    printf("Choice: ");
+    
+    int choice;
+    scanf("%d", &choice);
+    
+    switch(choice) {
+        case 1: return MODE_STANDALONE;
+        case 2: return MODE_SERVER;
+        case 3: return MODE_CLIENT;
+        default: 
+            printf("Invalid choice, defaulting to standalone\n");
+            return MODE_STANDALONE;
+    }
+}
+
+void set_network(const NetworkMode * mode)
+{
+    FILE * net_file = fopen(NETWORK_CONFIG_FILE, "w");
+    if(!net_file){
+        perror("network config file error");
+        logger(log_file, "Failed to open network config file");
+        return;
+    }
+    if(*mode == MODE_CLIENT) {
+        printf("Enter server IP address: ");
+        char server_ip[64];
+        scanf("%s", server_ip);
+        fprintf(net_file, "SERVER_IP=%s\n", server_ip);
+    }
+    
+    printf("Enter serve_port (default 5555): ");
+    int serve_port;
+    scanf("%d", &serve_port);
+    if(serve_port < 1 || serve_port < 1000) {
+        serve_port = 5555;
+    }
+
+    fprintf(net_file, "PORT=%d\n", serve_port);
+    fprintf(net_file, "MODE=%d\n", *mode); //SERVER CHIEDO SOLO SE CLIENT
+    
+    fclose(net_file);
+    logger(log_file, "Network configuration saved");
+}
 
 int main(int arc, char ** argv) {
 
-    FILE * log_file = fopen("log/main_log.text","w");
-    //pulire il file pid.txt all'avvio
-    FILE * pid_file = fopen(PID_FILE,"w");
-    FILE * wd_file = fopen(WD_LOG_PATH,"w");
-    fclose(pid_file);
-    fclose(wd_file);
-    
+    //Logger
+    log_file = fopen("log/main_log.text","w");
+
+    //Config
     Config config = {};
     if(!load_config(PARAM_PATH, &config))
     {
       logger(log_file, "Error loading configuration");
       return 1;
     }
+
+    //Game mode
+    NetworkMode mode = ask_network_mode();
+    // if(mode != MODE_STANDALONE)    set_network(&mode);
+    char mode_str[32];
+    sprintf(mode_str, "Mode: %s", 
+            mode == MODE_STANDALONE ? "STANDALONE" :
+            mode == MODE_SERVER ? "SERVER" : "CLIENT");
+    logger(log_file, mode_str);
+
+    //pulire il file pid.txt all'avvio
+    FILE * pid_file = fopen(PID_FILE,"w");
+    FILE * wd_file = fopen(WD_LOG_PATH,"w");
+    fclose(pid_file);
+    fclose(wd_file);
+    
+
+
     //PIPE
     //BLACK-WHINDOW
     int bw_pipe[2]; //prime lettura //seconda scrittura
@@ -85,39 +152,46 @@ int main(int arc, char ** argv) {
     int w_status, i_status, b_status, d_status, o_status, t_status, wd_status;
     pid_t w_pid, i_pid, b_pid, d_pid, o_pid, t_pid, wd_pid;
 
-    if((wd_pid = fork()) == 0){
-        //watchdog
-        close(bi_pipe[0]); close(bi_pipe[1]);
-        close(ib_pipe[0]); close(ib_pipe[1]);
-        close(bw_pipe[0]); close(bw_pipe[1]);
-        close(wb_pipe[0]); close(wb_pipe[1]);
-        close(bd_pipe[0]); close(bd_pipe[1]);
-        close(db_pipe[0]); close(db_pipe[1]);
-        close(bo_pipe[0]); close(bo_pipe[1]);
-        close(ob_pipe[0]); close(ob_pipe[1]);
-        close(bt_pipe[0]); close(bt_pipe[1]);
-        close(tb_pipe[0]); close(tb_pipe[1]);
+    
+    if(mode == MODE_STANDALONE ){
         
-        execlp("konsole", "konsole", "-e", "./watchdog", NULL);
-        perror("process failed");
-        exit(1);
+        if((wd_pid = fork()) == 0){
+            //watchdog
+            close(bi_pipe[0]); close(bi_pipe[1]);
+            close(ib_pipe[0]); close(ib_pipe[1]);
+            close(bw_pipe[0]); close(bw_pipe[1]);
+            close(wb_pipe[0]); close(wb_pipe[1]);
+            close(bd_pipe[0]); close(bd_pipe[1]);
+            close(db_pipe[0]); close(db_pipe[1]);
+            close(bo_pipe[0]); close(bo_pipe[1]);
+            close(ob_pipe[0]); close(ob_pipe[1]);
+            close(bt_pipe[0]); close(bt_pipe[1]);
+            close(tb_pipe[0]); close(tb_pipe[1]);
+        
+            execlp("konsole", "konsole", "-e", "./watchdog", NULL);
+            perror("process failed");
+            exit(1);
+        }
     }
     wd_pid = -1;
     FILE *f = NULL;
 
-    usleep(1000000); //to allow watchdog to store pid
-    f = fopen(WATCHDOG_FILE, "r");
-
-    if (!f) {
-        logger(log_file, "Watchdog PID file not found\n");
-        exit(1);
+    if(mode == MODE_STANDALONE)
+    {
+        usleep(1000000); //to allow watchdog to store pid
+        f = fopen(WATCHDOG_FILE, "r");
+        if (!f) {
+            logger(log_file, "Watchdog PID file not found\n");
+            exit(1);
+        }
+        fscanf(f, "%d", &wd_pid);
+        fclose(f);
+        char buf[40];
+        sprintf(buf, "REAL WATCHDOG PID = %d\n", wd_pid);
+        logger(log_file, buf);
     }
+    
 
-    fscanf(f, "%d", &wd_pid);
-    fclose(f);
-    char buf[40];
-    sprintf(buf, "REAL WATCHDOG PID = %d\n", wd_pid);
-    logger(log_file, buf);
 
     if((b_pid = fork() )== 0){
          //server-blackboard
@@ -146,6 +220,12 @@ int main(int arc, char ** argv) {
         char watchdog_pid_fd[16];
         sprintf(watchdog_pid_fd, "%d", wd_pid);
         setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+
+        if(mode != MODE_STANDALONE) {
+            char mode_env[16];
+            sprintf(mode_env, "%d", mode);
+            setenv("NETWORK_MODE", mode_env, 1);
+        }
 
         sprintf(read_input_fd, "%d", ib_pipe[0]);
         sprintf(read_window_fd, "%d", wb_pipe[0]);
@@ -264,63 +344,70 @@ int main(int arc, char ** argv) {
         exit(1);
 
     }
-    if((o_pid = fork()) == 0){
-        //OBS
-        close(bo_pipe[1]);
-        close(ob_pipe[0]);
-        close(bw_pipe[0]); close(bw_pipe[1]);
-        close(wb_pipe[0]); close(wb_pipe[1]);
-        close(bi_pipe[0]); close(bi_pipe[1]);
-        close(ib_pipe[0]); close(ib_pipe[1]);
-        close(bd_pipe[0]); close(bd_pipe[1]);
-        close(db_pipe[0]); close(db_pipe[1]);
-        close(bt_pipe[0]); close(bt_pipe[1]);
-        close(tb_pipe[0]); close(tb_pipe[1]);
+    
+    if(mode == MODE_STANDALONE){
+        if((o_pid = fork()) == 0){
+            //OBS
+            close(bo_pipe[1]);
+            close(ob_pipe[0]);
+            close(bw_pipe[0]); close(bw_pipe[1]);
+            close(wb_pipe[0]); close(wb_pipe[1]);
+            close(bi_pipe[0]); close(bi_pipe[1]);
+            close(ib_pipe[0]); close(ib_pipe[1]);
+            close(bd_pipe[0]); close(bd_pipe[1]);
+            close(db_pipe[0]); close(db_pipe[1]);
+            close(bt_pipe[0]); close(bt_pipe[1]);
+            close(tb_pipe[0]); close(tb_pipe[1]);
 
-        char write_fd[16];    
-        char read_fd[16];
-        sprintf(read_fd, "%d", bo_pipe[0]);
-        sprintf(write_fd, "%d", ob_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1); 
-        //watchdog
-        char watchdog_pid_fd[16];
-        sprintf(watchdog_pid_fd, "%d", wd_pid);
-        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+            char write_fd[16];    
+            char read_fd[16];
+            sprintf(read_fd, "%d", bo_pipe[0]);
+            sprintf(write_fd, "%d", ob_pipe[1]);
+            setenv("IN_FD", read_fd, 1);
+            setenv("OUT_FD", write_fd, 1); 
+            //watchdog
+            char watchdog_pid_fd[16];
+            sprintf(watchdog_pid_fd, "%d", wd_pid);
+            setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
-        execlp("./obs_gen", "./obs_gen", NULL);
+            execlp("./obs_gen", "./obs_gen", NULL);
 
-        perror("process failed");
-        exit(1);
+            perror("process failed");
+            exit(1);
+        }
+
     }
-    if((t_pid = fork()) == 0){
-        //TARGET
-        close(bt_pipe[1]);
-        close(tb_pipe[0]);
-        //chiusura pipe non utilizzate
-        close(bw_pipe[0]); close(bw_pipe[1]);
-        close(wb_pipe[0]); close(wb_pipe[1]);
-        close(bi_pipe[0]); close(bi_pipe[1]);
-        close(ib_pipe[0]); close(ib_pipe[1]);
-        close(bd_pipe[0]); close(bd_pipe[1]);
-        close(db_pipe[0]); close(db_pipe[1]);
-        close(bo_pipe[0]); close(bo_pipe[1]);
-        close(ob_pipe[0]); close(ob_pipe[1]);
+    if(mode == MODE_STANDALONE)
+    {
+        if((t_pid = fork()) == 0){
+            //TARGET
+            close(bt_pipe[1]);
+            close(tb_pipe[0]);
+            //chiusura pipe non utilizzate
+            close(bw_pipe[0]); close(bw_pipe[1]);
+            close(wb_pipe[0]); close(wb_pipe[1]);
+            close(bi_pipe[0]); close(bi_pipe[1]);
+            close(ib_pipe[0]); close(ib_pipe[1]);
+            close(bd_pipe[0]); close(bd_pipe[1]);
+            close(db_pipe[0]); close(db_pipe[1]);
+            close(bo_pipe[0]); close(bo_pipe[1]);
+            close(ob_pipe[0]); close(ob_pipe[1]);
 
-        char write_fd[16];    
-        char read_fd[16];
-        sprintf(read_fd, "%d", bt_pipe[0]);
-        sprintf(write_fd, "%d", tb_pipe[1]);
-        setenv("IN_FD", read_fd, 1);
-        setenv("OUT_FD", write_fd, 1); 
-        //watchdog
-        char watchdog_pid_fd[16];
-        sprintf(watchdog_pid_fd, "%d", wd_pid);
-        setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+            char write_fd[16];    
+            char read_fd[16];
+            sprintf(read_fd, "%d", bt_pipe[0]);
+            sprintf(write_fd, "%d", tb_pipe[1]);
+            setenv("IN_FD", read_fd, 1);
+            setenv("OUT_FD", write_fd, 1); 
+            //watchdog
+            char watchdog_pid_fd[16];
+            sprintf(watchdog_pid_fd, "%d", wd_pid);
+            setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
 
-        execlp("./tar_gen", "./tar_gen", NULL);
-        perror("process failed");
-        exit(1);
+            execlp("./tar_gen", "./tar_gen", NULL);
+            perror("process failed");
+            exit(1);
+        }
     }
     //chiusura tutte pipes nel padre
     close(bw_pipe[0]); close(bw_pipe[1]);
@@ -357,8 +444,14 @@ int main(int arc, char ** argv) {
     waitpid(i_pid, &i_status, 0);
     waitpid(w_pid, &w_status, 0);
 
+    //Remove files used
+    if(!remove(NETWORK_CONFIG_FILE)){
+        logger(log_file, "Errore rimozione file di configurazione di rete");
+    }
+
     logger(log_file, "All Processes Terminated Successfully");
     fclose(log_file);
+    
 
     return 0;
 

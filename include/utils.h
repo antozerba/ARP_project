@@ -5,6 +5,7 @@
 #define WD_LOG_PATH "log/watchdog_log_msg.txt"
 #define WATCHDOG_FILE "config/watchdog.txt"
 #define PID_FILE "config/pid.txt"
+#define NETWORK_CONFIG_FILE "config/network.txt"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -23,6 +24,8 @@ typedef struct Config
     float STEP_FORCE;
     float RHO;
     float ETA;
+    int server_port;
+    char server_ip[16];
 }Config;
 
 

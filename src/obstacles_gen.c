@@ -92,6 +92,10 @@ int main(int argc, char *argv[]) {
     time_t last_heartbeat = time(NULL);
     float heartbeat_interval = 1.5f; // ogni 1.5s
 
+    //Obs time
+    time_t last_gen_time = time(NULL);
+    const float gen_interval = 2.0f;
+
     int iteration = 0;
 
     while (running) {
@@ -109,17 +113,19 @@ int main(int argc, char *argv[]) {
             safe_logger(wd_log_file, buf);
         }
 
-        //Caso rezise
-        char buf[50];
-        sprintf(buf, "WINDOW SIZE: x:%d, y:%d", mapx, mapy);
-        logger(log_file, buf);
         size_t n = read(read_fd, &res, sizeof(ResizeMessage));
         if(n ==sizeof(ResizeMessage))
         {
-            logger(log_file, "ENTRO");
+            logger(log_file, "Resize Receive");
             mapx = res.x;
             mapy = res.y;
             obstacle_count = 0;
+        }
+
+        if(difftime(now, last_gen_time)>= gen_interval) {
+            last_gen_time = now;
+            obstacle_count --;
+            logger(log_file, "ENTRO");
         }
         //Creazione ostacolo
         if (obstacle_count < MAX_OBSTACLES ) {
@@ -137,7 +143,9 @@ int main(int argc, char *argv[]) {
                         msg.data.obstacle.x, msg.data.obstacle.y, obstacle_count);
                 logger(log_file, buf);
             }
+            last_gen_time = now;
         }
+
         
     }
     //chiusura fds

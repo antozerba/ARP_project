@@ -3,6 +3,8 @@
 
 #define MAX_OBS 10
 #define MAX_TAR 3
+#define NETWORK_PORT 5555
+#define NETWORK_BUFFER_SIZE 256
 
 typedef struct Drone
 {
@@ -34,9 +36,6 @@ typedef struct WorldState{
     int num_active_targets;
     int num_obstacles;
     int target_reached;
-    //int collisions;
-    //float elapsed_time;
-    //int paused;
     int mapx;
     int mapy;
 }WorldState;
@@ -84,12 +83,18 @@ typedef struct
     int y;
 }ResizeMessage;
 
-// typedef struct {
-//     Drone drone;
-//     Target targets[MAX_TAR];
-//     int num_targets;
-//     int targets_reached;
-// } PartialState;
+
+typedef enum {
+    MODE_STANDALONE,
+    MODE_SERVER,
+    MODE_CLIENT
+} NetworkMode;
+
+typedef struct {
+    NetworkMode mode;
+    char server_ip[64];
+    int serve_port;
+} NetworkConfig;
 
 
 #endif // __PROTOCOL_H__
