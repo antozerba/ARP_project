@@ -32,6 +32,7 @@ void draw_targets();
 volatile sig_atomic_t running = 1;
 FILE* log_file;
 FILE* wd_log_file;
+FILE * common_log;
 WorldState *state;
 WorldState *old_state;
 WINDOW *win;
@@ -59,6 +60,7 @@ int main(int argc, char **argv) {
     log_file = fopen("log/window_log.text","w");
     logger(log_file, "Window started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");

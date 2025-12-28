@@ -76,7 +76,6 @@ int main(int arc, char ** argv) {
 
     //Game mode
     NetworkMode mode = ask_network_mode();
-    // if(mode != MODE_STANDALONE)    set_network(&mode);
     char mode_str[32];
     sprintf(mode_str, "Mode: %s", 
             mode == MODE_STANDALONE ? "STANDALONE" :
@@ -86,6 +85,7 @@ int main(int arc, char ** argv) {
     //pulire il file pid.txt all'avvio
     FILE * pid_file = fopen(PID_FILE,"w");
     FILE * wd_file = fopen(WD_LOG_PATH,"w");
+    FILE * common_log = fopen(COMMON_LOG, "w");
     fclose(pid_file);
     fclose(wd_file);
     

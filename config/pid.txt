@@ -1,2 +1,6 @@
-server 8006
-dynamic 8009
+dynamic 14887
+server 14884
+tar_gen 14889
+obs_gen 14888
+window 14906
+input 14912

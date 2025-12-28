@@ -20,6 +20,7 @@
 
 FILE * log_file;
 FILE * wd_log_file;
+FILE * common_log;
 Config config = {};
 pid_t watchdog_pid = -1;
 int read_input_fd, write_input_fd;
@@ -30,26 +31,6 @@ int read_tar_fd, write_tar_fd;
 int network_socket = -1;
 NetworkMode network_mode = MODE_STANDALONE;
 
-// Leggi configurazione di rete
-void load_network_config(NetworkConfig *nc) {
-    FILE *f = fopen(NETWORK_CONFIG_FILE, "r");
-    if(!f) {
-        nc->mode = MODE_STANDALONE;
-        return;
-    }
-    
-    char line[256];
-    while(fgets(line, sizeof(line), f)) {
-        if(strncmp(line, "MODE=", 5) == 0) {
-            nc->mode = atoi(line + 5);
-        } else if(strncmp(line, "PORT=", 5) == 0) {
-            nc->serve_port = atoi(line + 5);
-        } else if(strncmp(line, "SERVER_IP=", 10) == 0) {
-            sscanf(line + 10, "%s", nc->server_ip);
-        }
-    }
-    fclose(f);
-}
 
 // Setup network socket
 int setup_network_socket(NetworkConfig *nc) {
@@ -206,7 +187,7 @@ void receive_obstacle_position(int sock, Obstacle *obs) {
     sprintf(buf, "pok %f %f\n", obs->x, obs->y);
     write(sock, buf, strlen(buf));
 }
-
+//initialize world state object with pos of drone form config
 void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
     state->drone.x = config.drone_x;
@@ -219,7 +200,7 @@ void init_world_state(WorldState * state){
     state->mapx = config.map_width;
     state->mapy = config.map_height;
 }
-
+//closing server
 void handle_quit(){
     //chiudo tutti i fds
     close(read_input_fd);
@@ -369,6 +350,7 @@ int main(int argc, char **argv){
     log_file = fopen("log/server_log.text","w");
     logger(log_file, "Server started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
 
     //PIPE from EN
@@ -416,21 +398,11 @@ int main(int argc, char **argv){
     NetworkConfig nc;
 
 
-    // //File method
-    // nc.serve_port = 5555;
-    // strcpy(nc.server_ip, "127.0.0.1"); 
-    // load_network_config(&nc); //da togliere, basta leggere da config
-    // network_mode = nc.mode;
-
     //Config method
     network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode;
     strcpy(nc.server_ip, config.server_ip);
     nc.serve_port = config.server_port;
     nc.mode = network_mode;
-    
-
-
-
     
 
     char buf[200];
@@ -711,7 +683,17 @@ int main(int argc, char **argv){
         if(send_dyn){
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(WorldState));
-        logger(log_file, "DRONE SENT TO DYNAMICS");
+
+        char log_buf[256];
+        // char *t = ctime(&now);
+        // t[strlen(t) - 1] = '\0';
+        // sprintf(log_buf, "<%s><%s><%s>", t, "server",  "WorldState sent to dynamic");
+        // safe_logger(common_log, log_buf);
+
+
+        logger(common_log, "<sever><WorldState sent to dynamic>");
+
+
         }
 
     }

@@ -22,6 +22,7 @@ void compute_repulsive_forces(WorldState *state, Config *config, float *frx, flo
 volatile sig_atomic_t running = 1;
 FILE * log_file;
 FILE * wd_log_file;
+FILE * common_log;
 pid_t watchdog_pid = -1;
 
 void termination_handler(int signum){
@@ -44,6 +45,7 @@ int main(int argc, char **argv){
     log_file = fopen("log/dynamic_log.text","w");
     logger(log_file, "Dynamic module started");
     wd_log_file= fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");
@@ -205,12 +207,20 @@ int main(int argc, char **argv){
         Message msg;
         msg.type = MSG_DRONE_UPDATE;
         msg.data.drone = state.drone;
-        char buffer_state[200];
         sprintf(buffer, "Updated DRONE STATE - x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
                 state.drone.x, state.drone.y, state.drone.vx, state.drone.vy, state.drone.fx, state.drone.fy);  
         logger(log_file, buffer);
         write(write_fd, &msg, sizeof(Message));
         logger(log_file, "Updated drone state sent to server");
+        
+        char log_buf[256];
+        char *t = ctime(&now);
+        t[strlen(t) - 1] = '\0';
+        sprintf(log_buf, "<%s><%s><%s>", t, "dynamic", buffer);
+        safe_logger(common_log, log_buf);
+        
+
+        
         usleep(config.DT*CLOCK_TICK);
 
     }

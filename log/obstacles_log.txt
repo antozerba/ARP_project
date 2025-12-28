@@ -1,143 +1,93 @@
 OBS Started
 OBSTACLE_GEN Started
-[OBSTACLE_GEN] Created obstacle at (41.3, 7.0) [Total: 1]
+[OBSTACLE_GEN] Created obstacle at (34.5, 21.1) [Total: 1]
 
-[OBSTACLE_GEN] Created obstacle at (31.5, 11.4) [Total: 2]
+[OBSTACLE_GEN] Created obstacle at (60.9, 7.8) [Total: 2]
 
-[OBSTACLE_GEN] Created obstacle at (31.4, 13.2) [Total: 3]
+[OBSTACLE_GEN] Created obstacle at (53.5, 8.4) [Total: 3]
 
-[OBSTACLE_GEN] Created obstacle at (61.7, 21.8) [Total: 4]
+[OBSTACLE_GEN] Created obstacle at (48.9, 17.9) [Total: 4]
 
-[OBSTACLE_GEN] Created obstacle at (29.7, 13.7) [Total: 5]
+[OBSTACLE_GEN] Created obstacle at (11.7, 19.1) [Total: 5]
 
-[OBSTACLE_GEN] Created obstacle at (23.9, 15.1) [Total: 6]
+[OBSTACLE_GEN] Created obstacle at (10.6, 15.8) [Total: 6]
 
-[OBSTACLE_GEN] Created obstacle at (31.2, 11.6) [Total: 7]
+[OBSTACLE_GEN] Created obstacle at (45.2, 26.9) [Total: 7]
 
-[OBSTACLE_GEN] Created obstacle at (13.4, 26.0) [Total: 8]
+[OBSTACLE_GEN] Created obstacle at (64.7, 19.8) [Total: 8]
 
-[OBSTACLE_GEN] Created obstacle at (41.0, 23.3) [Total: 9]
+[OBSTACLE_GEN] Created obstacle at (53.8, 17.5) [Total: 9]
 
-[OBSTACLE_GEN] Created obstacle at (17.6, 23.6) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (29.1, 14.7) [Total: 10]
 
 Resize Receive
-[OBSTACLE_GEN] Created obstacle at (80.9, 23.6) [Total: 1]
+[OBSTACLE_GEN] Created obstacle at (32.7, 30.1) [Total: 1]
 
-[OBSTACLE_GEN] Created obstacle at (49.9, 12.3) [Total: 2]
+[OBSTACLE_GEN] Created obstacle at (20.3, 15.7) [Total: 2]
 
-[OBSTACLE_GEN] Created obstacle at (89.1, 18.3) [Total: 3]
+[OBSTACLE_GEN] Created obstacle at (11.4, 24.6) [Total: 3]
 
-[OBSTACLE_GEN] Created obstacle at (31.5, 32.7) [Total: 4]
+[OBSTACLE_GEN] Created obstacle at (69.2, 14.8) [Total: 4]
 
-[OBSTACLE_GEN] Created obstacle at (75.6, 30.6) [Total: 5]
+[OBSTACLE_GEN] Created obstacle at (26.7, 14.5) [Total: 5]
 
-[OBSTACLE_GEN] Created obstacle at (11.2, 15.6) [Total: 6]
+[OBSTACLE_GEN] Created obstacle at (34.8, 23.4) [Total: 6]
 
-[OBSTACLE_GEN] Created obstacle at (90.5, 18.4) [Total: 7]
+[OBSTACLE_GEN] Created obstacle at (5.8, 10.5) [Total: 7]
 
-[OBSTACLE_GEN] Created obstacle at (59.6, 16.2) [Total: 8]
+[OBSTACLE_GEN] Created obstacle at (74.7, 24.7) [Total: 8]
 
-[OBSTACLE_GEN] Created obstacle at (74.4, 19.2) [Total: 9]
+[OBSTACLE_GEN] Created obstacle at (34.6, 17.9) [Total: 9]
 
-[OBSTACLE_GEN] Created obstacle at (11.2, 10.3) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (78.6, 15.2) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (28.2, 16.7) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (56.0, 12.2) [Total: 10]
-
+Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (59.0, 25.2) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (10.1, 14.3) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (13.3, 10.1) [Total: 10]
-
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (43.9, 13.1) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (80.0, 22.6) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (84.6, 14.4) [Total: 10]
-
+Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (87.2, 17.5) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (25.0, 25.8) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (56.2, 31.1) [Total: 10]
-
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (84.4, 30.3) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (28.0, 30.6) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (84.3, 25.8) [Total: 10]
-
+Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (75.3, 32.8) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (30.4, 21.7) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (15.5, 27.7) [Total: 10]
-
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (45.8, 26.2) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (36.6, 21.2) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (23.3, 12.9) [Total: 10]
-
+Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (27.7, 13.0) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (56.6, 19.4) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (45.4, 8.4) [Total: 10]
-
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (60.8, 6.7) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (8.0, 22.8) [Total: 10]
 
 Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (37.5, 12.7) [Total: 10]
-
+Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 ENTRO
-[OBSTACLE_GEN] Created obstacle at (72.5, 18.3) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (44.4, 11.6) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (70.7, 15.7) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (54.2, 25.2) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (76.4, 9.7) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (61.2, 26.1) [Total: 10]
-
-Heartbeat sent to watchdog
-ENTRO
-[OBSTACLE_GEN] Created obstacle at (11.1, 21.1) [Total: 10]
+[OBSTACLE_GEN] Created obstacle at (30.9, 25.5) [Total: 10]
 

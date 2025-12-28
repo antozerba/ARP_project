@@ -15,6 +15,7 @@
 static volatile sig_atomic_t running = 1;
 FILE *log_file;
 FILE * wd_log_file;
+FILE * common_log;
 pid_t watchdog_pid = -1;
 
 void termination_handler(int signum){
@@ -43,6 +44,7 @@ int main(int argc, char *argv[]) {
     log_file = fopen("log/targets_log.txt","w");
     logger(log_file, "Target Generator Started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");

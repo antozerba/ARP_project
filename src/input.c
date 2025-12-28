@@ -19,6 +19,7 @@ void termination_handler(int signum);
 
 FILE *log_file;
 FILE * wd_log_file;
+FILE * common_log;
 Config config;
 volatile sig_atomic_t running = 1;
 pid_t watchdog_pid = -1;
@@ -35,6 +36,7 @@ int main(int argc, char **argv) {
     log_file = fopen("log/input_log.text","w");
     logger(log_file, "Input started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
     
 
     //scrittura pid 
@@ -159,6 +161,12 @@ int main(int argc, char **argv) {
                 write(write_fd, &cmd, sizeof(InputCommand));   
                 sprintf(buffer, "Sent command of type %d with forces fx: %f, fy: %f", cmd.type, cmd.force_x, cmd.force_y);
                 logger(log_file, buffer);
+                char log_buf[256];
+                char *t = ctime(&now);
+                t[strlen(t) - 1] = '\0';
+                sprintf(log_buf, "<%s><%s><%s>", t, "input", buffer);
+                safe_logger(common_log, log_buf);
+                
             } else {
                 sprintf(buffer, "Unmapped key pressed: %d", ch);
                 logger(log_file, buffer);    
