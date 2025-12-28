@@ -19,10 +19,12 @@ void termination_handler(int signum);
 
 FILE *log_file;
 FILE * wd_log_file;
+FILE * common_log;
 Config config;
 volatile sig_atomic_t running = 1;
 pid_t watchdog_pid = -1;
 
+//singal to watchdog
 void send_heartbeat() {
     if(watchdog_pid > 0) {
         kill(watchdog_pid, SIGUSR1);
@@ -35,9 +37,10 @@ int main(int argc, char **argv) {
     log_file = fopen("log/input_log.text","w");
     logger(log_file, "Input started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
     
 
-    //scrittura pid 
+    //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE, "a");
     if(pid_file){
         //lock to avoid race condition
@@ -134,7 +137,7 @@ int main(int argc, char **argv) {
             safe_logger(wd_log_file, buf);
         }
         
-
+        //read form server
         size_t n = read(read_fd, &state, sizeof(WorldState));
         if(n== sizeof(WorldState)){
             pos_x = state.drone.x;
@@ -164,6 +167,7 @@ int main(int argc, char **argv) {
                 logger(log_file, buffer);    
             }
         }
+        //update win
         update_dynamics_win(dynamics_win, pos_x,pos_y, vel_x,vel_y, fx, fy, state.target_reached);
     }
     logger(log_file, "Input Process Terminated Successfully");

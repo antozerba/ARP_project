@@ -22,6 +22,7 @@ void compute_repulsive_forces(WorldState *state, Config *config, float *frx, flo
 volatile sig_atomic_t running = 1;
 FILE * log_file;
 FILE * wd_log_file;
+FILE * common_log;
 pid_t watchdog_pid = -1;
 
 void termination_handler(int signum){
@@ -30,6 +31,7 @@ void termination_handler(int signum){
     running =0;
     
 }
+//watchdog heartbeat
 void send_heartbeat(){
     if(watchdog_pid > 0){
         kill(watchdog_pid, SIGUSR1);
@@ -41,9 +43,11 @@ void send_heartbeat(){
 
 int main(int argc, char **argv){
 
+    //Logger
     log_file = fopen("log/dynamic_log.text","w");
     logger(log_file, "Dynamic module started");
     wd_log_file= fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");
@@ -56,6 +60,7 @@ int main(int argc, char **argv){
         fclose(pid_file);
     }
 
+    //Config
     Config config = {};
     if(!load_config(PARAM_PATH, &config))
     {
@@ -75,6 +80,7 @@ int main(int argc, char **argv){
     int flags = fcntl(read_fd, F_GETFL, 0);
     fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
 
+    //initailize world state
     WorldState state;
     memset(&state, 0, sizeof(WorldState));
     state.drone.x = config.drone_x;
@@ -82,6 +88,7 @@ int main(int argc, char **argv){
     state.mapx = config.map_width;
     state.mapy = config.map_height;
 
+    //sigaction for termination
     struct sigaction sa;
     sa.sa_handler = termination_handler;
     sigemptyset(&sa.sa_mask);
@@ -100,10 +107,12 @@ int main(int argc, char **argv){
     while(running){
         iteration +=1;
 
+        //signal to watchdog
         time_t now = time(NULL);
         if(difftime(now, last_hartbeat) >= heartbeat_interval) {
             send_heartbeat();
             last_hartbeat = now;
+            //logger in watchdog log
             char buf[100];
             char *t = ctime(&now);
             t[strlen(t) - 1] = '\0';
@@ -177,30 +186,26 @@ int main(int argc, char **argv){
             state.drone.x = MARGIN; 
             state.drone.vx = -state.drone.vx; 
             state.drone.fx = -state.drone.fx;
-            logger(log_file,"ENTRA");
         }
         if (state.drone.y < MARGIN) { 
             state.drone.y = MARGIN; 
             state.drone.vy = -state.drone.vy; 
             state.drone.fy = -state.drone.fy;
-            logger(log_file,"ENTRA");
         }
         if (state.drone.x > state.mapx- MARGIN) {
             state.drone.x = (float) state.mapx -MARGIN;
             state.drone.vx = -state.drone.vx; 
             state.drone.fx = -state.drone.fx;
-            logger(log_file,"ENTRA");
         }
         if (state.drone.y > state.mapy- MARGIN) {
             state.drone.y = (float) state.mapy -MARGIN;
             state.drone.vy = -state.drone.vy; 
             state.drone.fy = -state.drone.fy;
-            logger(log_file,"ENTRA");
         }
 
-        char buf[50];
-        sprintf(buf, "WINDOW SIZE: x:%d, y:%d", state.mapx, state.mapy);
-        logger(log_file, buf);
+        // char buf[50];
+        // sprintf(buf, "WINDOW SIZE: x:%d, y:%d", state.mapx, state.mapy);
+        // logger(log_file, buf);
 
         Message msg;
         msg.type = MSG_DRONE_UPDATE;
@@ -220,6 +225,7 @@ int main(int argc, char **argv){
     fclose(log_file);
     return 0;
 }
+//repulsive forces of obstacles on drone
 void compute_repulsive_forces(WorldState *state, Config *config, float *frx, float *fry) {
 
     float Px = 0.0f;

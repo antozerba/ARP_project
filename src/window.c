@@ -20,11 +20,8 @@
 
 void resize_win(WINDOW *win);
 WINDOW *create_newwin(int height, int width, int starty, int startx) ;
-// void delete_drone();
 void update_drone();
 void update_world();
-// void delete_world();
-// void delete_obstacles();
 void draw_obstacles();
 void clear_screen();
 void draw_targets();
@@ -32,6 +29,7 @@ void draw_targets();
 volatile sig_atomic_t running = 1;
 FILE* log_file;
 FILE* wd_log_file;
+FILE* common_log;
 WorldState *state;
 WorldState *old_state;
 WINDOW *win;
@@ -59,6 +57,7 @@ int main(int argc, char **argv) {
     log_file = fopen("log/window_log.text","w");
     logger(log_file, "Window started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");
@@ -240,30 +239,6 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
     return local_win;
 }
 
-
-//Commentato perche adesso uso clear_screen
-
-// void delete_world(){
-//     //clear_screen(); vediamo dopo se va
-//     delete_drone();
-//     delete_obstacles();
-// }
-
-//VERSIONE NON BLOCK
-// void delete_drone() {
-//     int term_y = old_state->drone.y/RATIO;
-//     mvwaddch(win, term_y, old_state->drone.x, ' ');
-    
-// }
-// void delete_obstacles(){
-//     int n_obs = sizeof(old_state->obstacles) / sizeof(old_state->obstacles[0]);
-//     for(int i=0; i < n_obs; i++){
-//          if (old_state->obstacles[i].active) {
-//             int term_y = old_state->obstacles[i].y/RATIO;
-//             mvwaddch(win, term_y, old_state->obstacles[i].x, ' ');
-//         }
-//     }
-// }
 
 void update_drone() {
     int term_y = state->drone.y/RATIO;

@@ -20,6 +20,7 @@
 
 FILE * log_file;
 FILE * wd_log_file;
+FILE * common_log;
 Config config = {};
 pid_t watchdog_pid = -1;
 int read_input_fd, write_input_fd;
@@ -30,26 +31,6 @@ int read_tar_fd, write_tar_fd;
 int network_socket = -1;
 NetworkMode network_mode = MODE_STANDALONE;
 
-// Leggi configurazione di rete
-void load_network_config(NetworkConfig *nc) {
-    FILE *f = fopen(NETWORK_CONFIG_FILE, "r");
-    if(!f) {
-        nc->mode = MODE_STANDALONE;
-        return;
-    }
-    
-    char line[256];
-    while(fgets(line, sizeof(line), f)) {
-        if(strncmp(line, "MODE=", 5) == 0) {
-            nc->mode = atoi(line + 5);
-        } else if(strncmp(line, "PORT=", 5) == 0) {
-            nc->serve_port = atoi(line + 5);
-        } else if(strncmp(line, "SERVER_IP=", 10) == 0) {
-            sscanf(line + 10, "%s", nc->server_ip);
-        }
-    }
-    fclose(f);
-}
 
 // Setup network socket
 int setup_network_socket(NetworkConfig *nc) {
@@ -73,6 +54,7 @@ int setup_network_socket(NetworkConfig *nc) {
         addr.sin_addr.s_addr = INADDR_ANY; //tutti i client sia locali che remoti possono connettersi
         addr.sin_port = htons(nc->serve_port);
         
+        //bind
         if(bind(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
             perror("bind");
             close(sock);
@@ -80,15 +62,17 @@ int setup_network_socket(NetworkConfig *nc) {
             return -1;
         }
         
+        //listen
         if(listen(sock, 1) < 0) {
             perror("listen");
             close(sock);
             logger(log_file, "Failed to listen on socket");
             return -1;
         }
-        
+        //wait for connection
         logger(log_file, "Server waiting for connection...");
         
+        //connection reached
         int client_sock = accept(sock, NULL, NULL);
         if(client_sock < 0) {
             perror("accept");
@@ -101,7 +85,6 @@ int setup_network_socket(NetworkConfig *nc) {
         logger(log_file, "Client connected!");
 
         //FARLO SUL SELECT
-        
         // // Protocollo: invia "ok"
         // write(client_sock, "ok\n", 3);
         
@@ -135,6 +118,7 @@ int setup_network_socket(NetworkConfig *nc) {
         
         logger(log_file, "Connecting to server...");
         
+        //connect
         if(connect(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
             perror("connect");
             close(sock);
@@ -172,7 +156,7 @@ int setup_network_socket(NetworkConfig *nc) {
     
     return -1;
 }
-
+//TODO: gestire
 void send_drone_position(int sock, float x, float y) {
     if(sock < 0) return;
     
@@ -185,6 +169,7 @@ void send_drone_position(int sock, float x, float y) {
     read(sock, ack, sizeof(ack));
 }
 
+//TODO: gestire
 void receive_obstacle_position(int sock, Obstacle *obs) {
     if(sock < 0) return;
     
@@ -206,7 +191,7 @@ void receive_obstacle_position(int sock, Obstacle *obs) {
     sprintf(buf, "pok %f %f\n", obs->x, obs->y);
     write(sock, buf, strlen(buf));
 }
-
+//initialize world state object with pos of drone form config
 void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
     state->drone.x = config.drone_x;
@@ -220,6 +205,7 @@ void init_world_state(WorldState * state){
     state->mapy = config.map_height;
 }
 
+//closing server
 void handle_quit(){
     //chiudo tutti i fds
     close(read_input_fd);
@@ -238,6 +224,7 @@ void handle_quit(){
     exit(0);
 
 }
+//method to make object disappeer on the screen
 void replace_obs(WorldState * state, const Obstacle * obs){
     int finding = 1;
     while(finding){
@@ -250,6 +237,7 @@ void replace_obs(WorldState * state, const Obstacle * obs){
     
 }
 
+//handling commands
 void handle_input_command(WorldState *state, InputCommand *cmd) {
     switch(cmd->type) {
         case CMD_BRAKE:
@@ -319,7 +307,7 @@ void handle_message(WorldState *state, Message *msg) {
             break;
     }
 }
-
+//target check
 void checking_target(WorldState * state){
     int drone_x = state->drone.x;
     int drone_y = state->drone.y;
@@ -336,6 +324,7 @@ void checking_target(WorldState * state){
     }
 
 }
+//obstacles check
 void checking_obs(WorldState * state){
     int drone_x = state->drone.x;
     int drone_y = state->drone.y;
@@ -356,6 +345,7 @@ void checking_collisions(WorldState *state){
     checking_target(state);
 }
 
+//signal to watchdog
 void send_heartbeat(){
     if(watchdog_pid > 0){
         kill(watchdog_pid, SIGUSR1);
@@ -369,6 +359,7 @@ int main(int argc, char **argv){
     log_file = fopen("log/server_log.text","w");
     logger(log_file, "Server started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
 
     //PIPE from EN
@@ -415,23 +406,11 @@ int main(int argc, char **argv){
     // Carica configurazione di rete
     NetworkConfig nc;
 
-
-    // //File method
-    // nc.serve_port = 5555;
-    // strcpy(nc.server_ip, "127.0.0.1"); 
-    // load_network_config(&nc); //da togliere, basta leggere da config
-    // network_mode = nc.mode;
-
-    //Config method
+    //Get mode fron env
     network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode;
     strcpy(nc.server_ip, config.server_ip);
     nc.serve_port = config.server_port;
     nc.mode = network_mode;
-    
-
-
-
-    
 
     char buf[200];
     sprintf(buf, "NETWORK: %s, serverip: %s, serve_port : %d",
@@ -508,6 +487,7 @@ int main(int argc, char **argv){
             return 1;
         }
 
+        //Read from input
         if(FD_ISSET(read_input_fd, &read_fds)){
             logger(log_file, "Reading InputCommand from input...");
             InputCommand cmd;

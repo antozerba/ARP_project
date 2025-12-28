@@ -12,6 +12,7 @@
 static volatile sig_atomic_t running = 1;
 FILE  * log_file;
 FILE * wd_log_file;
+FILE * common_log;
 pid_t watchdog_pid = -1;
 
 
@@ -19,12 +20,14 @@ float random_float(float min, float max) {
     return min + (float)rand() / RAND_MAX * (max - min);
 }
 
+//terminaiton handler
 void termination_handler(int signum)
 {
     logger(log_file, "Obstacles Generator Terminted");
     running =0;
 }
 
+//singal to watchdog
 void send_heartbeat() {
     if(watchdog_pid > 0) {
         kill(watchdog_pid, SIGUSR1);
@@ -38,6 +41,7 @@ int main(int argc, char *argv[]) {
     log_file = fopen("log/obstacles_log.txt", "w");
     logger(log_file, "OBS Started");
     wd_log_file = fopen(WD_LOG_PATH, "a");
+    common_log = fopen(COMMON_LOG, "a");
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");
@@ -113,6 +117,7 @@ int main(int argc, char *argv[]) {
             safe_logger(wd_log_file, buf);
         }
 
+        //check resize
         size_t n = read(read_fd, &res, sizeof(ResizeMessage));
         if(n ==sizeof(ResizeMessage))
         {
@@ -122,10 +127,10 @@ int main(int argc, char *argv[]) {
             obstacle_count = 0;
         }
 
+        //Generating obstacles every gen_interval seconds
         if(difftime(now, last_gen_time)>= gen_interval) {
             last_gen_time = now;
             obstacle_count --;
-            logger(log_file, "ENTRO");
         }
         //Creazione ostacolo
         if (obstacle_count < MAX_OBSTACLES ) {

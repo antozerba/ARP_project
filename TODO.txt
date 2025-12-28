@@ -1,0 +1,6 @@
+- gestione cmd PAUSE and RESET
+- comments
+- readme
+- repulsion
+- client-server
+- logger in file comune

@@ -11,6 +11,7 @@
 #define MAX_PROCESSES 6
 #define TIMEOUT_MULTIPLIER 3  // Timeout = T * 3
 
+//struct containing process info
 typedef struct {
     char name[32];
     pid_t pid;
@@ -55,6 +56,7 @@ void signal_handler(int signo, siginfo_t *info, void *context) {
     logger(log_file, log_buf);
 }
 
+//Load process to check
 void register_process(const char *name, pid_t pid) {
     if(num_processes >= MAX_PROCESSES) {
         fprintf(stderr, "Too many processes!\n");
@@ -75,6 +77,7 @@ void register_process(const char *name, pid_t pid) {
     num_processes++;
 }
 
+//Checking processes status
 void check_processes() {
     logger(log_file, "ARRIVO 2");
     time_t now = time(NULL);
@@ -103,6 +106,7 @@ void check_processes() {
     }
 }
 
+//update window status
 void update_status_window() {
     werase(status_win);
     box(status_win, 0, 0);
@@ -147,7 +151,7 @@ void update_status_window() {
 
 int main(int argc, char **argv) {
 
-    //scrittura pid
+    //writing pid on file watchdog.txt so that server can read it and pass it to processes
     FILE * wd_pid  = fopen(WATCHDOG_FILE, "w");
     if(wd_pid){
         fprintf(wd_pid, "%d\n", getpid());
@@ -155,6 +159,7 @@ int main(int argc, char **argv) {
         fclose(wd_pid);
     }   
 
+    //Logger
     log_file = fopen("log/watchdog_log.txt", "w");
     logger(log_file, "Watchdog started");
     

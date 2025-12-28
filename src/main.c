@@ -83,11 +83,15 @@ int main(int arc, char ** argv) {
             mode == MODE_SERVER ? "SERVER" : "CLIENT");
     logger(log_file, mode_str);
 
-    //pulire il file pid.txt all'avvio
+    //pulire il file all'avvio
     FILE * pid_file = fopen(PID_FILE,"w");
     FILE * wd_file = fopen(WD_LOG_PATH,"w");
+    FILE * common_log = fopen(COMMON_LOG, "w"); 
+    fclose(pid_file);
+    fclose(pid_file);
     fclose(pid_file);
     fclose(wd_file);
+    
     
 
 

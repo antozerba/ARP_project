@@ -1,148 +1,368 @@
 Watchdog started
-[1766852090] Signal received from unknown process (PID 6354)
-Registered process: dynamic (PID 6354)
-Registered process: server (PID 6351)
-Registered process: input (PID 6371)
-Registered process: window (PID 6377)
-Ncurses window created at (13,11) size 70x15
-Watchdog monitoring 4 processes with poll interval 2.0s
-[1766852091] Signal received from input (PID 6371) - count: 1
+[1766946534] Signal received from unknown process (PID 3150)
+Registered process: server (PID 3145)
+Registered process: server (PID 3145)
+[1766946534] Signal received from unknown process (PID 3148)
+Registered process: obs_gen (PID 3149)
+Registered process: dynamic (PID 3148)
+Registered process: tar_gen (PID 3150)
+Registered process: window (PID 3168)
+Registered process: input (PID 3174)
+Registered process: input (PID 3174)
+[1766946534] Signal received from server (PID 3145) - count: 1
+Ncurses window created at (18,12) size 70x15
+Watchdog monitoring 6 processes with poll interval 2.0s
+[1766946535] Signal received from input (PID 3174) - count: 1
+[1766946535] Signal received from window (PID 3168) - count: 1
+[1766946536] Signal received from obs_gen (PID 3149) - count: 1
 ARRIVO 2
 OK Process
 OK Process
 OK Process
 OK Process
-[1766852092] Signal received from dynamic (PID 6354) - count: 1
-[1766852093] Signal received from input (PID 6371) - count: 2
+OK Process
+OK Process
+[1766946536] Signal received from tar_gen (PID 3150) - count: 1
+[1766946536] Signal received from dynamic (PID 3148) - count: 1
+[1766946536] Signal received from server (PID 3145) - count: 2
+[1766946537] Signal received from window (PID 3168) - count: 2
+[1766946538] Signal received from obs_gen (PID 3149) - count: 2
 ARRIVO 2
 OK Process
 OK Process
 OK Process
 OK Process
-[1766852094] Signal received from dynamic (PID 6354) - count: 2
-[1766852095] Signal received from input (PID 6371) - count: 3
+OK Process
+OK Process
+[1766946538] Signal received from dynamic (PID 3148) - count: 2
+[1766946538] Signal received from server (PID 3145) - count: 3
+[1766946539] Signal received from input (PID 3174) - count: 2
+[1766946539] Signal received from window (PID 3168) - count: 3
+[1766946540] Signal received from tar_gen (PID 3150) - count: 2
+[1766946540] Signal received from dynamic (PID 3148) - count: 3
 ARRIVO 2
 OK Process
 OK Process
 OK Process
 OK Process
-[1766852096] Signal received from dynamic (PID 6354) - count: 3
-[1766852097] Signal received from input (PID 6371) - count: 4
+OK Process
+OK Process
+[1766946541] Signal received from input (PID 3174) - count: 3
+[1766946542] Signal received from tar_gen (PID 3150) - count: 3
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 8 seconds ago
 OK Process
 OK Process
-[1766852098] Signal received from dynamic (PID 6354) - count: 4
-ALERT: Process window (PID 6377) not responding! Last signal 8 seconds ago
-[1766852099] Signal received from input (PID 6371) - count: 5
-[1766852100] Signal received from dynamic (PID 6354) - count: 5
+OK Process
+OK Process
+OK Process
+[1766946542] Signal received from dynamic (PID 3148) - count: 4
+[1766946542] Signal received from server (PID 3145) - count: 4
+[1766946543] Signal received from input (PID 3174) - count: 4
+[1766946543] Signal received from window (PID 3168) - count: 4
+[1766946544] Signal received from obs_gen (PID 3149) - count: 3
+ARRIVO 2
+ARRIVO 2
+[1766946544] Signal received from tar_gen (PID 3150) - count: 4
+OK Process
+OK Process
+[1766946544] Signal received from server (PID 3145) - count: 5
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946544] Signal received from dynamic (PID 3148) - count: 5
+[1766946545] Signal received from input (PID 3174) - count: 5
+[1766946545] Signal received from window (PID 3168) - count: 5
+[1766946546] Signal received from obs_gen (PID 3149) - count: 4
+[1766946546] Signal received from dynamic (PID 3148) - count: 6
+ARRIVO 2
+ARRIVO 2
+[1766946546] Signal received from tar_gen (PID 3150) - count: 5
+OK Process
+OK Process
+OK Process
+[1766946546] Signal received from server (PID 3145) - count: 6
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946547] Signal received from input (PID 3174) - count: 6
+[1766946548] Signal received from obs_gen (PID 3149) - count: 5
+[1766946548] Signal received from tar_gen (PID 3150) - count: 6
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 10 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 10 seconds ago
-[1766852101] Signal received from input (PID 6371) - count: 6
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946548] Signal received from dynamic (PID 3148) - count: 7
+[1766946548] Signal received from server (PID 3145) - count: 7
+[1766946549] Signal received from input (PID 3174) - count: 7
+[1766946550] Signal received from obs_gen (PID 3149) - count: 6
+[1766946550] Signal received from server (PID 3145) - count: 8
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 12 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 12 seconds ago
-[1766852102] Signal received from dynamic (PID 6354) - count: 6
-[1766852103] Signal received from input (PID 6371) - count: 7
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946550] Signal received from dynamic (PID 3148) - count: 8
+[1766946551] Signal received from input (PID 3174) - count: 8
+[1766946551] Signal received from window (PID 3168) - count: 6
+[1766946552] Signal received from obs_gen (PID 3149) - count: 7
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 14 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 14 seconds ago
-[1766852104] Signal received from dynamic (PID 6354) - count: 7
-[1766852105] Signal received from input (PID 6371) - count: 8
-[1766852106] Signal received from dynamic (PID 6354) - count: 8
+[1766946552] Signal received from tar_gen (PID 3150) - count: 7
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946552] Signal received from dynamic (PID 3148) - count: 9
+[1766946552] Signal received from server (PID 3145) - count: 9
+[1766946553] Signal received from input (PID 3174) - count: 9
+[1766946553] Signal received from window (PID 3168) - count: 7
+[1766946554] Signal received from obs_gen (PID 3149) - count: 8
+[1766946554] Signal received from tar_gen (PID 3150) - count: 8
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 16 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 16 seconds ago
-[1766852107] Signal received from input (PID 6371) - count: 9
-[1766852108] Signal received from dynamic (PID 6354) - count: 9
+OK Process
+OK Process
+[1766946554] Signal received from dynamic (PID 3148) - count: 10
+OK Process
+OK Process
+OK Process
+[1766946554] Signal received from server (PID 3145) - count: 10
+[1766946555] Signal received from input (PID 3174) - count: 10
+[1766946556] Signal received from obs_gen (PID 3149) - count: 9
+ARRIVO 2
+ARRIVO 2
+[1766946556] Signal received from server (PID 3145) - count: 11
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946556] Signal received from dynamic (PID 3148) - count: 11
+[1766946557] Signal received from input (PID 3174) - count: 11
+[1766946557] Signal received from window (PID 3168) - count: 8
+[1766946558] Signal received from tar_gen (PID 3150) - count: 9
+[1766946558] Signal received from obs_gen (PID 3149) - count: 10
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 18 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 18 seconds ago
-[1766852109] Signal received from input (PID 6371) - count: 10
-[1766852110] Signal received from dynamic (PID 6354) - count: 10
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946558] Signal received from dynamic (PID 3148) - count: 12
+[1766946558] Signal received from server (PID 3145) - count: 12
+[1766946559] Signal received from input (PID 3174) - count: 12
+[1766946559] Signal received from window (PID 3168) - count: 9
+[1766946560] Signal received from tar_gen (PID 3150) - count: 10
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 20 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 20 seconds ago
-[1766852111] Signal received from input (PID 6371) - count: 11
-[1766852112] Signal received from dynamic (PID 6354) - count: 11
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946560] Signal received from dynamic (PID 3148) - count: 13
+[1766946560] Signal received from server (PID 3145) - count: 13
+[1766946561] Signal received from input (PID 3174) - count: 13
+[1766946561] Signal received from window (PID 3168) - count: 10
+[1766946562] Signal received from obs_gen (PID 3149) - count: 11
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 22 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 22 seconds ago
-[1766852113] Signal received from input (PID 6371) - count: 12
-[1766852114] Signal received from dynamic (PID 6354) - count: 12
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946562] Signal received from dynamic (PID 3148) - count: 14
+[1766946562] Signal received from server (PID 3145) - count: 14
+[1766946563] Signal received from input (PID 3174) - count: 14
+[1766946563] Signal received from window (PID 3168) - count: 11
+[1766946564] Signal received from obs_gen (PID 3149) - count: 12
+[1766946564] Signal received from tar_gen (PID 3150) - count: 11
+[1766946564] Signal received from server (PID 3145) - count: 15
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 24 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 24 seconds ago
-[1766852115] Signal received from input (PID 6371) - count: 13
-[1766852116] Signal received from dynamic (PID 6354) - count: 13
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946564] Signal received from dynamic (PID 3148) - count: 15
+[1766946565] Signal received from window (PID 3168) - count: 12
+[1766946566] Signal received from tar_gen (PID 3150) - count: 12
+[1766946566] Signal received from obs_gen (PID 3149) - count: 13
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 26 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 26 seconds ago
-[1766852117] Signal received from input (PID 6371) - count: 14
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946566] Signal received from dynamic (PID 3148) - count: 16
+[1766946566] Signal received from server (PID 3145) - count: 16
+[1766946567] Signal received from window (PID 3168) - count: 13
+[1766946567] Signal received from input (PID 3174) - count: 15
+[1766946568] Signal received from tar_gen (PID 3150) - count: 13
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 28 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 28 seconds ago
-[1766852118] Signal received from dynamic (PID 6354) - count: 14
-[1766852119] Signal received from input (PID 6371) - count: 15
+OK Process
+OK Process
+[1766946568] Signal received from dynamic (PID 3148) - count: 17
+[1766946568] Signal received from server (PID 3145) - count: 17
+OK Process
+OK Process
+OK Process
+[1766946569] Signal received from input (PID 3174) - count: 16
+[1766946569] Signal received from window (PID 3168) - count: 14
+[1766946570] Signal received from tar_gen (PID 3150) - count: 14
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 30 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 30 seconds ago
-[1766852120] Signal received from dynamic (PID 6354) - count: 15
-[1766852121] Signal received from input (PID 6371) - count: 16
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946570] Signal received from dynamic (PID 3148) - count: 18
+[1766946570] Signal received from server (PID 3145) - count: 18
+[1766946571] Signal received from input (PID 3174) - count: 17
+[1766946571] Signal received from window (PID 3168) - count: 15
+[1766946572] Signal received from tar_gen (PID 3150) - count: 15
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 32 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 32 seconds ago
-[1766852122] Signal received from dynamic (PID 6354) - count: 16
-[1766852123] Signal received from input (PID 6371) - count: 17
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946572] Signal received from dynamic (PID 3148) - count: 19
+[1766946572] Signal received from server (PID 3145) - count: 19
+[1766946573] Signal received from input (PID 3174) - count: 18
+[1766946573] Signal received from window (PID 3168) - count: 16
+[1766946574] Signal received from tar_gen (PID 3150) - count: 16
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 34 seconds ago
+ALERT: Process obs_gen (PID 3149) not responding! Last signal 8 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 34 seconds ago
-[1766852124] Signal received from dynamic (PID 6354) - count: 17
-[1766852125] Signal received from input (PID 6371) - count: 18
+OK Process
+OK Process
+OK Process
+[1766946574] Signal received from dynamic (PID 3148) - count: 20
+[1766946574] Signal received from server (PID 3145) - count: 20
+[1766946575] Signal received from input (PID 3174) - count: 19
+[1766946575] Signal received from window (PID 3168) - count: 17
+[1766946576] Signal received from obs_gen (PID 3149) - count: 14
+[1766946576] Signal received from tar_gen (PID 3150) - count: 17
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 36 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 36 seconds ago
-[1766852126] Signal received from dynamic (PID 6354) - count: 18
-[1766852127] Signal received from input (PID 6371) - count: 19
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946576] Signal received from dynamic (PID 3148) - count: 21
+[1766946577] Signal received from input (PID 3174) - count: 20
+[1766946577] Signal received from window (PID 3168) - count: 18
+[1766946578] Signal received from obs_gen (PID 3149) - count: 15
+[1766946578] Signal received from tar_gen (PID 3150) - count: 18
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 38 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 38 seconds ago
-[1766852129] Signal received from input (PID 6371) - count: 20
+[1766946578] Signal received from server (PID 3145) - count: 21
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946578] Signal received from dynamic (PID 3148) - count: 22
+[1766946579] Signal received from input (PID 3174) - count: 21
+[1766946579] Signal received from window (PID 3168) - count: 19
+[1766946580] Signal received from tar_gen (PID 3150) - count: 19
 ARRIVO 2
 OK Process
-ALERT: Process server (PID 6351) not responding! Last signal 40 seconds ago
 OK Process
-ALERT: Process window (PID 6377) not responding! Last signal 40 seconds ago
-[1766852131] Signal received from input (PID 6371) - count: 21
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946580] Signal received from dynamic (PID 3148) - count: 23
+[1766946580] Signal received from server (PID 3145) - count: 22
+[1766946581] Signal received from input (PID 3174) - count: 22
+[1766946581] Signal received from window (PID 3168) - count: 20
+[1766946582] Signal received from tar_gen (PID 3150) - count: 20
+[1766946582] Signal received from obs_gen (PID 3149) - count: 16
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946582] Signal received from dynamic (PID 3148) - count: 24
+[1766946582] Signal received from server (PID 3145) - count: 23
+[1766946583] Signal received from input (PID 3174) - count: 23
+[1766946583] Signal received from window (PID 3168) - count: 21
+[1766946584] Signal received from tar_gen (PID 3150) - count: 21
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946584] Signal received from dynamic (PID 3148) - count: 25
+[1766946584] Signal received from server (PID 3145) - count: 24
+[1766946585] Signal received from input (PID 3174) - count: 24
+[1766946585] Signal received from window (PID 3168) - count: 22
+[1766946586] Signal received from tar_gen (PID 3150) - count: 22
+[1766946586] Signal received from obs_gen (PID 3149) - count: 17
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946586] Signal received from dynamic (PID 3148) - count: 26
+[1766946586] Signal received from server (PID 3145) - count: 25
+[1766946587] Signal received from input (PID 3174) - count: 25
+[1766946587] Signal received from window (PID 3168) - count: 23
+[1766946588] Signal received from obs_gen (PID 3149) - count: 18
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946588] Signal received from dynamic (PID 3148) - count: 27
+[1766946588] Signal received from server (PID 3145) - count: 26
+[1766946589] Signal received from input (PID 3174) - count: 26
+[1766946589] Signal received from window (PID 3168) - count: 24
+[1766946590] Signal received from tar_gen (PID 3150) - count: 23
+ARRIVO 2
+OK Process
+OK Process
+[1766946590] Signal received from dynamic (PID 3148) - count: 28
+OK Process
+OK Process
+OK Process
+OK Process
+[1766946590] Signal received from server (PID 3145) - count: 27
+OK Process
+OK Process
+[1766946590] Signal received from obs_gen (PID 3149) - count: 19
