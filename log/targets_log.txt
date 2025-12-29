@@ -1,16 +1,10 @@
 Target Generator Started
-[TARGET_GEN] Created target at (43.4, 23.1) [Total: 1]
-
-[TARGET_GEN] Created target at (40.9, 24.7) [Total: 2]
-
-[TARGET_GEN] Created target at (24.9, 27.7) [Total: 3]
-
-[TARGET_GEN] Created target at (73.7, 23.6) [Total: 1]
-
-[TARGET_GEN] Created target at (72.1, 17.3) [Total: 2]
-
-[TARGET_GEN] Created target at (53.2, 24.7) [Total: 3]
-
+Created target at (38.3, 19.8) [Total: 1]
+Created target at (49.8, 21.0) [Total: 2]
+Created target at (22.9, 27.4) [Total: 3]
+Created target at (48.4, 7.9) [Total: 1]
+Created target at (14.1, 18.2) [Total: 2]
+Created target at (57.6, 8.9) [Total: 3]
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
@@ -21,16 +15,5 @@ Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
-Heartbeat sent to watchdog
+Target Generator Terminated
+Target Generator Terminated

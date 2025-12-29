@@ -139,9 +139,14 @@ int main(int argc, char *argv[]) {
             if (written == sizeof(Message)) {
                 target_count++;
                 char buf[256];
-                sprintf(buf, "[TARGET_GEN] Created target at (%.1f, %.1f) [Total: %d]\n",
+                sprintf(buf, "Created target at (%.1f, %.1f) [Total: %d]",
                         msg.data.target.x, msg.data.target.y, target_count);
                 logger(log_file, buf);
+                char log_buf[300];
+                char *t = ctime(&now);
+                t[strlen(t) - 1] = '\0';
+                sprintf(log_buf, "<%s><%s><%s>", t, "TAR_GEN", buf);
+                safe_logger(common_log, log_buf);
             }
         }
         

@@ -1,20 +1,18 @@
 Watchdog started
-[1766960441] Signal received from unknown process (PID 14888)
-Registered process: dynamic (PID 14887)
-Registered process: server (PID 14884)
-Registered process: tar_gen (PID 14889)
-Registered process: obs_gen (PID 14888)
-Registered process: window (PID 14906)
-Registered process: input (PID 14912)
-Ncurses window created at (12,10) size 70x15
+[1766998072] Signal received from unknown process (PID 4353)
+Registered process: server (PID 4353)
+Registered process: obs_gen (PID 4357)
+Registered process: dynamic (PID 4356)
+Registered process: tar_gen (PID 4358)
+Registered process: input (PID 4379)
+Registered process: window (PID 4381)
+Ncurses window created at (10,4) size 70x15
 Watchdog monitoring 6 processes with poll interval 2.0s
-[1766960441] Signal received from server (PID 14884) - count: 1
-[1766960441] Signal received from dynamic (PID 14887) - count: 1
-[1766960442] Signal received from input (PID 14912) - count: 1
-[1766960442] Signal received from window (PID 14906) - count: 1
-[1766960443] Signal received from obs_gen (PID 14888) - count: 1
-[1766960443] Signal received from dynamic (PID 14887) - count: 2
-[1766960443] Signal received from server (PID 14884) - count: 2
+[1766998072] Signal received from dynamic (PID 4356) - count: 1
+[1766998073] Signal received from input (PID 4379) - count: 1
+[1766998073] Signal received from tar_gen (PID 4358) - count: 1
+[1766998073] Signal received from window (PID 4381) - count: 1
+[1766998074] Signal received from obs_gen (PID 4357) - count: 1
 ARRIVO 2
 OK Process
 OK Process
@@ -22,23 +20,12 @@ OK Process
 OK Process
 OK Process
 OK Process
-[1766960444] Signal received from input (PID 14912) - count: 2
-[1766960444] Signal received from window (PID 14906) - count: 2
-[1766960445] Signal received from tar_gen (PID 14889) - count: 1
-ARRIVO 2
-OK Process
-OK Process
-[1766960445] Signal received from dynamic (PID 14887) - count: 3
-[1766960445] Signal received from server (PID 14884) - count: 3
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960446] Signal received from input (PID 14912) - count: 3
-[1766960446] Signal received from window (PID 14906) - count: 3
-[1766960447] Signal received from obs_gen (PID 14888) - count: 2
-[1766960447] Signal received from tar_gen (PID 14889) - count: 2
+[1766998074] Signal received from dynamic (PID 4356) - count: 2
+[1766998074] Signal received from server (PID 4353) - count: 1
+[1766998075] Signal received from input (PID 4379) - count: 2
+[1766998075] Signal received from window (PID 4381) - count: 2
+[1766998075] Signal received from tar_gen (PID 4358) - count: 2
+[1766998076] Signal received from obs_gen (PID 4357) - count: 2
 ARRIVO 2
 OK Process
 OK Process
@@ -46,9 +33,26 @@ OK Process
 OK Process
 OK Process
 OK Process
-[1766960447] Signal received from server (PID 14884) - count: 4
-[1766960448] Signal received from window (PID 14906) - count: 4
-[1766960449] Signal received from obs_gen (PID 14888) - count: 3
+[1766998076] Signal received from dynamic (PID 4356) - count: 3
+OK Process
+OK Process
+[1766998076] Signal received from server (PID 4353) - count: 2
+[1766998077] Signal received from tar_gen (PID 4358) - count: 3
+[1766998077] Signal received from input (PID 4379) - count: 3
+[1766998078] Signal received from obs_gen (PID 4357) - count: 3
+ARRIVO 2
+OK Process
+OK Process
+[1766998078] Signal received from server (PID 4353) - count: 3
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766998078] Signal received from dynamic (PID 4356) - count: 4
+[1766998079] Signal received from tar_gen (PID 4358) - count: 4
+[1766998079] Signal received from window (PID 4381) - count: 3
+[1766998080] Signal received from obs_gen (PID 4357) - count: 4
 ARRIVO 2
 OK Process
 OK Process
@@ -56,11 +60,70 @@ OK Process
 OK Process
 OK Process
 OK Process
-[1766960449] Signal received from dynamic (PID 14887) - count: 4
-[1766960449] Signal received from server (PID 14884) - count: 5
-[1766960450] Signal received from input (PID 14912) - count: 4
-[1766960450] Signal received from window (PID 14906) - count: 5
-[1766960451] Signal received from obs_gen (PID 14888) - count: 4
+[1766998080] Signal received from dynamic (PID 4356) - count: 5
+[1766998080] Signal received from server (PID 4353) - count: 4
+[1766998081] Signal received from window (PID 4381) - count: 4
+[1766998081] Signal received from tar_gen (PID 4358) - count: 5
+[1766998082] Signal received from obs_gen (PID 4357) - count: 5
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1766998082] Signal received from server (PID 4353) - count: 5
+OK Process
+OK Process
+[1766998082] Signal received from dynamic (PID 4356) - count: 6
+[1766998083] Signal received from tar_gen (PID 4358) - count: 6
+[1766998083] Signal received from window (PID 4381) - count: 5
+[1766998084] Signal received from obs_gen (PID 4357) - count: 6
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 4379) not responding! Last signal 7 seconds ago
+OK Process
+[1766998084] Signal received from dynamic (PID 4356) - count: 7
+[1766998084] Signal received from server (PID 4353) - count: 6
+[1766998085] Signal received from tar_gen (PID 4358) - count: 7
+[1766998085] Signal received from window (PID 4381) - count: 6
+[1766998086] Signal received from obs_gen (PID 4357) - count: 7
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 4379) not responding! Last signal 9 seconds ago
+OK Process
+[1766998086] Signal received from server (PID 4353) - count: 7
+[1766998086] Signal received from dynamic (PID 4356) - count: 8
+[1766998087] Signal received from tar_gen (PID 4358) - count: 8
+[1766998087] Signal received from window (PID 4381) - count: 7
+[1766998088] Signal received from obs_gen (PID 4357) - count: 8
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 4379) not responding! Last signal 11 seconds ago
+OK Process
+[1766998088] Signal received from dynamic (PID 4356) - count: 9
+[1766998089] Signal received from window (PID 4381) - count: 8
+[1766998090] Signal received from obs_gen (PID 4357) - count: 9
+ARRIVO 2
+OK Process
+OK Process
+OK Process
+OK Process
+ALERT: Process input (PID 4379) not responding! Last signal 13 seconds ago
+OK Process
+[1766998090] Signal received from dynamic (PID 4356) - count: 10
+[1766998090] Signal received from server (PID 4353) - count: 8
+[1766998091] Signal received from input (PID 4379) - count: 4
+[1766998091] Signal received from window (PID 4381) - count: 9
+[1766998092] Signal received from obs_gen (PID 4357) - count: 10
 ARRIVO 2
 OK Process
 OK Process
@@ -68,220 +131,5 @@ OK Process
 OK Process
 OK Process
 OK Process
-[1766960451] Signal received from dynamic (PID 14887) - count: 5
-[1766960451] Signal received from server (PID 14884) - count: 6
-[1766960452] Signal received from input (PID 14912) - count: 5
-[1766960452] Signal received from window (PID 14906) - count: 6
-[1766960453] Signal received from tar_gen (PID 14889) - count: 3
-[1766960453] Signal received from obs_gen (PID 14888) - count: 5
-ARRIVO 2
-ARRIVO 2
-[1766960453] Signal received from server (PID 14884) - count: 7
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960453] Signal received from dynamic (PID 14887) - count: 6
-[1766960454] Signal received from window (PID 14906) - count: 7
-[1766960454] Signal received from input (PID 14912) - count: 6
-[1766960455] Signal received from tar_gen (PID 14889) - count: 4
-[1766960455] Signal received from obs_gen (PID 14888) - count: 6
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960455] Signal received from server (PID 14884) - count: 8
-[1766960455] Signal received from dynamic (PID 14887) - count: 7
-[1766960456] Signal received from input (PID 14912) - count: 7
-[1766960456] Signal received from window (PID 14906) - count: 8
-[1766960457] Signal received from tar_gen (PID 14889) - count: 5
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960457] Signal received from dynamic (PID 14887) - count: 8
-[1766960457] Signal received from server (PID 14884) - count: 9
-[1766960458] Signal received from window (PID 14906) - count: 9
-[1766960458] Signal received from input (PID 14912) - count: 8
-[1766960459] Signal received from obs_gen (PID 14888) - count: 7
-[1766960459] Signal received from tar_gen (PID 14889) - count: 6
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960459] Signal received from dynamic (PID 14887) - count: 9
-[1766960460] Signal received from input (PID 14912) - count: 9
-[1766960461] Signal received from obs_gen (PID 14888) - count: 8
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960461] Signal received from server (PID 14884) - count: 10
-[1766960461] Signal received from dynamic (PID 14887) - count: 10
-[1766960462] Signal received from window (PID 14906) - count: 10
-[1766960462] Signal received from input (PID 14912) - count: 10
-[1766960463] Signal received from obs_gen (PID 14888) - count: 9
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960463] Signal received from dynamic (PID 14887) - count: 11
-OK Process
-[1766960463] Signal received from server (PID 14884) - count: 11
-[1766960464] Signal received from input (PID 14912) - count: 11
-[1766960464] Signal received from window (PID 14906) - count: 11
-[1766960465] Signal received from obs_gen (PID 14888) - count: 10
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960465] Signal received from server (PID 14884) - count: 12
-[1766960465] Signal received from dynamic (PID 14887) - count: 12
-[1766960466] Signal received from input (PID 14912) - count: 12
-[1766960466] Signal received from window (PID 14906) - count: 12
-[1766960467] Signal received from obs_gen (PID 14888) - count: 11
-[1766960467] Signal received from tar_gen (PID 14889) - count: 7
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960467] Signal received from server (PID 14884) - count: 13
-[1766960467] Signal received from dynamic (PID 14887) - count: 13
-[1766960468] Signal received from input (PID 14912) - count: 13
-[1766960468] Signal received from window (PID 14906) - count: 13
-[1766960469] Signal received from tar_gen (PID 14889) - count: 8
-[1766960469] Signal received from obs_gen (PID 14888) - count: 12
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960469] Signal received from server (PID 14884) - count: 14
-[1766960469] Signal received from dynamic (PID 14887) - count: 14
-[1766960470] Signal received from input (PID 14912) - count: 14
-[1766960470] Signal received from window (PID 14906) - count: 14
-[1766960471] Signal received from obs_gen (PID 14888) - count: 13
-[1766960471] Signal received from tar_gen (PID 14889) - count: 9
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960471] Signal received from dynamic (PID 14887) - count: 15
-[1766960471] Signal received from server (PID 14884) - count: 15
-[1766960472] Signal received from input (PID 14912) - count: 15
-[1766960472] Signal received from window (PID 14906) - count: 15
-[1766960473] Signal received from tar_gen (PID 14889) - count: 10
-[1766960473] Signal received from obs_gen (PID 14888) - count: 14
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960473] Signal received from dynamic (PID 14887) - count: 16
-[1766960473] Signal received from server (PID 14884) - count: 16
-[1766960474] Signal received from window (PID 14906) - count: 16
-[1766960474] Signal received from input (PID 14912) - count: 16
-[1766960475] Signal received from obs_gen (PID 14888) - count: 15
-[1766960475] Signal received from tar_gen (PID 14889) - count: 11
-ARRIVO 2
-ARRIVO 2
-[1766960475] Signal received from dynamic (PID 14887) - count: 17
-[1766960475] Signal received from server (PID 14884) - count: 17
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960476] Signal received from window (PID 14906) - count: 17
-[1766960476] Signal received from input (PID 14912) - count: 17
-[1766960477] Signal received from obs_gen (PID 14888) - count: 16
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960477] Signal received from dynamic (PID 14887) - count: 18
-[1766960478] Signal received from input (PID 14912) - count: 18
-[1766960478] Signal received from window (PID 14906) - count: 18
-[1766960479] Signal received from obs_gen (PID 14888) - count: 17
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960479] Signal received from dynamic (PID 14887) - count: 19
-[1766960479] Signal received from server (PID 14884) - count: 18
-[1766960480] Signal received from input (PID 14912) - count: 19
-[1766960480] Signal received from window (PID 14906) - count: 19
-[1766960481] Signal received from obs_gen (PID 14888) - count: 18
-[1766960481] Signal received from tar_gen (PID 14889) - count: 12
-ARRIVO 2
-ARRIVO 2
-[1766960481] Signal received from dynamic (PID 14887) - count: 20
-OK Process
-OK Process
-[1766960481] Signal received from server (PID 14884) - count: 19
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960482] Signal received from window (PID 14906) - count: 20
-[1766960483] Signal received from tar_gen (PID 14889) - count: 13
-[1766960483] Signal received from obs_gen (PID 14888) - count: 19
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960483] Signal received from server (PID 14884) - count: 20
-[1766960483] Signal received from dynamic (PID 14887) - count: 21
-[1766960484] Signal received from input (PID 14912) - count: 20
-[1766960484] Signal received from window (PID 14906) - count: 21
-[1766960485] Signal received from obs_gen (PID 14888) - count: 20
-ARRIVO 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1766960485] Signal received from server (PID 14884) - count: 21
-[1766960485] Signal received from dynamic (PID 14887) - count: 22
+[1766998092] Signal received from dynamic (PID 4356) - count: 11
+[1766998092] Signal received from server (PID 4353) - count: 9

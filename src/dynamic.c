@@ -216,7 +216,7 @@ int main(int argc, char **argv){
         char log_buf[256];
         char *t = ctime(&now);
         t[strlen(t) - 1] = '\0';
-        sprintf(log_buf, "<%s><%s><%s>", t, "dynamic", buffer);
+        sprintf(log_buf, "<%s><%s><%s>", t, "DYNAMIC", buffer);
         safe_logger(common_log, log_buf);
         
 

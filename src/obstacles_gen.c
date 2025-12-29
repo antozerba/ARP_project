@@ -141,9 +141,14 @@ int main(int argc, char *argv[]) {
             if (written == sizeof(Message)) {
                 obstacle_count++;
                 char buf[256];
-                sprintf(buf, "[OBSTACLE_GEN] Created obstacle at (%.1f, %.1f) [Total: %d]\n",
+                sprintf(buf, "Created obstacle at (%.1f, %.1f) [Total: %d]",
                         msg.data.obstacle.x, msg.data.obstacle.y, obstacle_count);
                 logger(log_file, buf);
+                char log_buf[300];
+                char *t = ctime(&now);
+                t[strlen(t) - 1] = '\0';
+                sprintf(log_buf, "<%s><%s><%s>", t, "OBS_GEN", buf);
+                safe_logger(common_log, log_buf);
             }
             last_gen_time = now;
         }

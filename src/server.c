@@ -312,6 +312,13 @@ void checking_target(WorldState * state){
                 state->targets[i].active = 0;
                 state->num_active_targets--;
                 state->target_reached++;
+                //logger common
+                char log_buf[100];
+                time_t now = time(NULL);
+                char *t = ctime(&now);
+                t[strlen(t) - 1] = '\0';
+                sprintf(log_buf, "<%s><%s><%s>", t, "SERVER", "Target Reached");
+                safe_logger(common_log, log_buf);
             }
         }
     }
@@ -327,6 +334,13 @@ void checking_obs(WorldState * state){
                 logger(log_file, "OBS COLLISION :(");
                 state->obstacles[i].active = 0;
                 state->num_obstacles--;
+                //Logger common
+                time_t now = time(NULL);
+                char log_buf[100];
+                char *t = ctime(&now);
+                t[strlen(t) - 1] = '\0';
+                sprintf(log_buf, "<%s><%s><%s>", t, "SERVER", "Obstacle Collision Detected");
+                safe_logger(common_log, log_buf);
             }
         }
     }
@@ -683,16 +697,6 @@ int main(int argc, char **argv){
         if(send_dyn){
         //invio a dynamic
         write(write_dynamic_fd, &state, sizeof(WorldState));
-
-        char log_buf[256];
-        // char *t = ctime(&now);
-        // t[strlen(t) - 1] = '\0';
-        // sprintf(log_buf, "<%s><%s><%s>", t, "server",  "WorldState sent to dynamic");
-        // safe_logger(common_log, log_buf);
-
-
-        logger(common_log, "<sever><WorldState sent to dynamic>");
-
 
         }
 
