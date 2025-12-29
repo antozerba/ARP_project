@@ -1,215 +1,187 @@
 Watchdog started
-[1767002971] Signal received from unknown process (PID 6964)
-Registered process: server (PID 6938)
-Registered process: tar_gen (PID 6943)
-Registered process: dynamic (PID 6941)
-Registered process: obs_gen (PID 6942)
-Registered process: window (PID 6964)
-Registered process: input (PID 6965)
-Ncurses window created at (10,4) size 70x15
-Watchdog monitoring 6 processes with poll interval 2.0s
-[1767002971] Signal received from dynamic (PID 6941) - count: 1
-[1767002971] Signal received from server (PID 6938) - count: 1
-[1767002973] Signal received from obs_gen (PID 6942) - count: 1
+[1767017629] Signal received from unknown process (PID 14068)
+[1767017629] Signal received from unknown process (PID 14069)
+[1767017629] Signal received from unknown process (PID 14064)
+[1767017629] Signal received from unknown process (PID 14067)
+Registered process: dynamic (PID 14067)
+Registered process: obs_gen (PID 14068)
+Registered process: server (PID 14064)
+Registered process: tar_gen (PID 14069)
+Registered process: input (PID 14086)
+Registered process: window (PID 14092)
+Ncurses window created at (10,5) size 70x15
+Watchdog monitoring 6 processes with poll interval 3.0s
+[1767017630] Signal received from input (PID 14086) - count: 1
+[1767017630] Signal received from window (PID 14092) - count: 1
+[1767017631] Signal received from obs_gen (PID 14068) - count: 1
+[1767017631] Signal received from server (PID 14064) - count: 1
+[1767017631] Signal received from dynamic (PID 14067) - count: 1
+[1767017632] Signal received from input (PID 14086) - count: 2
+[1767017632] Signal received from window (PID 14092) - count: 2
 OK Process
 OK Process
 OK Process
 OK Process
-[1767002973] Signal received from server (PID 6938) - count: 2
 OK Process
 OK Process
+[1767017633] Signal received from obs_gen (PID 14068) - count: 2
+[1767017633] Signal received from server (PID 14064) - count: 2
+[1767017633] Signal received from dynamic (PID 14067) - count: 2
+[1767017634] Signal received from input (PID 14086) - count: 3
+[1767017634] Signal received from window (PID 14092) - count: 3
+[1767017635] Signal received from tar_gen (PID 14069) - count: 1
 OK Process
-[1767002973] Signal received from window (PID 6964) - count: 1
-[1767002973] Signal received from dynamic (PID 6941) - count: 2
-[1767002975] Signal received from window (PID 6964) - count: 2
 OK Process
 OK Process
 OK Process
 OK Process
 OK Process
-[1767002975] Signal received from dynamic (PID 6941) - count: 3
-[1767002975] Signal received from server (PID 6938) - count: 3
+[1767017635] Signal received from dynamic (PID 14067) - count: 3
+[1767017636] Signal received from window (PID 14092) - count: 4
+[1767017636] Signal received from input (PID 14086) - count: 4
+[1767017637] Signal received from obs_gen (PID 14068) - count: 3
+[1767017637] Signal received from server (PID 14064) - count: 3
+[1767017637] Signal received from dynamic (PID 14067) - count: 4
+[1767017638] Signal received from input (PID 14086) - count: 5
 OK Process
 OK Process
-[1767002977] Signal received from tar_gen (PID 6943) - count: 1
-[1767002977] Signal received from obs_gen (PID 6942) - count: 2
-[1767002977] Signal received from server (PID 6938) - count: 4
 OK Process
 OK Process
 OK Process
 OK Process
+[1767017638] Signal received from window (PID 14092) - count: 5
+[1767017639] Signal received from obs_gen (PID 14068) - count: 4
+[1767017639] Signal received from dynamic (PID 14067) - count: 5
+[1767017639] Signal received from server (PID 14064) - count: 4
+[1767017640] Signal received from input (PID 14086) - count: 6
+[1767017640] Signal received from window (PID 14092) - count: 6
+[1767017641] Signal received from obs_gen (PID 14068) - count: 5
 OK Process
-[1767002977] Signal received from input (PID 6965) - count: 1
 OK Process
 OK Process
-[1767002977] Signal received from window (PID 6964) - count: 3
-[1767002979] Signal received from input (PID 6965) - count: 2
-[1767002979] Signal received from tar_gen (PID 6943) - count: 2
 OK Process
 OK Process
 OK Process
+[1767017641] Signal received from dynamic (PID 14067) - count: 6
+[1767017641] Signal received from server (PID 14064) - count: 5
+[1767017642] Signal received from input (PID 14086) - count: 7
+[1767017642] Signal received from window (PID 14092) - count: 7
+[1767017643] Signal received from tar_gen (PID 14069) - count: 2
+[1767017643] Signal received from server (PID 14064) - count: 6
+[1767017643] Signal received from dynamic (PID 14067) - count: 7
+[1767017644] Signal received from input (PID 14086) - count: 8
 OK Process
 OK Process
 OK Process
-[1767002979] Signal received from server (PID 6938) - count: 5
-[1767002979] Signal received from dynamic (PID 6941) - count: 4
-[1767002981] Signal received from tar_gen (PID 6943) - count: 3
-[1767002981] Signal received from input (PID 6965) - count: 3
-[1767002981] Signal received from server (PID 6938) - count: 6
 OK Process
 OK Process
 OK Process
+[1767017645] Signal received from obs_gen (PID 14068) - count: 6
+[1767017645] Signal received from dynamic (PID 14067) - count: 8
+[1767017645] Signal received from server (PID 14064) - count: 7
+[1767017646] Signal received from input (PID 14086) - count: 9
+[1767017646] Signal received from window (PID 14092) - count: 8
+[1767017647] Signal received from obs_gen (PID 14068) - count: 7
+[1767017647] Signal received from tar_gen (PID 14069) - count: 3
 OK Process
 OK Process
 OK Process
-[1767002981] Signal received from window (PID 6964) - count: 4
-[1767002983] Signal received from server (PID 6938) - count: 7
-[1767002983] Signal received from tar_gen (PID 6943) - count: 4
 OK Process
 OK Process
 OK Process
+[1767017647] Signal received from dynamic (PID 14067) - count: 9
+[1767017647] Signal received from server (PID 14064) - count: 8
+[1767017648] Signal received from input (PID 14086) - count: 10
+[1767017648] Signal received from window (PID 14092) - count: 9
+[1767017649] Signal received from obs_gen (PID 14068) - count: 8
+[1767017649] Signal received from server (PID 14064) - count: 9
+[1767017649] Signal received from dynamic (PID 14067) - count: 10
+[1767017650] Signal received from input (PID 14086) - count: 11
 OK Process
 OK Process
 OK Process
-[1767002983] Signal received from window (PID 6964) - count: 5
-[1767002983] Signal received from dynamic (PID 6941) - count: 5
-[1767002985] Signal received from input (PID 6965) - count: 4
-[1767002985] Signal received from server (PID 6938) - count: 8
 OK Process
 OK Process
 OK Process
-ALERT: Process obs_gen (PID 6942) not responding! Last signal 8 seconds ago
+[1767017650] Signal received from window (PID 14092) - count: 10
+[1767017651] Signal received from obs_gen (PID 14068) - count: 9
+[1767017651] Signal received from tar_gen (PID 14069) - count: 4
+[1767017651] Signal received from dynamic (PID 14067) - count: 11
+[1767017652] Signal received from input (PID 14086) - count: 12
+[1767017652] Signal received from window (PID 14092) - count: 11
+[1767017653] Signal received from tar_gen (PID 14069) - count: 5
+[1767017653] Signal received from obs_gen (PID 14068) - count: 10
 OK Process
 OK Process
-[1767002985] Signal received from dynamic (PID 6941) - count: 6
-[1767002987] Signal received from obs_gen (PID 6942) - count: 3
-[1767002987] Signal received from tar_gen (PID 6943) - count: 5
 OK Process
 OK Process
 OK Process
 OK Process
+[1767017653] Signal received from dynamic (PID 14067) - count: 12
+[1767017654] Signal received from input (PID 14086) - count: 13
+[1767017654] Signal received from window (PID 14092) - count: 12
+[1767017655] Signal received from tar_gen (PID 14069) - count: 6
+[1767017655] Signal received from server (PID 14064) - count: 10
+[1767017655] Signal received from dynamic (PID 14067) - count: 13
+[1767017656] Signal received from input (PID 14086) - count: 14
+[1767017656] Signal received from window (PID 14092) - count: 13
 OK Process
 OK Process
-[1767002987] Signal received from window (PID 6964) - count: 6
-[1767002987] Signal received from dynamic (PID 6941) - count: 7
-[1767002987] Signal received from server (PID 6938) - count: 9
-[1767002989] Signal received from obs_gen (PID 6942) - count: 4
-[1767002989] Signal received from input (PID 6965) - count: 5
 OK Process
 OK Process
 OK Process
 OK Process
-[1767002989] Signal received from window (PID 6964) - count: 7
+[1767017657] Signal received from tar_gen (PID 14069) - count: 7
+[1767017657] Signal received from server (PID 14064) - count: 11
+[1767017657] Signal received from dynamic (PID 14067) - count: 14
+[1767017658] Signal received from input (PID 14086) - count: 15
+[1767017658] Signal received from window (PID 14092) - count: 14
+[1767017659] Signal received from obs_gen (PID 14068) - count: 11
 OK Process
 OK Process
 OK Process
 OK Process
-[1767002989] Signal received from server (PID 6938) - count: 10
-[1767002989] Signal received from dynamic (PID 6941) - count: 8
-[1767002991] Signal received from tar_gen (PID 6943) - count: 6
-[1767002991] Signal received from dynamic (PID 6941) - count: 9
-[1767002991] Signal received from server (PID 6938) - count: 11
 OK Process
 OK Process
+[1767017659] Signal received from dynamic (PID 14067) - count: 15
+[1767017659] Signal received from server (PID 14064) - count: 12
+[1767017660] Signal received from input (PID 14086) - count: 16
+[1767017661] Signal received from obs_gen (PID 14068) - count: 12
+[1767017661] Signal received from server (PID 14064) - count: 13
+[1767017661] Signal received from dynamic (PID 14067) - count: 16
+[1767017662] Signal received from input (PID 14086) - count: 17
 OK Process
 OK Process
 OK Process
 OK Process
-[1767002991] Signal received from window (PID 6964) - count: 8
-[1767002993] Signal received from input (PID 6965) - count: 6
-[1767002993] Signal received from tar_gen (PID 6943) - count: 7
+[1767017662] Signal received from window (PID 14092) - count: 15
 OK Process
 OK Process
 OK Process
+[1767017663] Signal received from tar_gen (PID 14069) - count: 8
+[1767017663] Signal received from dynamic (PID 14067) - count: 17
+[1767017664] Signal received from input (PID 14086) - count: 18
+[1767017664] Signal received from window (PID 14092) - count: 16
+[1767017665] Signal received from obs_gen (PID 14068) - count: 13
+[1767017665] Signal received from tar_gen (PID 14069) - count: 9
 OK Process
-[1767002993] Signal received from window (PID 6964) - count: 9
 OK Process
 OK Process
 OK Process
-[1767002993] Signal received from dynamic (PID 6941) - count: 10
-[1767002993] Signal received from server (PID 6938) - count: 12
-[1767002995] Signal received from obs_gen (PID 6942) - count: 5
-[1767002995] Signal received from tar_gen (PID 6943) - count: 8
 OK Process
 OK Process
+[1767017665] Signal received from dynamic (PID 14067) - count: 18
+[1767017665] Signal received from server (PID 14064) - count: 14
+[1767017666] Signal received from input (PID 14086) - count: 19
+[1767017666] Signal received from window (PID 14092) - count: 17
+[1767017667] Signal received from obs_gen (PID 14068) - count: 14
+[1767017667] Signal received from dynamic (PID 14067) - count: 19
+[1767017667] Signal received from server (PID 14064) - count: 15
+[1767017668] Signal received from input (PID 14086) - count: 20
 OK Process
 OK Process
-[1767002995] Signal received from window (PID 6964) - count: 10
 OK Process
 OK Process
 OK Process
-[1767002995] Signal received from dynamic (PID 6941) - count: 11
-[1767002995] Signal received from server (PID 6938) - count: 13
-[1767002997] Signal received from obs_gen (PID 6942) - count: 6
 OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767002997] Signal received from dynamic (PID 6941) - count: 12
-[1767002997] Signal received from server (PID 6938) - count: 14
-[1767002999] Signal received from obs_gen (PID 6942) - count: 7
-[1767002999] Signal received from input (PID 6965) - count: 7
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767002999] Signal received from dynamic (PID 6941) - count: 13
-OK Process
-[1767003001] Signal received from tar_gen (PID 6943) - count: 9
-[1767003001] Signal received from input (PID 6965) - count: 8
-OK Process
-OK Process
-OK Process
-[1767003001] Signal received from obs_gen (PID 6942) - count: 8
-OK Process
-OK Process
-OK Process
-OK Process
-[1767003001] Signal received from window (PID 6964) - count: 11
-[1767003001] Signal received from dynamic (PID 6941) - count: 14
-[1767003001] Signal received from server (PID 6938) - count: 15
-[1767003003] Signal received from tar_gen (PID 6943) - count: 10
-[1767003003] Signal received from window (PID 6964) - count: 12
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767003003] Signal received from server (PID 6938) - count: 16
-[1767003003] Signal received from dynamic (PID 6941) - count: 15
-[1767003005] Signal received from obs_gen (PID 6942) - count: 9
-[1767003005] Signal received from input (PID 6965) - count: 9
-[1767003005] Signal received from server (PID 6938) - count: 17
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767003005] Signal received from window (PID 6964) - count: 13
-[1767003005] Signal received from dynamic (PID 6941) - count: 16
-[1767003007] Signal received from window (PID 6964) - count: 14
-[1767003007] Signal received from input (PID 6965) - count: 10
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767003007] Signal received from dynamic (PID 6941) - count: 17
-[1767003009] Signal received from obs_gen (PID 6942) - count: 10
-[1767003009] Signal received from server (PID 6938) - count: 18
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1767003009] Signal received from window (PID 6964) - count: 15
-OK Process
-[1767003009] Signal received from dynamic (PID 6941) - count: 18
+[1767017668] Signal received from window (PID 14092) - count: 18

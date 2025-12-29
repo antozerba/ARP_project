@@ -184,4 +184,12 @@ The directory `config/`containes some configuration files.
 - `watchdog.txt`: stores `watchdog.c` pid so that the process `main.c` can share it to other processes when `fork` is called.
 - `pid.txt` : stores process id of all processes so that the `watchdog.c` can use them to poll.
 
+## WARNING ‼️
+When running the executable, the gui asks the user to insert the desired mode:
+- ***MODE_STANDALONE***: mode to see the complete project for assignment 2.
+- ***MODE_CLIENT***: work in progress for assignment 3.
+- ***MODE_SERVER***: work in progress for assignment 3.
+
+### Possible Problem
+- At the beginning, to avoid the bell ring for the input precess select the input ncurses window with cursor.
 

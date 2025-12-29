@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
 
     //Heartbeat 
     time_t last_heartbeat = time(NULL);
-    float heartbeat_interval = 1.5f; // ogni 1.5s
+    float heartbeat_interval = 1.1f; 
 
     //Obs time
     time_t last_gen_time = time(NULL);
@@ -158,5 +158,7 @@ int main(int argc, char *argv[]) {
     close(read_fd);
     close(write_fd);
     fclose(log_file);
+    fclose(wd_log_file);
+    fclose(common_log); 
     return 0;
 }

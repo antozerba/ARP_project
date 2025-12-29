@@ -217,6 +217,8 @@ void handle_quit(){
 
     //chiusura logger
     fclose(log_file);
+    fclose(wd_log_file);
+    fclose(common_log);
     exit(0);
 
 }
@@ -445,7 +447,7 @@ int main(int argc, char **argv){
         }
     }
 
-
+    logger(log_file, "Entering main loop");
     WorldState state;
     init_world_state(&state);
 

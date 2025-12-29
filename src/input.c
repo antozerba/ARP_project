@@ -177,6 +177,8 @@ int main(int argc, char **argv) {
     logger(log_file, "Input Process Terminated Successfully");
     endwin();
     fclose(log_file);
+    fclose(wd_log_file);
+    fclose(common_log);
     return 0;
 }
 void termination_handler(int signum){

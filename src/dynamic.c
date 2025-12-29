@@ -227,6 +227,8 @@ int main(int argc, char **argv){
     //closing fds
     close(read_fd);
     close(write_fd);
+    fclose(wd_log_file);
+    fclose(common_log);
     fclose(log_file);
     return 0;
 }

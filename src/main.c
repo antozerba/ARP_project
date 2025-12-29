@@ -9,6 +9,8 @@
 #include <protocol.h>
 
 
+
+
 FILE * log_file;
 /*
 THIRD ASSIGNMENT: put 1 from gui to obtain ASSINGMENT 2 
@@ -62,6 +64,7 @@ int main(int arc, char ** argv) {
     FILE * common_log = fopen(COMMON_LOG, "w");
     fclose(pid_file);
     fclose(wd_file);
+    fclose(common_log);
     
 
 
@@ -268,6 +271,7 @@ int main(int arc, char ** argv) {
         close(ob_pipe[0]); close(ob_pipe[1]);
         close(bt_pipe[0]); close(bt_pipe[1]);
         close(tb_pipe[0]); close(tb_pipe[1]);
+
         //input
         close(bi_pipe[1]); //close write
         close(ib_pipe[0]); //close read

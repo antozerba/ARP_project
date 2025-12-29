@@ -11,6 +11,9 @@
 #define MAX_PROCESSES 6
 #define TIMEOUT_MULTIPLIER 3  // Timeout = T * 3
 
+/*
+Struct to contain process information
+*/
 typedef struct {
     char name[32];
     pid_t pid;
@@ -170,7 +173,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error loading config\n");
         return 1;
     }
-    poll_interval = 2.0f; 
+    poll_interval = 3.0f; 
     
     // Setup signal handler
     struct sigaction sa;
@@ -242,5 +245,6 @@ int main(int argc, char **argv) {
     logger(log_file, "Watchdog shutting down");
     endwin();
     fclose(log_file);
+    
     return 0;
 }

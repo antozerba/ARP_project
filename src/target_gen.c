@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 
     // Heartbeat variables for watchdog
     time_t last_heartbeat = time(NULL);
-    float heartbeat_interval = 1.5f; // Invia ogni 1.5s
+    float heartbeat_interval = 1.1f;
 
     int iteration = 0;
 
@@ -155,5 +155,7 @@ int main(int argc, char *argv[]) {
     close(write_fd);
     close(read_fd);
     fclose(log_file);
+    fclose(wd_log_file);
+    fclose(common_log);
     return 0;
 }
