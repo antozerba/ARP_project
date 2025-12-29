@@ -1,44 +1,53 @@
 OBS Started
 OBSTACLE_GEN Started
-Created obstacle at (52.4, 27.9) [Total: 1]
-Created obstacle at (56.6, 12.0) [Total: 2]
-Created obstacle at (14.2, 13.5) [Total: 3]
-Created obstacle at (54.8, 24.9) [Total: 4]
-Created obstacle at (19.5, 7.8) [Total: 5]
-Created obstacle at (16.4, 19.9) [Total: 6]
-Created obstacle at (21.6, 18.4) [Total: 7]
-Created obstacle at (61.9, 18.0) [Total: 8]
-Created obstacle at (55.2, 26.8) [Total: 9]
-Created obstacle at (13.1, 12.7) [Total: 10]
+Created obstacle at (17.6, 16.4) [Total: 1]
+Created obstacle at (40.9, 9.0) [Total: 2]
+Created obstacle at (26.2, 17.0) [Total: 3]
+Created obstacle at (18.0, 16.7) [Total: 4]
+Created obstacle at (68.5, 23.1) [Total: 5]
+Created obstacle at (8.6, 12.7) [Total: 6]
+Created obstacle at (15.1, 24.4) [Total: 7]
+Created obstacle at (38.8, 9.7) [Total: 8]
+Created obstacle at (34.0, 11.0) [Total: 9]
+Created obstacle at (49.0, 19.5) [Total: 10]
 Resize Receive
-Created obstacle at (79.7, 6.0) [Total: 1]
-Created obstacle at (17.1, 12.8) [Total: 2]
-Created obstacle at (41.6, 18.7) [Total: 3]
-Created obstacle at (78.5, 9.8) [Total: 4]
-Created obstacle at (14.4, 10.3) [Total: 5]
-Created obstacle at (62.4, 16.9) [Total: 6]
-Created obstacle at (28.3, 12.2) [Total: 7]
-Created obstacle at (15.3, 11.1) [Total: 8]
-Created obstacle at (73.0, 17.5) [Total: 9]
-Created obstacle at (23.5, 6.0) [Total: 10]
+Created obstacle at (53.0, 11.5) [Total: 1]
+Created obstacle at (67.8, 9.8) [Total: 2]
+Created obstacle at (23.0, 5.7) [Total: 3]
+Created obstacle at (23.2, 10.7) [Total: 4]
+Created obstacle at (7.6, 18.7) [Total: 5]
+Created obstacle at (64.4, 8.2) [Total: 6]
+Created obstacle at (39.6, 9.1) [Total: 7]
+Created obstacle at (35.8, 15.6) [Total: 8]
+Created obstacle at (67.0, 13.2) [Total: 9]
+Created obstacle at (23.2, 15.5) [Total: 10]
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Created obstacle at (29.7, 9.0) [Total: 10]
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
-ENTRO
-Created obstacle at (5.6, 10.7) [Total: 10]
+Created obstacle at (9.8, 11.5) [Total: 10]
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
-ENTRO
-Created obstacle at (58.6, 8.7) [Total: 10]
+Created obstacle at (9.8, 13.1) [Total: 10]
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
-ENTRO
-Created obstacle at (80.4, 12.6) [Total: 10]
+Created obstacle at (57.2, 12.1) [Total: 10]
 Heartbeat sent to watchdog
 Heartbeat sent to watchdog
-ENTRO
-Created obstacle at (67.7, 15.0) [Total: 10]
+Created obstacle at (70.6, 9.6) [Total: 10]
 Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Created obstacle at (12.0, 10.9) [Total: 10]
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Created obstacle at (68.7, 17.2) [Total: 10]
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Created obstacle at (66.2, 5.3) [Total: 10]
 Obstacles Generator Terminted
 Obstacles Generator Terminted

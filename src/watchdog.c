@@ -24,7 +24,7 @@ ProcessInfo processes[MAX_PROCESSES];
 int num_processes = 0;
 FILE *log_file;
 WINDOW *status_win;
-float poll_interval; // T in seconds
+float poll_interval; // interval for polling processes
 volatile sig_atomic_t running = 1;
 
 // Signal handler per ricevere segnali dai processi
@@ -48,13 +48,15 @@ void signal_handler(int signo, siginfo_t *info, void *context) {
         }
     }
     
-    // Segnale da processo sconosciuto
+    // Unknown process signal
     char log_buf[200];
     sprintf(log_buf, "[%ld] Signal received from unknown process (PID %d)",
             now, sender_pid);
     logger(log_file, log_buf);
 }
-
+/*
+loading processes info method
+*/
 void register_process(const char *name, pid_t pid) {
     if(num_processes >= MAX_PROCESSES) {
         fprintf(stderr, "Too many processes!\n");
@@ -74,9 +76,10 @@ void register_process(const char *name, pid_t pid) {
     
     num_processes++;
 }
-
+/*
+Chechking processes status
+*/
 void check_processes() {
-    logger(log_file, "ARRIVO 2");
     time_t now = time(NULL);
     double timeout = poll_interval * TIMEOUT_MULTIPLIER;
     
@@ -102,7 +105,9 @@ void check_processes() {
         }
     }
 }
-
+/*
+Update ncurses status window
+*/
 void update_status_window() {
     werase(status_win);
     box(status_win, 0, 0);
@@ -155,6 +160,7 @@ int main(int argc, char **argv) {
         fclose(wd_pid);
     }   
 
+    //Logger
     log_file = fopen("log/watchdog_log.txt", "w");
     logger(log_file, "Watchdog started");
     
@@ -164,7 +170,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error loading config\n");
         return 1;
     }
-    poll_interval = 2.0f; // Default 2 secondi (puoi aggiungere al config)
+    poll_interval = 2.0f; 
     
     // Setup signal handler
     struct sigaction sa;
@@ -173,9 +179,7 @@ int main(int argc, char **argv) {
     sa.sa_flags = SA_SIGINFO;
     sigaction(SIGUSR1, &sa, NULL);
     
-    // Registra processi (leggi PID da file o environment)
-    // Per semplicità, leggi da file PIDs
-
+    //Getting processes pid form pid.txt
     usleep(3000000); //to allow porcesso to store pids
     FILE *pid_file = fopen(PID_FILE, "r");
     if(pid_file) {
@@ -207,7 +211,6 @@ int main(int argc, char **argv) {
     status_win = newwin(height, width, starty, startx);
     char buf[100];
     sprintf(buf, "Ncurses window created at (%d,%d) size %dx%d", startx, starty, width, height);
-    // sprintf(buf, "Ncurses window created at (%d,%d) size %dx%d", 0, 0, 0, 0);
     logger(log_file, buf);
     
     char log_buf[200];
@@ -226,7 +229,7 @@ int main(int argc, char **argv) {
         
         time_t now = time(NULL);
         if(difftime(now, last_check) >= poll_interval) {
-            check_processes();
+            check_processes(); //check
             last_check = now;
         }
         

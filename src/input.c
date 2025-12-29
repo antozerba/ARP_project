@@ -297,10 +297,6 @@ int map_key_to_command(int key, InputCommand *cmd) {
             cmd->type = CMD_FORCE_DOWN;
             cmd->force_y = force_step;
             return 1;
-            
-        case 'p': case 'P': //TODO
-            cmd->type = CMD_PAUSE;
-            return 1;
         case 'r': case 'R': //TODO
             cmd->type = CMD_RESET;
             return 1;

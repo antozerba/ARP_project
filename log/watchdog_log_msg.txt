@@ -1,63 +1,120 @@
-<Mon Dec 29 08:47:52 2025><server><main::iteration:138>
-<Mon Dec 29 08:47:52 2025><obstacles_gen><main loop::iteration:3769912>
-<Mon Dec 29 08:47:52 2025><dynamic><main::iteration:59>
-<Mon Dec 29 08:47:53 2025><input><main loop::iteration:321287>
-<Mon Dec 29 08:47:53 2025><window><main loop::iteration:1492960>
-<Mon Dec 29 08:47:53 2025><target_gen><main loop::iteration:8101507>
-<Mon Dec 29 08:47:54 2025><obstacles_gen><main loop::iteration:12010593>
-<Mon Dec 29 08:47:54 2025><dynamic><main::iteration:176>
-<Mon Dec 29 08:47:54 2025><server><main::iteration:373>
-<Mon Dec 29 08:47:55 2025><input><main loop::iteration:707379>
-<Mon Dec 29 08:47:55 2025><window><main loop::iteration:3337435>
-<Mon Dec 29 08:47:55 2025><target_gen><main loop::iteration:16160953>
-<Mon Dec 29 08:47:56 2025><obstacles_gen><main loop::iteration:19714914>
-<Mon Dec 29 08:47:56 2025><dynamic><main::iteration:286>
-<Mon Dec 29 08:47:56 2025><server><main::iteration:594>
-<Mon Dec 29 08:47:57 2025><window><main loop::iteration:4900030>
-<Mon Dec 29 08:47:57 2025><target_gen><main loop::iteration:24994364>
-<Mon Dec 29 08:47:57 2025><input><main loop::iteration:1119890>
-<Mon Dec 29 08:47:58 2025><obstacles_gen><main loop::iteration:27715755>
-<Mon Dec 29 08:47:58 2025><server><main::iteration:823>
-<Mon Dec 29 08:47:58 2025><dynamic><main::iteration:400>
-<Mon Dec 29 08:47:59 2025><window><main loop::iteration:6801961>
-<Mon Dec 29 08:47:59 2025><target_gen><main loop::iteration:34001799>
-<Mon Dec 29 08:47:59 2025><input><main loop::iteration:1530673>
-<Mon Dec 29 08:48:00 2025><obstacles_gen><main loop::iteration:35672454>
-<Mon Dec 29 08:48:00 2025><dynamic><main::iteration:513>
-<Mon Dec 29 08:48:00 2025><server><main::iteration:1050>
-<Mon Dec 29 08:48:01 2025><window><main loop::iteration:8697152>
-<Mon Dec 29 08:48:01 2025><input><main loop::iteration:1900316>
-<Mon Dec 29 08:48:01 2025><target_gen><main loop::iteration:42852460>
-<Mon Dec 29 08:48:02 2025><obstacles_gen><main loop::iteration:44004110>
-<Mon Dec 29 08:48:02 2025><server><main::iteration:1275>
-<Mon Dec 29 08:48:02 2025><dynamic><main::iteration:626>
-<Mon Dec 29 08:48:03 2025><target_gen><main loop::iteration:51631380>
-<Mon Dec 29 08:48:03 2025><input><main loop::iteration:2259884>
-<Mon Dec 29 08:48:03 2025><window><main loop::iteration:10407973>
-<Mon Dec 29 08:48:04 2025><obstacles_gen><main loop::iteration:52301494>
-<Mon Dec 29 08:48:04 2025><dynamic><main::iteration:739>
-<Mon Dec 29 08:48:04 2025><server><main::iteration:1501>
-<Mon Dec 29 08:48:05 2025><input><main loop::iteration:2631062>
-<Mon Dec 29 08:48:05 2025><target_gen><main loop::iteration:60227832>
-<Mon Dec 29 08:48:05 2025><window><main loop::iteration:12215338>
-<Mon Dec 29 08:48:06 2025><obstacles_gen><main loop::iteration:59834395>
-<Mon Dec 29 08:48:06 2025><server><main::iteration:1724>
-<Mon Dec 29 08:48:06 2025><dynamic><main::iteration:851>
-<Mon Dec 29 08:48:07 2025><window><main loop::iteration:13574546>
-<Mon Dec 29 08:48:07 2025><input><main loop::iteration:2981240>
-<Mon Dec 29 08:48:07 2025><target_gen><main loop::iteration:69034406>
-<Mon Dec 29 08:48:08 2025><obstacles_gen><main loop::iteration:68017298>
-<Mon Dec 29 08:48:08 2025><dynamic><main::iteration:966>
-<Mon Dec 29 08:48:08 2025><server><main::iteration:1954>
-<Mon Dec 29 08:48:09 2025><input><main loop::iteration:3303248>
-<Mon Dec 29 08:48:09 2025><window><main loop::iteration:15266012>
-<Mon Dec 29 08:48:09 2025><target_gen><main loop::iteration:77879647>
-<Mon Dec 29 08:48:10 2025><obstacles_gen><main loop::iteration:75805688>
-<Mon Dec 29 08:48:10 2025><dynamic><main::iteration:1083>
-<Mon Dec 29 08:48:10 2025><server><main::iteration:2188>
-<Mon Dec 29 08:48:11 2025><target_gen><main loop::iteration:86228310>
-<Mon Dec 29 08:48:11 2025><window><main loop::iteration:16964913>
-<Mon Dec 29 08:48:11 2025><input><main loop::iteration:3661117>
-<Mon Dec 29 08:48:12 2025><obstacles_gen><main loop::iteration:84076256>
-<Mon Dec 29 08:48:12 2025><dynamic><main::iteration:1197>
-<Mon Dec 29 08:48:12 2025><server><main::iteration:2417>
+<Mon Dec 29 10:09:31 2025><obstacles_gen><main loop::iteration:5523130>
+<Mon Dec 29 10:09:31 2025><input><main loop::iteration:230930>
+<Mon Dec 29 10:09:31 2025><window><main loop::iteration:880968>
+<Mon Dec 29 10:09:31 2025><target_gen><main loop::iteration:6577503>
+<Mon Dec 29 10:09:31 2025><server><main::iteration:196>
+<Mon Dec 29 10:09:31 2025><dynamic><main::iteration:89>
+<Mon Dec 29 10:09:33 2025><obstacles_gen><main loop::iteration:12746486>
+<Mon Dec 29 10:09:33 2025><input><main loop::iteration:594457>
+<Mon Dec 29 10:09:33 2025><target_gen><main loop::iteration:15222946>
+<Mon Dec 29 10:09:33 2025><server><main::iteration:426>
+<Mon Dec 29 10:09:33 2025><window><main loop::iteration:2589248>
+<Mon Dec 29 10:09:33 2025><dynamic><main::iteration:204>
+<Mon Dec 29 10:09:35 2025><window><main loop::iteration:3795786>
+<Mon Dec 29 10:09:35 2025><input><main loop::iteration:956040>
+<Mon Dec 29 10:09:35 2025><dynamic><main::iteration:313>
+<Mon Dec 29 10:09:35 2025><obstacles_gen><main loop::iteration:19957883>
+<Mon Dec 29 10:09:35 2025><target_gen><main loop::iteration:23441781>
+<Mon Dec 29 10:09:35 2025><server><main::iteration:645>
+<Mon Dec 29 10:09:37 2025><target_gen><main loop::iteration:32199975>
+<Mon Dec 29 10:09:37 2025><obstacles_gen><main loop::iteration:26566325>
+<Mon Dec 29 10:09:37 2025><server><main::iteration:870>
+<Mon Dec 29 10:09:37 2025><dynamic><main::iteration:426>
+<Mon Dec 29 10:09:37 2025><input><main loop::iteration:1315920>
+<Mon Dec 29 10:09:37 2025><window><main loop::iteration:5111284>
+<Mon Dec 29 10:09:39 2025><window><main loop::iteration:6861338>
+<Mon Dec 29 10:09:39 2025><obstacles_gen><main loop::iteration:34012038>
+<Mon Dec 29 10:09:39 2025><input><main loop::iteration:1737097>
+<Mon Dec 29 10:09:39 2025><target_gen><main loop::iteration:40909484>
+<Mon Dec 29 10:09:39 2025><server><main::iteration:1095>
+<Mon Dec 29 10:09:39 2025><dynamic><main::iteration:538>
+<Mon Dec 29 10:09:41 2025><dynamic><main::iteration:645>
+<Mon Dec 29 10:09:41 2025><input><main loop::iteration:2138033>
+<Mon Dec 29 10:09:41 2025><target_gen><main loop::iteration:49415993>
+<Mon Dec 29 10:09:41 2025><obstacles_gen><main loop::iteration:41316486>
+<Mon Dec 29 10:09:41 2025><server><main::iteration:1309>
+<Mon Dec 29 10:09:41 2025><window><main loop::iteration:8305854>
+<Mon Dec 29 10:09:43 2025><obstacles_gen><main loop::iteration:48623325>
+<Mon Dec 29 10:09:43 2025><input><main loop::iteration:2533239>
+<Mon Dec 29 10:09:43 2025><server><main::iteration:1531>
+<Mon Dec 29 10:09:43 2025><target_gen><main loop::iteration:57007455>
+<Mon Dec 29 10:09:43 2025><window><main loop::iteration:9597617>
+<Mon Dec 29 10:09:43 2025><dynamic><main::iteration:757>
+<Mon Dec 29 10:09:45 2025><input><main loop::iteration:2899267>
+<Mon Dec 29 10:09:45 2025><server><main::iteration:1747>
+<Mon Dec 29 10:09:45 2025><window><main loop::iteration:10625146>
+<Mon Dec 29 10:09:45 2025><obstacles_gen><main loop::iteration:55982801>
+<Mon Dec 29 10:09:45 2025><target_gen><main loop::iteration:64712161>
+<Mon Dec 29 10:09:45 2025><dynamic><main::iteration:865>
+<Mon Dec 29 10:09:47 2025><input><main loop::iteration:3207784>
+<Mon Dec 29 10:09:47 2025><obstacles_gen><main loop::iteration:63162001>
+<Mon Dec 29 10:09:47 2025><target_gen><main loop::iteration:73266686>
+<Mon Dec 29 10:09:47 2025><window><main loop::iteration:11712313>
+<Mon Dec 29 10:09:47 2025><dynamic><main::iteration:979>
+<Mon Dec 29 10:09:47 2025><server><main::iteration:1975>
+<Mon Dec 29 10:09:49 2025><obstacles_gen><main loop::iteration:71259330>
+<Mon Dec 29 10:09:49 2025><target_gen><main loop::iteration:80524029>
+<Mon Dec 29 10:09:49 2025><input><main loop::iteration:3566457>
+<Mon Dec 29 10:09:49 2025><window><main loop::iteration:12994441>
+<Mon Dec 29 10:09:49 2025><server><main::iteration:2185>
+<Mon Dec 29 10:09:49 2025><dynamic><main::iteration:1084>
+<Mon Dec 29 10:09:51 2025><obstacles_gen><main loop::iteration:78694407>
+<Mon Dec 29 10:09:51 2025><input><main loop::iteration:3867155>
+<Mon Dec 29 10:09:51 2025><dynamic><main::iteration:1196>
+<Mon Dec 29 10:09:51 2025><target_gen><main loop::iteration:88493049>
+<Mon Dec 29 10:09:51 2025><server><main::iteration:2405>
+<Mon Dec 29 10:09:51 2025><window><main loop::iteration:14400946>
+<Mon Dec 29 10:09:53 2025><input><main loop::iteration:4181106>
+<Mon Dec 29 10:09:53 2025><target_gen><main loop::iteration:97070469>
+<Mon Dec 29 10:09:53 2025><window><main loop::iteration:15635730>
+<Mon Dec 29 10:09:53 2025><obstacles_gen><main loop::iteration:86646461>
+<Mon Dec 29 10:09:53 2025><dynamic><main::iteration:1309>
+<Mon Dec 29 10:09:53 2025><server><main::iteration:2632>
+<Mon Dec 29 10:09:55 2025><input><main loop::iteration:4505245>
+<Mon Dec 29 10:09:55 2025><obstacles_gen><main loop::iteration:94573623>
+<Mon Dec 29 10:09:55 2025><window><main loop::iteration:16374124>
+<Mon Dec 29 10:09:55 2025><target_gen><main loop::iteration:105599048>
+<Mon Dec 29 10:09:55 2025><dynamic><main::iteration:1423>
+<Mon Dec 29 10:09:55 2025><server><main::iteration:2861>
+<Mon Dec 29 10:09:57 2025><window><main loop::iteration:17148488>
+<Mon Dec 29 10:09:57 2025><obstacles_gen><main loop::iteration:102491869>
+<Mon Dec 29 10:09:57 2025><target_gen><main loop::iteration:114104630>
+<Mon Dec 29 10:09:57 2025><input><main loop::iteration:4839818>
+<Mon Dec 29 10:09:57 2025><dynamic><main::iteration:1539>
+<Mon Dec 29 10:09:57 2025><server><main::iteration:3093>
+<Mon Dec 29 10:09:59 2025><input><main loop::iteration:5167233>
+<Mon Dec 29 10:09:59 2025><obstacles_gen><main loop::iteration:110229444>
+<Mon Dec 29 10:09:59 2025><dynamic><main::iteration:1653>
+<Mon Dec 29 10:09:59 2025><server><main::iteration:3321>
+<Mon Dec 29 10:09:59 2025><target_gen><main loop::iteration:122893954>
+<Mon Dec 29 10:09:59 2025><window><main loop::iteration:18393048>
+<Mon Dec 29 10:10:01 2025><target_gen><main loop::iteration:131886659>
+<Mon Dec 29 10:10:01 2025><obstacles_gen><main loop::iteration:118380353>
+<Mon Dec 29 10:10:01 2025><input><main loop::iteration:5502569>
+<Mon Dec 29 10:10:01 2025><window><main loop::iteration:19488646>
+<Mon Dec 29 10:10:01 2025><dynamic><main::iteration:1769>
+<Mon Dec 29 10:10:01 2025><server><main::iteration:3549>
+<Mon Dec 29 10:10:03 2025><target_gen><main loop::iteration:140483552>
+<Mon Dec 29 10:10:03 2025><obstacles_gen><main loop::iteration:126083675>
+<Mon Dec 29 10:10:03 2025><window><main loop::iteration:20832631>
+<Mon Dec 29 10:10:03 2025><input><main loop::iteration:5826221>
+<Mon Dec 29 10:10:03 2025><server><main::iteration:3771>
+<Mon Dec 29 10:10:03 2025><dynamic><main::iteration:1882>
+<Mon Dec 29 10:10:05 2025><obstacles_gen><main loop::iteration:132874514>
+<Mon Dec 29 10:10:05 2025><input><main loop::iteration:6107407>
+<Mon Dec 29 10:10:05 2025><target_gen><main loop::iteration:147247141>
+<Mon Dec 29 10:10:05 2025><server><main::iteration:3994>
+<Mon Dec 29 10:10:05 2025><window><main loop::iteration:22164469>
+<Mon Dec 29 10:10:05 2025><dynamic><main::iteration:1995>
+<Mon Dec 29 10:10:07 2025><target_gen><main loop::iteration:155394797>
+<Mon Dec 29 10:10:07 2025><window><main loop::iteration:23366688>
+<Mon Dec 29 10:10:07 2025><obstacles_gen><main loop::iteration:140942919>
+<Mon Dec 29 10:10:07 2025><input><main loop::iteration:6442724>
+<Mon Dec 29 10:10:07 2025><dynamic><main::iteration:2108>
+<Mon Dec 29 10:10:07 2025><server><main::iteration:4219>
+<Mon Dec 29 10:10:09 2025><target_gen><main loop::iteration:162698338>
+<Mon Dec 29 10:10:09 2025><server><main::iteration:4448>
+<Mon Dec 29 10:10:09 2025><obstacles_gen><main loop::iteration:148993178>
+<Mon Dec 29 10:10:09 2025><input><main loop::iteration:6810184>
+<Mon Dec 29 10:10:09 2025><window><main loop::iteration:24715970>
+<Mon Dec 29 10:10:09 2025><dynamic><main::iteration:2223>

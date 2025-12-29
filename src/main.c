@@ -10,7 +10,10 @@
 
 
 FILE * log_file;
-
+/*
+THIRD ASSIGNMENT: put 1 from gui to obtain ASSINGMENT 2 
+Mehtod to askt network mode to user
+*/
 NetworkMode ask_network_mode(){
     printf("\n=== DRONE SIMULATOR ===\n");
     printf("Select mode:\n");
@@ -30,35 +33,6 @@ NetworkMode ask_network_mode(){
             printf("Invalid choice, defaulting to standalone\n");
             return MODE_STANDALONE;
     }
-}
-
-void set_network(const NetworkMode * mode)
-{
-    FILE * net_file = fopen(NETWORK_CONFIG_FILE, "w");
-    if(!net_file){
-        perror("network config file error");
-        logger(log_file, "Failed to open network config file");
-        return;
-    }
-    if(*mode == MODE_CLIENT) {
-        printf("Enter server IP address: ");
-        char server_ip[64];
-        scanf("%s", server_ip);
-        fprintf(net_file, "SERVER_IP=%s\n", server_ip);
-    }
-    
-    printf("Enter serve_port (default 5555): ");
-    int serve_port;
-    scanf("%d", &serve_port);
-    if(serve_port < 1 || serve_port < 1000) {
-        serve_port = 5555;
-    }
-
-    fprintf(net_file, "PORT=%d\n", serve_port);
-    fprintf(net_file, "MODE=%d\n", *mode); //SERVER CHIEDO SOLO SE CLIENT
-    
-    fclose(net_file);
-    logger(log_file, "Network configuration saved");
 }
 
 int main(int arc, char ** argv) {
@@ -152,7 +126,7 @@ int main(int arc, char ** argv) {
     int w_status, i_status, b_status, d_status, o_status, t_status, wd_status;
     pid_t w_pid, i_pid, b_pid, d_pid, o_pid, t_pid, wd_pid;
 
-    
+    //watchdog only in stadalone mode
     if(mode == MODE_STANDALONE ){
         
         if((wd_pid = fork()) == 0){
@@ -345,6 +319,7 @@ int main(int arc, char ** argv) {
 
     }
     
+    //obs_gen only in stadalone mode
     if(mode == MODE_STANDALONE){
         if((o_pid = fork()) == 0){
             //OBS
@@ -377,6 +352,7 @@ int main(int arc, char ** argv) {
         }
 
     }
+    //target_gen only in stadalone mode
     if(mode == MODE_STANDALONE)
     {
         if((t_pid = fork()) == 0){
@@ -424,7 +400,6 @@ int main(int arc, char ** argv) {
     //server chiuso 
     waitpid(b_pid, &b_status, 0);
     //comando chiusura quindi mando segnale a tutti i figli
-    logger(log_file, "ARRIVO");
     kill(t_pid, SIGTERM);
     kill(o_pid, SIGTERM);
     kill(d_pid, SIGTERM);

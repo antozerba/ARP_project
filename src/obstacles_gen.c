@@ -127,7 +127,6 @@ int main(int argc, char *argv[]) {
         if(difftime(now, last_gen_time)>= gen_interval) {
             last_gen_time = now;
             obstacle_count --;
-            logger(log_file, "ENTRO");
         }
         //Creazione ostacolo
         if (obstacle_count < MAX_OBSTACLES ) {

@@ -30,6 +30,7 @@ int read_obs_fd, write_obs_fd;
 int read_tar_fd, write_tar_fd;
 int network_socket = -1;
 NetworkMode network_mode = MODE_STANDALONE;
+int send_dyn = 0;   //flag per capire se mandare a dynamics in base a input
 
 
 // Setup network socket
@@ -239,12 +240,17 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
             fprintf(stderr, "[SERVER] Brake applied\n");
             break;
             
-        case CMD_PAUSE:
-            //TODDO da implementare nel second ass
-            break;
             
         case CMD_RESET:
             //TODDO da implementare nel second ass
+            state->drone.x = config.drone_x;
+            state->drone.y = config.drone_y;
+            state->drone.vx = 0;
+            state->drone.vy = 0;
+            state->drone.fx = 0;
+            state->drone.fy = 0;
+            send_dyn = 0;
+            logger(log_file, "DRONE RESET TO INITIAL POSITION");
             break;
             
         case CMD_QUIT:
@@ -480,8 +486,8 @@ int main(int argc, char **argv){
         if(read_obs_fd > max_fd) max_fd = read_obs_fd;
         if(read_tar_fd > max_fd) max_fd = read_tar_fd;
         if(network_socket > max_fd) max_fd = network_socket;
-        //flag per capire se mandare a dynamics in base a input
-        int send_dyn = 0;
+        // // flag per capire se mandare a dynamics in base a input
+        // int send_dyn = 0;
 
         //set timer for select
         struct timeval timeout;
@@ -695,8 +701,9 @@ int main(int argc, char **argv){
         logger(log_file, wtar);
         //Invio a dynamic solo se ho ricevuto da input per limitare il traffico
         if(send_dyn){
-        //invio a dynamic
-        write(write_dynamic_fd, &state, sizeof(WorldState));
+            //invio a dynamic
+            write(write_dynamic_fd, &state, sizeof(WorldState));
+            send_dyn = 0;
 
         }
 

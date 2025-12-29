@@ -84,10 +84,6 @@ int main(int argc, char **argv) {
     char buffer[50];
     sprintf(buffer, "Read FD: %d, Write FD: %d", read_fd, write_fd);
     logger(log_file, buffer);
-    // char message[10];
-    // read(read_fd, message, sizeof(message));
-    // sprintf(buffer, "Received message: %s", message);
-    // logger(log_file, buffer);
 
     //Load param from config
     Config config = {};

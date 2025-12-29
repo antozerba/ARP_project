@@ -30,6 +30,7 @@ The following keyboard commands control the robot during gameplay.
 | **z**             | moving left down          | 
 | **c**             | moving right down          | 
 | **X**             | quit game       |
+| **r**             | reset game       |
 
 
 ### Requirements
@@ -83,6 +84,12 @@ flowchart TB
     TG[target_gen.c]
     OG[obstacles_gen.c]
   end
+  subgraph Controller [Controller]
+    WD[watchdog.c]
+  end
+  subgraph Physics [Physics]
+    Dynamic[dynamic.c]
+  end
 
   subgraph IO [Input/Output]
     Input[input.c]
@@ -115,6 +122,13 @@ flowchart TB
   Utils -->|helpers| TG
   Utils -->|helpers| OG
 
+  WD -->|poll| Server
+  WD -->|poll| Input
+  WD -->|poll| Dynamic
+  WD -->|poll| TG
+  WD -->|poll| OG
+  WD -->|poll| Window
+
   %% Styling
   classDef core fill:#f0f8ff,stroke:#333,stroke-width:1px;
   classDef gen fill:#fff0f5,stroke:#333,stroke-width:1px;
@@ -134,9 +148,10 @@ This is a conceptual diagram based on the project repository. It shows the typic
   - `input.c` captures user/input events and forwards them to the server logic. Also provides a simple GUI to diplay the variables of the drone.
   - `target_gen.c` and `obstacles_gen.c` generate data fed into the server (targets/obstacles).
   - `window.c` handles rendering/displaying state produced by the server using the lib ncurses.
+  - `watchdog.c`control each process status by polling through signals 
   - `utils.c` provides shared helper functions used across components to load configuration and logging,
-  - `config/parameters.txt` provides runtime parameters.
-  - `log/` stores runtime logs.
+  - `config/*` stores configuration file 
+  - `log/*` stores runtime logs.
 
 How to render
 - Mermaid: view `docs/architecture.md` with a Mermaid-capable viewer.
@@ -156,3 +171,17 @@ The server process acts as a blackboard and communicate with all the other proce
   *  MSG_OBSTACLE: message sent from `osbtacles_gen.c` to add a obstacle to the first non active index in the target array.
 - ***Message***: generic container for transmitting a single drone/target/obstacle update. Contains a type identifier and a union with the actual data.
 - ***ResizeMessage***: used to notify a change in the map/window size and trigger the `osbtacles_gen.c` and  `target_gen.c` classes to generate new to date related to the new map dimensions.
+
+## Log
+The directory `log/` stores runtime logs. There can be find different time of log files. 
+- `*_log.txt`: for each process there is a individual log file for debugging problem. 
+- `common_log.txt`: contains log of all the processes.
+- `watchdog_log_msg.txt`: contains responses from all the processes when watchdog polls them. 
+
+## Configuration
+The directory `config/`containes some configuration files.
+- `paremeters.txt` : stores parameters for all the processing.
+- `watchdog.txt`: stores `watchdog.c` pid so that the process `main.c` can share it to other processes when `fork` is called.
+- `pid.txt` : stores process id of all processes so that the `watchdog.c` can use them to poll.
+
+
