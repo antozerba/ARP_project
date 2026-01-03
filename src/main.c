@@ -400,9 +400,12 @@ int main(int arc, char ** argv) {
     close(ob_pipe[0]); close(ob_pipe[1]);
     close(bt_pipe[0]); close(bt_pipe[1]);
     close(tb_pipe[0]); close(tb_pipe[1]);
+    
+    logger(log_file, "ARRIVO 1");
 
     //server chiuso 
     waitpid(b_pid, &b_status, 0);
+    logger(log_file, "ARRIVO");
     //comando chiusura quindi mando segnale a tutti i figli
     kill(t_pid, SIGTERM);
     kill(o_pid, SIGTERM);

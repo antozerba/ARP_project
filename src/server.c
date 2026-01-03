@@ -79,7 +79,7 @@ int setup_network_socket(NetworkConfig *nc) {
             return -1;
         }
         
-        close(sock); // Chiudi socket di ascolto
+        // close(sock); // Chiudi socket di ascolto
         logger(log_file, "Client connected!");
 
         //FARLO SUL SELECT
@@ -388,6 +388,11 @@ int main(int argc, char **argv){
     char * read_tar_fd_char = getenv("IN_TAR_FD");
     char *watchdog_pid_str = getenv("WATCHDOG_PID");
 
+    char bufpid[200];
+    sprintf(bufpid, "Input: %s, Window: %s, Dynamic: %s, Obs: %s, Tar: %s, WD: %s ",
+         read_input_fd_char, read_window_fd_char , read_dynamic_fd_char, read_obs_fd_char, read_tar_fd_char, watchdog_pid_str);
+    logger(log_file, bufpid);
+
     watchdog_pid = atoi(watchdog_pid_str);
     read_input_fd = atoi(read_input_fd_char);
     write_input_fd = atoi(write_input_fd_char);
@@ -535,7 +540,7 @@ int main(int argc, char **argv){
             logger(log_file, baf);
         }
          // Leggi messaggi da obstacle generator
-        if (read_obs_fd > 0 && FD_ISSET(read_obs_fd, &read_fds)) {
+        if (nc.mode == MODE_STANDALONE && FD_ISSET(read_obs_fd, &read_fds)) {
             Message msg;
             ssize_t n = read(read_obs_fd, &msg, sizeof(Message));
             char ob[256];
@@ -551,7 +556,7 @@ int main(int argc, char **argv){
             }
         }
         // Ricevo target 
-        if (read_tar_fd > 0 && FD_ISSET(read_tar_fd, &read_fds)) {
+        if (nc.mode == MODE_STANDALONE && FD_ISSET(read_tar_fd, &read_fds)) {
             Message msg;
             ssize_t n = read(read_tar_fd, &msg, sizeof(Message));
             char tar[256];
@@ -582,26 +587,28 @@ int main(int argc, char **argv){
                 state.mapx = msg.x;
                 state.mapy = msg.y;
                 state.num_obstacles = 0;
-                write(write_obs_fd, &msg, sizeof(ResizeMessage));
-                write(write_tar_fd, &msg, sizeof(ResizeMessage));
+                // if(write_obs_fd > 0 && write_tar_fd > 0){
+                //     write(write_obs_fd, &msg, sizeof(ResizeMessage));
+                //     write(write_tar_fd, &msg, sizeof(ResizeMessage));
+                // }
                 send_dyn = 1;
 
             }
             
         }
-        if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
+        // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
 
-            char buf[256];
-            ssize_t n = read(network_socket, buf, sizeof(buf)-1);
+        //     char buf[256];
+        //     ssize_t n = read(network_socket, buf, sizeof(buf)-1);
 
-            if (n <= 0) {
-                close(network_socket);
-                network_socket = -1;
-            } else {
-                buf[n] = '\0';
-                // handle_network_message(buf, &state);
-            }
-        }
+        //     if (n <= 0) {
+        //         close(network_socket);
+        //         network_socket = -1;
+        //     } else {
+        //         buf[n] = '\0';
+        //         // handle_network_message(buf, &state);
+        //     }
+        // }
         // //Network handling
         // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
         //     char buf[256];
@@ -708,6 +715,7 @@ int main(int argc, char **argv){
             send_dyn = 0;
 
         }
+        logger(log_file, "---- End of iteration ----");
 
     }
     
