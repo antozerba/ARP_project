@@ -33,6 +33,18 @@ NetworkMode network_mode = MODE_STANDALONE;
 int send_dyn = 0;   //flag per capire se mandare a dynamics in base a input
 
 
+typedef enum{ 
+    WOK, //w = waiting, s = sending
+    WW, //waiting okay window
+
+
+
+
+
+}State;
+State status = WOK;
+
+
 // Setup network socket
 int setup_network_socket(NetworkConfig *nc) {
     int sock;
@@ -82,10 +94,10 @@ int setup_network_socket(NetworkConfig *nc) {
         // close(sock); // Chiudi socket di ascolto
         logger(log_file, "Client connected!");
 
-        //FARLO SUL SELECT
         
-        // // Protocollo: invia "ok"
-        // write(client_sock, "ok\n", 3);
+        // Protocollo: invia "ok"
+        write(client_sock, "ok\n", 3);
+        status = WOK;
         
         // // Ricevi "ook"
         // char buf[32];
@@ -375,6 +387,7 @@ int main(int argc, char **argv){
     common_log = fopen(COMMON_LOG, "a");
 
 
+
     //PIPE from EN
     char * read_input_fd_char = getenv("IN_INPUT_FD");
     char * read_window_fd_char = getenv("IN_WINDOW_FD");
@@ -451,7 +464,9 @@ int main(int argc, char **argv){
             return 1;
         }
     }
-
+    char sbuf[20];
+    sprintf(sbuf, "Socker FD: %d", network_socket);
+    logger(log_file, sbuf);
     logger(log_file, "Entering main loop");
     WorldState state;
     init_world_state(&state);
@@ -493,8 +508,6 @@ int main(int argc, char **argv){
         if(read_obs_fd > max_fd) max_fd = read_obs_fd;
         if(read_tar_fd > max_fd) max_fd = read_tar_fd;
         if(network_socket > max_fd) max_fd = network_socket;
-        // // flag per capire se mandare a dynamics in base a input
-        // int send_dyn = 0;
 
         //set timer for select
         struct timeval timeout;
@@ -596,6 +609,64 @@ int main(int argc, char **argv){
             }
             
         }
+        if(network_socket > 0 && FD_ISSET(network_socket, &read_fds)){
+            if(nc.mode == MODE_SERVER)
+            {
+                char msg[200];
+                int n = read(network_socket, msg, sizeof(msg));
+                logger(log_file, msg);
+                switch (status)
+                {
+                case WOK:
+                    if(strcmp(msg, "ook")){
+                        logger(log_file, "OKAY RICEVUTO");
+                        // Invia dimensioni window
+                        char size_msg[64];
+                        sprintf(size_msg, "size %d %d\n", 100, 40); // Da config
+                        write(network_socket, size_msg, strlen(size_msg));
+                        //TODO: funzione gestire finestra
+                        status = WW;
+                    }
+                    break;
+                case WW:
+                    if(strcmp(msg,""))
+
+                    break;
+                
+                default:
+                    break;
+                }
+                
+
+            }
+            if(nc.mode == MODE_CLIENT)
+            {
+                char msg[200];
+                int n = read(network_socket, msg, sizeof(msg));
+                logger(log_file, msg);
+                switch (status)
+                {
+                case WOK:
+                    if(strcmp(msg, "ok")){
+                        write(network_socket,"ook\n", 4 );
+                        status = WW;
+                        logger(log_file, "OKAY RICEVUTO");
+                    }
+                    break;
+                case WW:
+                    if(strcmp(msg, "size 100 40")){
+                        write(network_socket,"sok\n", 4 );
+                        status = WW;
+                        logger(log_file, "SIZE RICEVUTA");
+                    }
+                    break;
+                
+                default:
+                    break;
+                }
+            }
+        }
+
         // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
 
         //     char buf[256];
