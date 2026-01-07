@@ -1,0 +1,12 @@
+Target Generator Started
+Created target at (59.7, 9.6) [Total: 1]
+Created target at (5.8, 7.9) [Total: 2]
+Created target at (13.4, 21.6) [Total: 3]
+Created target at (77.6, 11.4) [Total: 1]
+Created target at (84.6, 5.1) [Total: 2]
+Created target at (67.9, 5.3) [Total: 3]
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Target Generator Terminated
+Target Generator Terminated

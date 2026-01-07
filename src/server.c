@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <sys/socket.h>
+#include <errno.h>
 
 
 #define COLL_RAD 0.5
@@ -33,28 +34,47 @@ NetworkMode network_mode = MODE_STANDALONE;
 int send_dyn = 0;   //flag per capire se mandare a dynamics in base a input
 
 
-typedef enum{ 
-    WOK, //w = waiting, s = sending
-    WW, //waiting okay window
 
-
-
-
-
+typedef enum {
+    PROTO_INIT,           // Iniziale
+    PROTO_WAIT_OOK,       // Server: aspetta "ook" dal client
+    PROTO_WAIT_SIZE_ACK,  // Server: aspetta "sok" dopo invio size
+    PROTO_WAIT_OK,        // Client: aspetta "ok" dal server
+    PROTO_WAIT_SIZE,      // Client: aspetta "size" dal server
+    PROTO_READY,          // Connessione stabilita, pronto per scambio dati
+    PROTO_ERROR           // Errore nel protocollo
 }State;
-State status = WOK;
 
+typedef struct {
+    State state;
+    char buffer[256];     // Buffer per messaggi parziali
+    int buf_len;          // Lunghezza corrente del buffer
+    int window_width;
+    int window_height;
+} NetworkProtocol;
 
-// Setup network socket
+NetworkProtocol net_proto = {
+    .state = PROTO_INIT,
+    .buf_len = 0,
+    .window_width = 0,
+    .window_height = 0
+};
+
+// Rendi il socket non-bloccante
+int set_nonblocking(int sock) {
+    int flags = fcntl(sock, F_GETFL, 0);
+    if (flags == -1) return -1;
+    return fcntl(sock, F_SETFL, flags | O_NONBLOCK);
+}
+
+// Setup migliorato con socket non-bloccante
 int setup_network_socket(NetworkConfig *nc) {
     int sock;
     struct sockaddr_in addr;
     
     if(nc->mode == MODE_SERVER) {
-        // Server: crea socket e attendi connessione
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if(sock < 0) {
-
             logger(log_file, "Failed to create socket");
             return -1;
         }
@@ -64,18 +84,16 @@ int setup_network_socket(NetworkConfig *nc) {
         
         memset(&addr, 0, sizeof(addr));
         addr.sin_family = AF_INET;
-        addr.sin_addr.s_addr = INADDR_ANY; //tutti i client sia locali che remoti possono connettersi
+        addr.sin_addr.s_addr = INADDR_ANY;
         addr.sin_port = htons(nc->serve_port);
         
         if(bind(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-            perror("bind");
             close(sock);
             logger(log_file, "Failed to bind socket");
             return -1;
         }
         
         if(listen(sock, 1) < 0) {
-            perror("listen");
             close(sock);
             logger(log_file, "Failed to listen on socket");
             return -1;
@@ -85,40 +103,34 @@ int setup_network_socket(NetworkConfig *nc) {
         
         int client_sock = accept(sock, NULL, NULL);
         if(client_sock < 0) {
-            perror("accept");
             close(sock);
             logger(log_file, "Failed to accept connection");
             return -1;
         }
         
-        // close(sock); // Chiudi socket di ascolto
+        close(sock); // Chiudi socket di ascolto
         logger(log_file, "Client connected!");
-
         
-        // Protocollo: invia "ok"
+        // Rendi non-bloccante
+        if(set_nonblocking(client_sock) < 0) {
+            
+            close(sock);
+            logger(log_file, "Blocking bad");
+            perror("non blocking");
+            return -1;
+        }
+        
+        // Invia subito "ok\n"
         write(client_sock, "ok\n", 3);
-        status = WOK;
-        
-        // // Ricevi "ook"
-        // char buf[32];
-        // read(client_sock, buf, sizeof(buf));
-        
-        // // Invia dimensioni window
-        // char size_msg[64];
-        // sprintf(size_msg, "size %d %d\n", 100, 40); // Da config
-        // write(client_sock, size_msg, strlen(size_msg));
-        
-        // // Ricevi "sok"
-        // read(client_sock, buf, sizeof(buf));
+        net_proto.state = PROTO_WAIT_OOK;
         
         return client_sock;
         
     } else if(nc->mode == MODE_CLIENT) {
-        // Client: connetti al server
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if(sock < 0) {
-            perror("socket");
             logger(log_file, "Failed to create socket");
+            perror("socket");
             return -1;
         }
         
@@ -130,42 +142,226 @@ int setup_network_socket(NetworkConfig *nc) {
         logger(log_file, "Connecting to server...");
         
         if(connect(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-            perror("connect");
             close(sock);
+            perror("connect");
             return -1;
         }
         
         logger(log_file, "Connected to server!");
         
-        // // Protocollo: ricevi "ok"
-        // char buf[32];
-        // read(sock, buf, sizeof(buf));
+        // Rendi non-bloccante
+        if(set_nonblocking(sock) < 0) {
+            close(sock);
+            logger(log_file, "Blocking bad");
+            perror("non blocking");
+            return -1;
+        }
         
-        // // Invia "ook"
-        // write(sock, "ook\n", 4);
-        
-        // // Ricevi dimensioni
-        // char size_msg[64];
-        // read(sock, size_msg, sizeof(size_msg));
-        // int width, height;
-        // sscanf(size_msg, "size %d %d", &width, &height);
-
-        // //TODO: MANDARE DIREZIONI AL WINDOW
-        // //idea: setterli nello state e poi fare il check in window.c
-        
-        // char log_buf[100];
-        // sprintf(log_buf, "Received window size: %dx%d", width, height);
-        // logger(log_file, log_buf);
-        
-        // // Invia "sok"
-        // sprintf(buf, "sok %d %d\n", width, height);
-        // write(sock, buf, strlen(buf));
+        net_proto.state = PROTO_WAIT_OK;
         
         return sock;
     }
     
     return -1;
 }
+
+
+char* find_line(NetworkProtocol *proto) {
+    for(int i = 0; i < proto->buf_len; i++) {
+        if(proto->buffer[i] == '\n') {
+            proto->buffer[i] = '\0'; // Termina la stringa
+            return proto->buffer;
+        }
+    }
+    return NULL; // Nessuna linea completa
+}
+// Rimuove una linea processata dal buffer
+void consume_line(NetworkProtocol *proto) {
+    char *newline_pos = strchr(proto->buffer, '\0');
+    if(!newline_pos) return;
+    
+    int consumed = (newline_pos - proto->buffer) + 1; // +1 per \n
+    int remaining = proto->buf_len - consumed;
+    
+    if(remaining > 0) {
+        memmove(proto->buffer, proto->buffer + consumed, remaining);
+    }
+    proto->buf_len = remaining;
+}
+// Gestione protocollo server
+void handle_server_protocol(int sock, NetworkProtocol *proto) {
+    switch(proto->state) {
+        case PROTO_WAIT_OOK: {
+            char *line = find_line(proto);
+            if(!line) return; // Aspetta più dati
+            
+            if(strcmp(line, "ook") == 0) {
+                logger(log_file, "Received 'ook' from client");
+                
+                // Invia dimensioni finestra
+                //SEND RESIZE TO WINDOW
+                ResizeMessage rmsg;
+                rmsg.x = config.map_width;
+                rmsg.y = config.map_height;
+                write(write_window_fd, &rmsg, sizeof(ResizeMessage));
+                logger(log_file, "Sent Resize Network");
+
+
+                char size_msg[64];
+                snprintf(size_msg, sizeof(size_msg), "size %d %d\n", 
+                        rmsg.x, rmsg.y);
+                write(sock, size_msg, strlen(size_msg));
+                
+                proto->state = PROTO_WAIT_SIZE_ACK;
+                logger(log_file, "Sent window size, waiting for 'sok'");
+            } else {
+                logger(log_file, "Protocol error: expected 'ook'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+        }
+        
+        case PROTO_WAIT_SIZE_ACK: {
+            char *line = find_line(proto);
+            if(!line) return;
+            
+            int w, h;
+            if(sscanf(line, "sok %d %d", &w, &h) == 2) {
+                logger(log_file, "Received 'sok', protocol complete");
+                proto->window_width = w;
+                proto->window_height = h;
+                proto->state = PROTO_READY;
+            } else {
+                logger(log_file, "Protocol error: expected 'sok'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+        }
+        
+        case PROTO_READY:
+            // Qui gestisci lo scambio dati normale
+            // (drone positions, obstacles, etc.)
+            break;
+            
+        default:
+            break;
+    }
+}
+
+// Gestione protocollo client
+void handle_client_protocol(int sock, NetworkProtocol *proto) {
+    switch(proto->state) {
+        case PROTO_WAIT_OK: {
+            char *line = find_line(proto);
+            if(!line) return;
+            
+            if(strcmp(line, "ok") == 0) {
+                logger(log_file, "Received 'ok' from server");
+                write(sock, "ook\n", 4);
+                proto->state = PROTO_WAIT_SIZE;
+                logger(log_file, "Sent 'ook', waiting for size");
+            } else {
+                logger(log_file, "Protocol error: expected 'ok'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+        }
+        
+        case PROTO_WAIT_SIZE: {
+            char *line = find_line(proto);
+            if(!line) return;
+            
+            int w, h;
+            if(sscanf(line, "size %d %d", &w, &h) == 2) {
+                char slog[100];
+                
+                sprintf(slog, "Received window size: %d, %d", w,h);
+                logger(log_file,slog);
+                //SEND RESIZE TO WINDOW
+                ResizeMessage rmsg;
+                rmsg.x = w;
+                rmsg.y = h;
+                write(write_window_fd, &rmsg, sizeof(ResizeMessage));
+                logger(log_file, "Sent Resize Network");
+
+                
+
+                proto->window_width = w;
+                proto->window_height = h;
+                
+                // Invia conferma
+                char ack[64];
+                snprintf(ack, sizeof(ack), "sok %d %d\n", w, h);
+                write(sock, ack, strlen(ack));
+                
+                proto->state = PROTO_READY;
+                logger(log_file, "Protocol complete, ready for data exchange");
+            } else {
+                logger(log_file, "Protocol error: expected 'size'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+        }
+        
+        case PROTO_READY:
+            // Qui gestisci lo scambio dati normale
+            break;
+            
+        default:
+            break;
+    }
+}
+
+// Funzione da chiamare nel main loop quando il socket è pronto
+void handle_network_data(int sock, NetworkMode mode) {
+    // Leggi dati disponibili
+    char temp_buf[256];
+    ssize_t n = read(sock, temp_buf, sizeof(temp_buf) - 1);
+    
+    if(n < 0) {
+        if(errno == EAGAIN || errno == EWOULDBLOCK) {
+            // Nessun dato disponibile, normale per non-blocking
+            return;
+        }
+        // Errore reale
+        logger(log_file, "Socket read error");
+        close(sock);
+        network_socket = -1;
+        return;
+    }
+    
+    if(n == 0) {
+        // Connessione chiusa
+        logger(log_file, "Connection closed by peer");
+        close(sock);
+        network_socket = -1;
+        return;
+    }
+    
+    // Aggiungi al buffer del protocollo
+    if(net_proto.buf_len + n < sizeof(net_proto.buffer)) {
+        memcpy(net_proto.buffer + net_proto.buf_len, temp_buf, n);
+        net_proto.buf_len += n;
+    } else {
+        logger(log_file, "Protocol buffer overflow");
+        net_proto.state = PROTO_ERROR;
+        return;
+    }
+    
+    // Processa i messaggi
+    if(mode == MODE_SERVER) {
+        handle_server_protocol(sock, &net_proto);
+    } else if(mode == MODE_CLIENT) {
+        handle_client_protocol(sock, &net_proto);
+    }
+}
+
+
+
 
 void send_drone_position(int sock, float x, float y) {
     if(sock < 0) return;
@@ -436,13 +632,18 @@ int main(int argc, char **argv){
     }
     // Carica configurazione di rete
     NetworkConfig nc;
+    
+    nc.mode = network_mode;
 
 
     //Config method
-    network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode;
+    network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode; //set nc.mode only if getenv != null
+
     strcpy(nc.server_ip, config.server_ip);
     nc.serve_port = config.server_port;
     nc.mode = network_mode;
+    
+
     
 
     char buf[200];
@@ -600,72 +801,86 @@ int main(int argc, char **argv){
                 state.mapx = msg.x;
                 state.mapy = msg.y;
                 state.num_obstacles = 0;
-                // if(write_obs_fd > 0 && write_tar_fd > 0){
-                //     write(write_obs_fd, &msg, sizeof(ResizeMessage));
-                //     write(write_tar_fd, &msg, sizeof(ResizeMessage));
-                // }
+                if(nc.mode == MODE_STANDALONE){
+                    if(write_obs_fd > 0 && write_tar_fd > 0){
+                     write(write_obs_fd, &msg, sizeof(ResizeMessage));
+                     write(write_tar_fd, &msg, sizeof(ResizeMessage));
+                 }
+                }
+
                 send_dyn = 1;
 
             }
             
         }
         if(network_socket > 0 && FD_ISSET(network_socket, &read_fds)){
-            if(nc.mode == MODE_SERVER)
-            {
-                char msg[200];
-                int n = read(network_socket, msg, sizeof(msg));
-                logger(log_file, msg);
-                switch (status)
-                {
-                case WOK:
-                    if(strcmp(msg, "ook")){
-                        logger(log_file, "OKAY RICEVUTO");
-                        // Invia dimensioni window
-                        char size_msg[64];
-                        sprintf(size_msg, "size %d %d\n", 100, 40); // Da config
-                        write(network_socket, size_msg, strlen(size_msg));
-                        //TODO: funzione gestire finestra
-                        status = WW;
-                    }
-                    break;
-                case WW:
-                    if(strcmp(msg,""))
-
-                    break;
-                
-                default:
-                    break;
-                }
-                
-
-            }
-            if(nc.mode == MODE_CLIENT)
-            {
-                char msg[200];
-                int n = read(network_socket, msg, sizeof(msg));
-                logger(log_file, msg);
-                switch (status)
-                {
-                case WOK:
-                    if(strcmp(msg, "ok")){
-                        write(network_socket,"ook\n", 4 );
-                        status = WW;
-                        logger(log_file, "OKAY RICEVUTO");
-                    }
-                    break;
-                case WW:
-                    if(strcmp(msg, "size 100 40")){
-                        write(network_socket,"sok\n", 4 );
-                        status = WW;
-                        logger(log_file, "SIZE RICEVUTA");
-                    }
-                    break;
-                
-                default:
-                    break;
-                }
+            handle_network_data(network_socket, nc.mode);
+    
+            // Se il protocollo è completo, puoi aggiornare la mappa
+            if(net_proto.state == PROTO_READY && 
+            state.mapx != net_proto.window_width) {
+                state.mapx = net_proto.window_width;
+                state.mapy = net_proto.window_height;
+                // Notifica gli altri processi del resize se necessario
             }
         }
+        // if(network_socket > 0 && FD_ISSET(network_socket, &read_fds)){
+        //     if(nc.mode == MODE_SERVER)
+        //     {
+        //         char msg[200];
+        //         int n = read(network_socket, msg, sizeof(msg));
+        //         logger(log_file, msg);
+        //         switch (status)
+        //         {
+        //         case WOK:
+        //             if(strcmp(msg, "ook")){
+        //                 logger(log_file, "OKAY RICEVUTO");
+        //                 // Invia dimensioni window
+        //                 char size_msg[64];
+        //                 sprintf(size_msg, "size %d %d\n", 100, 40); // Da config
+        //                 write(network_socket, size_msg, strlen(size_msg));
+        //                 //TODO: funzione gestire finestra
+        //                 status = WW;
+        //             }
+        //             break;
+        //         case WW:
+        //             if(strcmp(msg,""))
+
+        //             break;
+                
+        //         default:
+        //             break;
+        //         }
+                
+
+        //     }
+        //     if(nc.mode == MODE_CLIENT)
+        //     {
+        //         char msg[200];
+        //         int n = read(network_socket, msg, sizeof(msg));
+        //         logger(log_file, msg);
+        //         switch (status)
+        //         {
+        //         case WOK:
+        //             if(strcmp(msg, "ok")){
+        //                 write(network_socket,"ook\n", 4 );
+        //                 status = WW;
+        //                 logger(log_file, "OKAY RICEVUTO");
+        //             }
+        //             break;
+        //         case WW:
+        //             if(strcmp(msg, "size 100 40")){
+        //                 write(network_socket,"sok\n", 4 );
+        //                 status = WW;
+        //                 logger(log_file, "SIZE RICEVUTA");
+        //             }
+        //             break;
+                
+        //         default:
+        //             break;
+        //         }
+        //     }
+        // }
 
         // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
 
@@ -779,6 +994,17 @@ int main(int argc, char **argv){
             }
         }
         logger(log_file, wtar);
+        char otar[512];
+        pos = 0;
+        pos += snprintf(otar + pos, sizeof(otar) - pos, "OBS SENT TO WIN - active targets:");
+        for (int ti = 0; ti < MAX_OBS && pos < (int)sizeof(otar); ++ti) {
+            if (state.obstacles[ti].active) {
+            pos += snprintf(otar + pos, sizeof(otar) - pos,
+                            " (%.2f,%.2f)",
+                            state.obstacles[ti].x, state.obstacles[ti].y);
+            }
+        }
+        logger(log_file, otar);
         //Invio a dynamic solo se ho ricevuto da input per limitare il traffico
         if(send_dyn){
             //invio a dynamic

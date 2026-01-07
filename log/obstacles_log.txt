@@ -1,0 +1,28 @@
+OBS Started
+OBSTACLE_GEN Started
+Created obstacle at (17.9, 19.8) [Total: 1]
+Created obstacle at (57.8, 28.3) [Total: 2]
+Created obstacle at (8.9, 27.0) [Total: 3]
+Created obstacle at (8.7, 23.0) [Total: 4]
+Created obstacle at (41.7, 19.8) [Total: 5]
+Created obstacle at (12.1, 21.9) [Total: 6]
+Created obstacle at (51.5, 28.7) [Total: 7]
+Created obstacle at (59.7, 16.2) [Total: 8]
+Created obstacle at (25.5, 8.2) [Total: 9]
+Created obstacle at (30.0, 15.0) [Total: 10]
+Resize Receive
+Created obstacle at (75.7, 8.0) [Total: 1]
+Created obstacle at (93.6, 19.2) [Total: 2]
+Created obstacle at (30.2, 14.8) [Total: 3]
+Created obstacle at (60.3, 9.7) [Total: 4]
+Created obstacle at (97.7, 8.1) [Total: 5]
+Created obstacle at (84.0, 6.3) [Total: 6]
+Created obstacle at (87.9, 13.6) [Total: 7]
+Created obstacle at (7.4, 17.9) [Total: 8]
+Created obstacle at (52.1, 6.2) [Total: 9]
+Created obstacle at (64.8, 5.3) [Total: 10]
+Heartbeat sent to watchdog
+Heartbeat sent to watchdog
+Created obstacle at (74.7, 15.3) [Total: 10]
+Heartbeat sent to watchdog
+Obstacles Generator Terminted
