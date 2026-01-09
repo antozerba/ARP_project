@@ -248,6 +248,11 @@ int main(int arc, char ** argv) {
         char watchdog_pid_fd[16];
         sprintf(watchdog_pid_fd, "%d", wd_pid);
         setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+        if(mode != MODE_STANDALONE) {
+            char mode_env[16];
+            sprintf(mode_env, "%d", mode);
+            setenv("NETWORK_MODE", mode_env, 1);
+        }
         
         char write_fd[16];
         char read_fd[16];
@@ -285,6 +290,12 @@ int main(int arc, char ** argv) {
         char watchdog_pid_fd[16];
         sprintf(watchdog_pid_fd, "%d", wd_pid);
         setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+        //mode
+        if(mode != MODE_STANDALONE) {
+            char mode_env[16];
+            sprintf(mode_env, "%d", mode);
+            setenv("NETWORK_MODE", mode_env, 1);
+        }
 
 
         execlp("konsole", "konsole", "-e", "./input",NULL);
@@ -314,6 +325,12 @@ int main(int arc, char ** argv) {
         char watchdog_pid_fd[16];
         sprintf(watchdog_pid_fd, "%d", wd_pid);
         setenv("WATCHDOG_PID", watchdog_pid_fd, 1);
+        //mode
+        if(mode != MODE_STANDALONE) {
+            char mode_env[16];
+            sprintf(mode_env, "%d", mode);
+            setenv("NETWORK_MODE", mode_env, 1);
+        }
 
 
 

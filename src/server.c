@@ -42,6 +42,20 @@ typedef enum {
     PROTO_WAIT_OK,        // Client: aspetta "ok" dal server
     PROTO_WAIT_SIZE,      // Client: aspetta "size" dal server
     PROTO_READY,          // Connessione stabilita, pronto per scambio dati
+    // Server states nel loop
+    PROTO_S_SEND_DRONE,   // Server: manda "drone"
+    PROTO_S_SEND_DRONE_POS, // Server: manda "x y"
+    PROTO_S_WAIT_DOK,     // Server: aspetta "dok"
+    PROTO_S_SEND_OBST,    // Server: manda "obst"
+    PROTO_S_RECEIVE_OBST_POS, // Server: aspetta "x y"
+    PROTO_S_SEND_POK,     // Server: manda "pok"
+    
+    // Client states nel loop
+    PROTO_C_WAIT_CMD,     // Client: aspetta comando (q/drone/obst)
+    PROTO_C_RECEIVE_DRONE_POS, // Client: aspetta posizione drone
+    PROTO_C_SEND_DOK,     // Client: manda "dok"
+    PROTO_C_SEND_OBST_POS, // Client: manda posizione ostacolo
+    PROTO_C_WAIT_POK,     // Client: aspetta "pok"
     PROTO_ERROR           // Errore nel protocollo
 }State;
 
@@ -49,17 +63,36 @@ typedef struct {
     State state;
     char buffer[256];     // Buffer per messaggi parziali
     int buf_len;          // Lunghezza corrente del buffer
-    int window_width;
-    int window_height;
+    int quit_requested;
+    float loop_again;
 } NetworkProtocol;
 
 NetworkProtocol net_proto = {
     .state = PROTO_INIT,
     .buf_len = 0,
-    .window_width = 0,
-    .window_height = 0
+    .quit_requested = 0
 };
 
+void handle_quit(){
+    //chiudo tutti i fds
+    close(read_input_fd);
+    close(write_input_fd);
+    close(read_window_fd);
+    close(write_window_fd);
+    close(read_dynamic_fd);
+    close(write_dynamic_fd);
+    close(read_obs_fd);
+    close(write_obs_fd);
+    close(read_tar_fd);
+    close(write_tar_fd);
+
+    //chiusura logger
+    fclose(log_file);
+    fclose(wd_log_file);
+    fclose(common_log);
+    exit(0);
+
+}
 // Rendi il socket non-bloccante
 int set_nonblocking(int sock) {
     int flags = fcntl(sock, F_GETFL, 0);
@@ -165,6 +198,15 @@ int setup_network_socket(NetworkConfig *nc) {
     return -1;
 }
 
+void check_block(NetworkProtocol * prot){
+
+    if(prot->loop_again > 500){
+       prot->loop_again = 0; 
+    if(network_mode == MODE_SERVER) prot->state = PROTO_S_SEND_DRONE;
+    else prot->state = PROTO_C_WAIT_CMD;
+    }
+}
+
 
 char* find_line(NetworkProtocol *proto) {
     for(int i = 0; i < proto->buf_len; i++) {
@@ -176,23 +218,37 @@ char* find_line(NetworkProtocol *proto) {
     return NULL; // Nessuna linea completa
 }
 // Rimuove una linea processata dal buffer
+// void consume_line(NetworkProtocol *proto) {
+//     char *newline_pos = strchr(proto->buffer, '\0');
+//     if(!newline_pos) return;
+    
+//     int consumed = (newline_pos - proto->buffer) + 1; // +1 per \n
+//     int remaining = proto->buf_len - consumed;
+    
+//     if(remaining > 0) {
+//         memmove(proto->buffer, proto->buffer + consumed, remaining);
+//     }
+//     proto->buf_len = remaining;
+// }
 void consume_line(NetworkProtocol *proto) {
-    char *newline_pos = strchr(proto->buffer, '\0');
-    if(!newline_pos) return;
-    
-    int consumed = (newline_pos - proto->buffer) + 1; // +1 per \n
+    int i;
+    for(i = 0; i < proto->buf_len; i++) {
+        if(proto->buffer[i] == '\0') break; // termina al primo \0
+    }
+    int consumed = i + 1; // +1 per \0 sostituito al \n
     int remaining = proto->buf_len - consumed;
-    
     if(remaining > 0) {
         memmove(proto->buffer, proto->buffer + consumed, remaining);
     }
     proto->buf_len = remaining;
 }
 // Gestione protocollo server
-void handle_server_protocol(int sock, NetworkProtocol *proto) {
+void handle_server_protocol(int sock, NetworkProtocol *proto, WorldState *state) {
+    char *line;
+    char msg[128];
     switch(proto->state) {
         case PROTO_WAIT_OOK: {
-            char *line = find_line(proto);
+            line = find_line(proto);
             if(!line) return; // Aspetta più dati
             
             if(strcmp(line, "ook") == 0) {
@@ -204,9 +260,13 @@ void handle_server_protocol(int sock, NetworkProtocol *proto) {
                 rmsg.x = config.map_width;
                 rmsg.y = config.map_height;
                 write(write_window_fd, &rmsg, sizeof(ResizeMessage));
+                state->mapx = rmsg.x;
+                state->mapy = rmsg.y;
                 logger(log_file, "Sent Resize Network");
 
-
+                // snprintf(msg, sizeof(msg), "size %d %d\n", 
+                //         config.map_width, config.map_height);
+                // write(sock, msg, strlen(msg));
                 char size_msg[64];
                 snprintf(size_msg, sizeof(size_msg), "size %d %d\n", 
                         rmsg.x, rmsg.y);
@@ -223,15 +283,19 @@ void handle_server_protocol(int sock, NetworkProtocol *proto) {
         }
         
         case PROTO_WAIT_SIZE_ACK: {
-            char *line = find_line(proto);
+            line = find_line(proto);
             if(!line) return;
             
             int w, h;
             if(sscanf(line, "sok %d %d", &w, &h) == 2) {
                 logger(log_file, "Received 'sok', protocol complete");
-                proto->window_width = w;
-                proto->window_height = h;
-                proto->state = PROTO_READY;
+                char slog[100];
+                
+                sprintf(slog, "ACK window size: %d, %d", w,h);
+                logger(log_file,slog);
+                // proto->window_width = w;
+                // proto->window_height = h;
+                proto->state = PROTO_S_SEND_DRONE;
             } else {
                 logger(log_file, "Protocol error: expected 'sok'");
                 proto->state = PROTO_ERROR;
@@ -240,9 +304,92 @@ void handle_server_protocol(int sock, NetworkProtocol *proto) {
             break;
         }
         
-        case PROTO_READY:
-            // Qui gestisci lo scambio dati normale
-            // (drone positions, obstacles, etc.)
+        
+        // === LOOP DATI ===
+        case PROTO_S_SEND_DRONE:
+            // Controlla se dobbiamo fare quit
+            if(proto->quit_requested) {
+                write(sock, "q\n", 2);
+                proto->state = PROTO_ERROR; // Aspetta qok e poi chiudi
+                logger(log_file, "SERVER: Sent quit command");
+                return;
+            }
+            
+            // Invia "drone\n"
+            write(sock, "drone\n", 6);
+            proto->state = PROTO_S_SEND_DRONE_POS;
+            logger(log_file, "SERVER: Sent 'drone'");
+            break;
+            
+        case PROTO_S_SEND_DRONE_POS:
+            // Invia posizione drone
+            snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
+            write(sock, msg, strlen(msg));
+            proto->state = PROTO_S_WAIT_DOK;
+            logger(log_file, "SERVER: Sent drone position");
+            break;
+            
+        case PROTO_S_WAIT_DOK:
+            check_block(proto);
+            line = find_line(proto);
+            if(!line) return;
+            
+            if(strcmp(line, "dok") == 0) {
+                logger(log_file, "SERVER: Received 'dok'");
+                proto->state = PROTO_S_SEND_OBST;
+            } else {
+                logger(log_file, "SERVER: Protocol error, expected 'dok'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+            
+        case PROTO_S_SEND_OBST:
+            // Invia "obst\n"
+            check_block(proto);
+            write(sock, "obst\n", 5);
+            proto->state = PROTO_S_RECEIVE_OBST_POS;
+            logger(log_file, "SERVER: Sent 'obst'");
+            break;
+            
+        case PROTO_S_RECEIVE_OBST_POS:
+            check_block(proto);
+            line = find_line(proto);
+            if(!line) return;
+            
+            float ox, oy;
+            if(sscanf(line, "%f %f", &ox, &oy) == 2) {
+                // proto->obst_x = ox;
+                // proto->obst_y = oy;
+                
+                // // Aggiungi ostacolo allo stato
+                // for(int i = 0; i < MAX_OBS; i++) {
+                //     if(!state->obstacles[i].active) {
+                //         state->obstacles[i].x = ox;
+                //         state->obstacles[i].y = oy;
+                //         state->obstacles[i].active = 1;
+                //         state->num_obstacles++;
+                //         break;
+                //     }
+                // }
+
+                //Aggiorno client drone position
+                state->obstacles[0].active = 1;
+                state->obstacles[0].x = ox;
+                state->obstacles[0].y = oy;
+                state->num_obstacles = 1;
+
+                
+                snprintf(msg, sizeof(msg), "pok %.2f %.2f\n", ox, oy);
+                write(sock, msg, strlen(msg));
+                proto->state = PROTO_S_SEND_DRONE; // Torna all'inizio del loop
+                
+                logger(log_file, "SERVER: Received obstacle, sent 'pok', loop restart");
+            } else {
+                logger(log_file, "SERVER: Protocol error, expected obstacle position");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
             break;
             
         default:
@@ -251,10 +398,12 @@ void handle_server_protocol(int sock, NetworkProtocol *proto) {
 }
 
 // Gestione protocollo client
-void handle_client_protocol(int sock, NetworkProtocol *proto) {
+void handle_client_protocol(int sock, NetworkProtocol *proto, WorldState *state) {
+    char * line;
+    char msg[128];
     switch(proto->state) {
         case PROTO_WAIT_OK: {
-            char *line = find_line(proto);
+            line = find_line(proto);
             if(!line) return;
             
             if(strcmp(line, "ok") == 0) {
@@ -271,7 +420,7 @@ void handle_client_protocol(int sock, NetworkProtocol *proto) {
         }
         
         case PROTO_WAIT_SIZE: {
-            char *line = find_line(proto);
+            line = find_line(proto);
             if(!line) return;
             
             int w, h;
@@ -289,15 +438,15 @@ void handle_client_protocol(int sock, NetworkProtocol *proto) {
 
                 
 
-                proto->window_width = w;
-                proto->window_height = h;
+                // proto->window_width = w;
+                // proto->window_height = h;
                 
                 // Invia conferma
                 char ack[64];
                 snprintf(ack, sizeof(ack), "sok %d %d\n", w, h);
                 write(sock, ack, strlen(ack));
                 
-                proto->state = PROTO_READY;
+                proto->state = PROTO_C_WAIT_CMD;
                 logger(log_file, "Protocol complete, ready for data exchange");
             } else {
                 logger(log_file, "Protocol error: expected 'size'");
@@ -307,42 +456,167 @@ void handle_client_protocol(int sock, NetworkProtocol *proto) {
             break;
         }
         
-        case PROTO_READY:
-            // Qui gestisci lo scambio dati normale
+          // === LOOP DATI ===
+        case PROTO_C_WAIT_CMD:
+            line = find_line(proto);
+            if(!line) return;
+            
+            if(strcmp(line, "q") == 0) {
+                write(sock, "qok\n", 4);
+                logger(log_file, "CLIENT: Received quit, sent 'qok', exiting");
+                proto->state = PROTO_ERROR;
+                handle_quit();
+            } else if(strcmp(line, "drone") == 0) {
+                logger(log_file, "CLIENT: Received 'drone' command");
+                proto->state = PROTO_C_RECEIVE_DRONE_POS;
+            } else if(strcmp(line, "obst") == 0) {
+                logger(log_file, "CLIENT: Received 'obst' command");
+                proto->state = PROTO_C_SEND_OBST_POS;
+            } else {
+                logger(log_file, "CLIENT: Protocol error, unknown command");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+            
+        case PROTO_C_RECEIVE_DRONE_POS:
+            check_block(proto);
+            line = find_line(proto);
+            if(!line) return;
+            
+            float dx, dy;
+            if(sscanf(line, "%f %f", &dx, &dy) == 2) {
+                // proto->drone_x = dx;
+                // proto->drone_y = dy;
+                
+                // // Tratta il drone remoto come un ostacolo
+                // for(int i = 0; i < MAX_OBS; i++) {
+                //     if(!state->obstacles[i].active) {
+                //         state->obstacles[i].x = dx;
+                //         state->obstacles[i].y = dy;
+                //         state->obstacles[i].active = 1;
+                //         state->num_obstacles++;
+                //         break;
+                //     }
+                // }
+
+                //Update server drone position
+                state->obstacles[0].active = 1;
+                state->obstacles[0].x = dx;
+                state->obstacles[0].y = dy;
+                state->num_obstacles = 1;
+                
+                
+                write(sock, "dok\n", 4);
+                proto->state = PROTO_C_WAIT_CMD;
+                logger(log_file, "CLIENT: Received drone pos, sent 'dok'");
+            } else {
+                logger(log_file, "CLIENT: Protocol error, expected drone position");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
+            break;
+            
+        case PROTO_C_SEND_OBST_POS:
+            // Invia posizione del nostro drone come ostacolo
+            snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
+            write(sock, msg, strlen(msg));
+            proto->state = PROTO_C_WAIT_POK;
+            logger(log_file, "CLIENT: Sent obstacle position (our drone)");
+            break;
+            
+        case PROTO_C_WAIT_POK:
+            check_block(proto);
+
+            line = find_line(proto);
+            if(!line) return;
+            
+            float px, py;
+            if(sscanf(line, "pok %f %f", &px, &py) == 2) {
+                logger(log_file, "CLIENT: Received 'pok', loop restart");
+                proto->state = PROTO_C_WAIT_CMD;
+            } else {
+                logger(log_file, "CLIENT: Protocol error, expected 'pok'");
+                proto->state = PROTO_ERROR;
+            }
+            consume_line(proto);
             break;
             
         default:
             break;
+            
+    }
+}
+// Controlla se lo stato corrente richiede dati in arrivo
+int state_needs_input(State state) {
+    switch(state) {
+        // Stati che aspettano dati dal socket
+        case PROTO_WAIT_OOK:
+        case PROTO_WAIT_SIZE_ACK:
+        case PROTO_WAIT_OK:
+        case PROTO_WAIT_SIZE:
+        case PROTO_S_WAIT_DOK:
+        case PROTO_C_RECEIVE_DRONE_POS:
+        case PROTO_C_WAIT_CMD:
+        case PROTO_S_RECEIVE_OBST_POS:
+        case PROTO_C_WAIT_POK:
+            return 1;
+        
+        // Stati che inviano dati (non aspettano)
+        case PROTO_S_SEND_DRONE:
+        case PROTO_S_SEND_DRONE_POS:
+        case PROTO_S_SEND_OBST:
+        case PROTO_C_SEND_DOK:
+        case PROTO_C_SEND_OBST_POS:
+        case PROTO_READY:
+            return 0;
+        
+        default:
+            return 1;
+    }
+}
+// Funzione ausiliaria: processa il protocollo (senza leggere dal socket)
+void process_protocol(int sock, NetworkMode mode, WorldState *state) {
+    if(mode == MODE_SERVER) {
+        handle_server_protocol(sock, &net_proto, state);
+    } else if(mode == MODE_CLIENT) {
+        handle_client_protocol(sock, &net_proto, state);
     }
 }
 
-// Funzione da chiamare nel main loop quando il socket è pronto
-void handle_network_data(int sock, NetworkMode mode) {
+
+// ========== FUNZIONE PRINCIPALE DA CHIAMARE NEL SELECT ==========
+void handle_network_data(int sock, NetworkMode mode, WorldState *state) {
+    // Prima processa gli stati che NON richiedono input (invii)
+    if(!state_needs_input(net_proto.state)) {
+
+        process_protocol(sock, mode, state);
+        return;
+    }
+    
     // Leggi dati disponibili
     char temp_buf[256];
-    ssize_t n = read(sock, temp_buf, sizeof(temp_buf) - 1);
+    ssize_t n = read(sock, temp_buf, sizeof(temp_buf));
     
     if(n < 0) {
         if(errno == EAGAIN || errno == EWOULDBLOCK) {
-            // Nessun dato disponibile, normale per non-blocking
+            // Nessun dato disponibile, ma non è un errore
             return;
         }
-        // Errore reale
         logger(log_file, "Socket read error");
         close(sock);
         network_socket = -1;
         return;
     }
     
-    if(n == 0) {
-        // Connessione chiusa
-        logger(log_file, "Connection closed by peer");
-        close(sock);
-        network_socket = -1;
-        return;
-    }
+    // if(n == 0) {
+    //     logger(log_file, "Connection closed by peer");
+    //     close(sock);
+    //     network_socket = -1;
+    //     return;
+    // }
     
-    // Aggiungi al buffer del protocollo
+    // Aggiungi al buffer
     if(net_proto.buf_len + n < sizeof(net_proto.buffer)) {
         memcpy(net_proto.buffer + net_proto.buf_len, temp_buf, n);
         net_proto.buf_len += n;
@@ -352,50 +626,11 @@ void handle_network_data(int sock, NetworkMode mode) {
         return;
     }
     
-    // Processa i messaggi
-    if(mode == MODE_SERVER) {
-        handle_server_protocol(sock, &net_proto);
-    } else if(mode == MODE_CLIENT) {
-        handle_client_protocol(sock, &net_proto);
-    }
+    // Processa i dati ricevuti
+    process_protocol(sock, mode, state);
 }
 
 
-
-
-void send_drone_position(int sock, float x, float y) {
-    if(sock < 0) return;
-    
-    char msg[128];
-    sprintf(msg, "drone\n%.2f %.2f\n", x, y);
-    write(sock, msg, strlen(msg));
-    
-    // Ricevi "dok"
-    char ack[32];
-    read(sock, ack, sizeof(ack));
-}
-
-void receive_obstacle_position(int sock, Obstacle *obs) {
-    if(sock < 0) return;
-    
-    // Invia "obst"
-    write(sock, "obst\n", 5);
-    
-    // Ricevi posizione
-    char buf[64];
-    read(sock, buf, sizeof(buf));
-    
-    float x, y;
-    sscanf(buf, "%f %f", &x, &y);
-    
-    obs->x = (int)x;
-    obs->y = (int)y;
-    obs->active = 1;
-    
-    // Invia "pok"
-    sprintf(buf, "pok %f %f\n", obs->x, obs->y);
-    write(sock, buf, strlen(buf));
-}
 //initialize world state object with pos of drone form config
 void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
@@ -410,26 +645,6 @@ void init_world_state(WorldState * state){
     state->mapy = config.map_height;
 }
 //closing server
-void handle_quit(){
-    //chiudo tutti i fds
-    close(read_input_fd);
-    close(write_input_fd);
-    close(read_window_fd);
-    close(write_window_fd);
-    close(read_dynamic_fd);
-    close(write_dynamic_fd);
-    close(read_obs_fd);
-    close(write_obs_fd);
-    close(read_tar_fd);
-    close(write_tar_fd);
-
-    //chiusura logger
-    fclose(log_file);
-    fclose(wd_log_file);
-    fclose(common_log);
-    exit(0);
-
-}
 void replace_obs(WorldState * state, const Obstacle * obs){
     int finding = 1;
     while(finding){
@@ -576,11 +791,6 @@ void send_heartbeat(){
 
 int main(int argc, char **argv){
 
-    //Logger
-    log_file = fopen("log/server_log.text","w");
-    logger(log_file, "Server started");
-    wd_log_file = fopen(WD_LOG_PATH, "a");
-    common_log = fopen(COMMON_LOG, "a");
 
 
 
@@ -597,10 +807,6 @@ int main(int argc, char **argv){
     char * read_tar_fd_char = getenv("IN_TAR_FD");
     char *watchdog_pid_str = getenv("WATCHDOG_PID");
 
-    char bufpid[200];
-    sprintf(bufpid, "Input: %s, Window: %s, Dynamic: %s, Obs: %s, Tar: %s, WD: %s ",
-         read_input_fd_char, read_window_fd_char , read_dynamic_fd_char, read_obs_fd_char, read_tar_fd_char, watchdog_pid_str);
-    logger(log_file, bufpid);
 
     watchdog_pid = atoi(watchdog_pid_str);
     read_input_fd = atoi(read_input_fd_char);
@@ -625,23 +831,52 @@ int main(int argc, char **argv){
         fclose(pid_file);
     }
 
+
+    //config
     if(!load_config(PARAM_PATH, &config))
     {
-      logger(log_file, "Error loading configuration");
       return 1;
     }
-    // Carica configurazione di rete
+
+    //Config network
     NetworkConfig nc;
     
     nc.mode = network_mode;
-
-
-    //Config method
     network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode; //set nc.mode only if getenv != null
 
     strcpy(nc.server_ip, config.server_ip);
     nc.serve_port = config.server_port;
     nc.mode = network_mode;
+
+    //Logger
+    if(nc.mode == MODE_SERVER){
+
+        log_file = fopen("log_s/server_log.text","w");
+        logger(log_file, "Server started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }
+    else if(nc.mode == MODE_CLIENT){
+
+        log_file = fopen("log_c/server_log.text","w");
+        logger(log_file, "Server started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }else{
+
+        log_file = fopen("log/server_log.text","w");
+        logger(log_file, "Server started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }
+
+    char bufpid[200];
+    sprintf(bufpid, "Input: %s, Window: %s, Dynamic: %s, Obs: %s, Tar: %s, WD: %s ",
+         read_input_fd_char, read_window_fd_char , read_dynamic_fd_char, read_obs_fd_char, read_tar_fd_char, watchdog_pid_str);
+    logger(log_file, bufpid);
+
+
+
     
 
     
@@ -669,6 +904,7 @@ int main(int argc, char **argv){
     sprintf(sbuf, "Socker FD: %d", network_socket);
     logger(log_file, sbuf);
     logger(log_file, "Entering main loop");
+    
     WorldState state;
     init_world_state(&state);
 
@@ -751,7 +987,7 @@ int main(int argc, char **argv){
                      msg.data.drone.x, msg.data.drone.y,
                      msg.data.drone.vx, msg.data.drone.vy,
                      msg.data.drone.fx, msg.data.drone.fy);
-            logger(log_file, baf);
+            // logger(log_file, baf);
         }
          // Leggi messaggi da obstacle generator
         if (nc.mode == MODE_STANDALONE && FD_ISSET(read_obs_fd, &read_fds)) {
@@ -813,153 +1049,45 @@ int main(int argc, char **argv){
             }
             
         }
-        if(network_socket > 0 && FD_ISSET(network_socket, &read_fds)){
-            handle_network_data(network_socket, nc.mode);
+
+        static struct timeval last_protocol_call = {0, 0};
+
+        // if(network_socket > 0) {
+        //     struct timeval now_tv;
+        //     gettimeofday(&now_tv, NULL);
     
-            // Se il protocollo è completo, puoi aggiornare la mappa
-            if(net_proto.state == PROTO_READY && 
-            state.mapx != net_proto.window_width) {
-                state.mapx = net_proto.window_width;
-                state.mapy = net_proto.window_height;
-                // Notifica gli altri processi del resize se necessario
-            }
-        }
-        // if(network_socket > 0 && FD_ISSET(network_socket, &read_fds)){
-        //     if(nc.mode == MODE_SERVER)
-        //     {
-        //         char msg[200];
-        //         int n = read(network_socket, msg, sizeof(msg));
-        //         logger(log_file, msg);
-        //         switch (status)
-        //         {
-        //         case WOK:
-        //             if(strcmp(msg, "ook")){
-        //                 logger(log_file, "OKAY RICEVUTO");
-        //                 // Invia dimensioni window
-        //                 char size_msg[64];
-        //                 sprintf(size_msg, "size %d %d\n", 100, 40); // Da config
-        //                 write(network_socket, size_msg, strlen(size_msg));
-        //                 //TODO: funzione gestire finestra
-        //                 status = WW;
-        //             }
-        //             break;
-        //         case WW:
-        //             if(strcmp(msg,""))
+        //     // Calcola millisecondi dall'ultima chiamata
+        //     long ms_elapsed = (now_tv.tv_sec - last_protocol_call.tv_sec) * 1000 +
+        //                     (now_tv.tv_usec - last_protocol_call.tv_usec) / 1000;
+    
+        //     // Chiama solo se:
+        //     // 1. C'è un nuovo dato nel socket (FD_ISSET), OPPURE
+        //     // 2. Siamo in uno stato che deve inviare E sono passati almeno 50ms
+        //     if(FD_ISSET(network_socket, &read_fds) || 
+        //     // (!state_needs_input(net_proto.state) && ms_elapsed >= 20)) {
+        //     ( ms_elapsed >= 5)) {
 
-        //             break;
+        //         logger(log_file,"ENTRO");
+        //         net_proto.loop_again = ms_elapsed;
                 
-        //         default:
-        //             break;
-        //         }
-                
-
-        //     }
-        //     if(nc.mode == MODE_CLIENT)
-        //     {
-        //         char msg[200];
-        //         int n = read(network_socket, msg, sizeof(msg));
-        //         logger(log_file, msg);
-        //         switch (status)
-        //         {
-        //         case WOK:
-        //             if(strcmp(msg, "ok")){
-        //                 write(network_socket,"ook\n", 4 );
-        //                 status = WW;
-        //                 logger(log_file, "OKAY RICEVUTO");
-        //             }
-        //             break;
-        //         case WW:
-        //             if(strcmp(msg, "size 100 40")){
-        //                 write(network_socket,"sok\n", 4 );
-        //                 status = WW;
-        //                 logger(log_file, "SIZE RICEVUTA");
-        //             }
-        //             break;
-                
-        //         default:
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
-
-        //     char buf[256];
-        //     ssize_t n = read(network_socket, buf, sizeof(buf)-1);
-
-        //     if (n <= 0) {
-        //         close(network_socket);
-        //         network_socket = -1;
-        //     } else {
-        //         buf[n] = '\0';
-        //         // handle_network_message(buf, &state);
-        //     }
-        // }
-        // //Network handling
-        // if(network_socket >= 0 && FD_ISSET(network_socket, &read_fds)) {
-        //     char buf[256];
-        //     ssize_t n = read(network_socket, buf, sizeof(buf));
         
-        //     if(n <= 0) {
-        //         logger(log_file, "Network connection closed");
-        //         close(network_socket);
-        //         network_socket MODE= -1;
-        //     } else {
-        //         buf[n] = '\0';
-            
-        //         if(strncmp(buf, "q", 1) == 0) {
-        //             // Quit ricevuto
-        //             write(network_socket, "qok\n", 4);
-        //             logger(log_file, "Quit command from network");
-        //             close(network_socket);
-        //             exit(0);
-        //         } else if(strncmp(buf, "drone", 5) == 0) {
-        //             // Posizione drone ricevuta (client mode)
-        //             float x, y;
-        //             sscanf(buf + 6, "%f %f", &x, &y);
-                
-        //             // Tratta come ostacolo
-        //             Obstacle obs;
-        //             obs.x = (int)x;
-        //             obs.y = (int)y;
-        //             obs.active = 1;
-                
-        //             state.obstacles[0] = obs;
-        //             write(network_socket, "dok\n", 4);
-        //         }
+        //         handle_network_data(network_socket, nc.mode, &state);
+        //         gettimeofday(&last_protocol_call, NULL);
         //     }
-        // }
-        // // Invia posizione drone via rete (se server o client)
-        // if(network_socket >= 0) {
-        //     if(nc.mode == MODE_SERVER) {
-        //         send_drone_position(network_socket, state.drone.x, state.drone.y);
-            
-        //         // Ricevi posizione ostacolo dal client
-        //         Obstacle obs;
-        //         receive_obstacle_position(network_socket, &obs);
-            
-        //         // Aggiungi ostacolo
-        //         for(int i = 0; i < 10; i++) {
-        //             if(!state.obstacles[i].active) {
-        //                 state.obstacles[i] = obs;
-        //                 state.num_obstacles++;
-        //                 break;
-        //             }
-        //         }
-            
-        //     } else if(nc.mode == MODE_CLIENT) {
-        //         // Invia posizione drone come se fosse ostacolo
-        //         char msg[64];
-        //         sprintf(msg, "%.2f %.2f\n", state.drone.x, state.drone.y);
-        //         write(network_socket, msg, strlen(msg));
 
-        //         //MANCA RICEZIONE DRONE DAL SERVER
-            
-        //         // Ricevi "pok"
-        //         char ack[32];
-        //         read(network_socket, ack, sizeof(ack));
-        //     }
+        //     char elbuf[20];
+        //     sprintf(elbuf, "Elaspsed: %ld", ms_elapsed);
+        //     logger(log_file, elbuf);
         // }
+        if(network_socket > 0){
+
+                handle_network_data(network_socket, nc.mode, &state);
+
+        }
+        if(network_socket < 0 ){
+            logger(log_file, "SOCKET ANDATO GIU");
+        }
+     
         //Checking only in stanalone
         checking_collisions(&state);
 
@@ -982,6 +1110,7 @@ int main(int argc, char **argv){
                     state.drone.vx, state.drone.vy,
                     state.drone.fx, state.drone.fy);
         logger(log_file, ops);
+
         char wtar[512];
         int pos = 0;
         pos += snprintf(wtar + pos, sizeof(wtar) - pos, "TAR SENT TO DRONE - active targets:");
@@ -993,10 +1122,11 @@ int main(int argc, char **argv){
                             state.targets[ti].x, state.targets[ti].y);
             }
         }
-        logger(log_file, wtar);
+        // logger(log_file, wtar);
+
         char otar[512];
         pos = 0;
-        pos += snprintf(otar + pos, sizeof(otar) - pos, "OBS SENT TO WIN - active targets:");
+        pos += snprintf(otar + pos, sizeof(otar) - pos, "OBS SENT TO WIN - active obs:");
         for (int ti = 0; ti < MAX_OBS && pos < (int)sizeof(otar); ++ti) {
             if (state.obstacles[ti].active) {
             pos += snprintf(otar + pos, sizeof(otar) - pos,
@@ -1004,7 +1134,8 @@ int main(int argc, char **argv){
                             state.obstacles[ti].x, state.obstacles[ti].y);
             }
         }
-        logger(log_file, otar);
+        // logger(log_file, otar);
+
         //Invio a dynamic solo se ho ricevuto da input per limitare il traffico
         if(send_dyn){
             //invio a dynamic
@@ -1012,7 +1143,7 @@ int main(int argc, char **argv){
             send_dyn = 0;
 
         }
-        logger(log_file, "---- End of iteration ----");
+        // logger(log_file, "---- End of iteration ----");
 
     }
     

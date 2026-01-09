@@ -1,5 +1,5 @@
 map_width=80
-map_height=40
+map_height=20
 drone_x=5
 drone_y=5
 MASS=1.0
@@ -7,6 +7,6 @@ K=1.0
 DT=0.05
 STEP_FORCE=1.0
 RHO=5.0
-ETA=2
+ETA=0.2
 server_port=5555
 server_ip=192.168.64.15

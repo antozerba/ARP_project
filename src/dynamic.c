@@ -255,6 +255,12 @@ void compute_repulsive_forces(WorldState *state, Config *config, float *frx, flo
         if(dist < config->RHO) {
 
             float magn = config->ETA * (1.0/dist - 1.0/config->RHO) * (1.0/(dist*dist));
+            char mag[20];
+            sprintf(mag, "MAG: %f", magn);
+            logger(log_file, mag);
+            if (magn > 20){
+             magn = 20;
+            }
 
             float nx = dx / dist;
             float ny = dy / dist;

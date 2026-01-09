@@ -34,6 +34,7 @@ WorldState *state;
 WorldState *old_state;
 WINDOW *win;
 pid_t watchdog_pid = -1;
+NetworkMode network_mode = MODE_STANDALONE;
 
 void send_heartbeat() {
     if(watchdog_pid > 0) {
@@ -53,11 +54,42 @@ void termination_handler(int signum){
 
 int main(int argc, char **argv) {
     
-    //Loggger
-    log_file = fopen("log/window_log.text","w");
-    logger(log_file, "Window started");
-    wd_log_file = fopen(WD_LOG_PATH, "a");
-    common_log = fopen(COMMON_LOG, "a");
+    //Load param from config
+    Config config = {};
+    if(!load_config(PARAM_PATH, &config))
+    {
+      return 1;
+    }
+    //Config network
+    NetworkConfig nc;
+    
+    nc.mode = network_mode;
+    network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode; //set nc.mode only if getenv != null
+
+    strcpy(nc.server_ip, config.server_ip);
+    nc.serve_port = config.server_port;
+    nc.mode = network_mode;
+    //Logger
+    if(nc.mode == MODE_SERVER){
+
+        log_file = fopen("log_s/window_log.text","w");
+        logger(log_file, "Window started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }
+    else if(nc.mode == MODE_CLIENT){
+
+        log_file = fopen("log_c/window_log.text","w");
+        logger(log_file, "Window started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }else{
+
+        log_file = fopen("log/window_log.text","w");
+        logger(log_file, "Window started");
+        wd_log_file = fopen(WD_LOG_PATH, "a");
+        common_log = fopen(COMMON_LOG, "a");
+    }
 
     //scrittura pid in pid.txt
     FILE * pid_file = fopen(PID_FILE,"a");
@@ -85,13 +117,6 @@ int main(int argc, char **argv) {
     sprintf(buffer, "Read FD: %d, Write FD: %d", read_fd, write_fd);
     logger(log_file, buffer);
 
-    //Load param from config
-    Config config = {};
-    if(!load_config(PARAM_PATH, &config))
-    {
-      logger(log_file, "Error loading configuration");
-      return 1;
-    }
     logger(log_file, "PARAM PATH: ");
     logger(log_file, PARAM_PATH);
     char conf_buf[200];  
@@ -193,6 +218,16 @@ int main(int argc, char **argv) {
         if (n == sizeof(WorldState)) {
             // abbiamo nuovi dati: cancella la vecchia posizione e disegna quella nuova
             logger(log_file, "LETTURA COMPLETATA");
+
+            char ops[256];
+            snprintf(ops, sizeof(ops),
+                        "DRONE RECEIVED- x: %f, y: %f, vx: %f, vy: %f, fx: %f, fy: %f",
+                        state->drone.x, state->drone.y,
+                        state->drone.vx, state->drone.vy,
+                        state->drone.fx, state->drone.fy);
+
+            logger(log_file, ops);
+
             clear_screen();
             update_world();
             
