@@ -65,7 +65,6 @@ int main(int argc, char **argv) {
     
     nc.mode = network_mode;
     network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode; //set nc.mode only if getenv != null
-
     strcpy(nc.server_ip, config.server_ip);
     nc.serve_port = config.server_port;
     nc.mode = network_mode;

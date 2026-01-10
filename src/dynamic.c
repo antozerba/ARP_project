@@ -24,6 +24,7 @@ FILE * log_file;
 FILE * wd_log_file;
 FILE * common_log;
 pid_t watchdog_pid = -1;
+int network_mode = MODE_STANDALONE;
 
 void termination_handler(int signum){
     //gestione terminazione 
@@ -69,13 +70,27 @@ int main(int argc, char **argv){
     char * read_fd_char = getenv("IN_FD");
     char * write_fd_char = getenv("OUT_FD");
     char * watchdog_pid_fd = getenv("WATCHDOG_PID");
-    watchdog_pid = atoi(watchdog_pid_fd);
+    int watchdog_pid = atoi(watchdog_pid_fd);
     int read_fd = atoi(read_fd_char);
     int write_fd = atoi(write_fd_char);
 
-    //RENDERE PIPE NON BLOCCANTE: questo mi permette di non dover invare a dynamic dal server ogni volta.
-    int flags = fcntl(read_fd, F_GETFL, 0);
-    fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
+
+    //Config network
+    NetworkConfig nc;
+    
+    nc.mode = network_mode;
+    network_mode = getenv("NETWORK_MODE") ? atoi(getenv("NETWORK_MODE")) : nc.mode; //set nc.mode only if getenv != null
+    strcpy(nc.server_ip, config.server_ip);
+    nc.serve_port = config.server_port;
+    nc.mode = network_mode;
+    if(nc.mode == MODE_STANDALONE)
+    {
+        int flags = fcntl(read_fd, F_GETFL, 0);
+        fcntl(read_fd, F_SETFL, flags | O_NONBLOCK);
+
+    }
+
+    
 
     WorldState state;
     memset(&state, 0, sizeof(WorldState));
@@ -153,7 +168,10 @@ int main(int argc, char **argv){
 
         // Calcola forze repulsive dagli ostacoli (Latombe)
         float frx = 0.0f, fry = 0.0f;
-        compute_repulsive_forces(&state, &config, &frx, &fry);
+        if(nc.mode != MODE_STANDALONE ){
+
+            compute_repulsive_forces(&state, &config, &frx, &fry);
+        }
         
         // Forza totale = forza comando + forza repulsiva
         float total_fx = state.drone.fx + frx;
