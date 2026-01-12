@@ -168,10 +168,10 @@ int main(int argc, char **argv){
 
         // Calcola forze repulsive dagli ostacoli (Latombe)
         float frx = 0.0f, fry = 0.0f;
-        if(nc.mode != MODE_STANDALONE ){
+        // if(nc.mode == MODE_STANDALONE ){
 
             compute_repulsive_forces(&state, &config, &frx, &fry);
-        }
+        // }
         
         // Forza totale = forza comando + forza repulsiva
         float total_fx = state.drone.fx + frx;

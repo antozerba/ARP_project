@@ -162,8 +162,10 @@ int main(int argc, char **argv) {
     time_t last_heartbeat = time(NULL);
     float heartbeat_interval = 1.5f; // Invia ogni 1.5s
     
-    state->drone.x = config.drone_x;
-    state->drone.y = config.drone_y;
+    // state->drone.x = config.drone_x;
+    // state->drone.y = config.drone_y;
+    state->drone.x = 100; 
+    state->drone.y = 100; 
     memcpy(old_state, state, sizeof(WorldState));
     int newwin_x;
     int newwin_y;
@@ -226,6 +228,13 @@ int main(int argc, char **argv) {
                         state->drone.fx, state->drone.fy);
 
             logger(log_file, ops);
+            if(state->mapx != old_state->mapx || state->mapy != old_state->mapy){
+                werase(win);
+                wrefresh(win);
+                wresize(win, state->mapy,  state->mapx);
+                logger(log_file, "WINDOW RESIZE FROM SERVER");
+            }
+
 
             clear_screen();
             update_world();
@@ -242,6 +251,9 @@ int main(int argc, char **argv) {
             logger(log_file, tmp);
         }
         memcpy(old_state, state, sizeof(WorldState));
+        char wbuf[20];
+        sprintf(wbuf, "SIZE: %d, %d", state->mapx, state->mapy);
+        logger(log_file, wbuf);
         
     }
     //closing fds
@@ -312,6 +324,7 @@ void draw_targets() {
     }
     
 }
+
 
 void resize_win(WINDOW *win) {
      int H, W;

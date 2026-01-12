@@ -1,4 +1,4 @@
-server 19044
-dynamic 19047
-input 19068
-window 19069
+server 5921
+dynamic 5924
+input 5945
+window 5947

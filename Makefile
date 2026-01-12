@@ -31,7 +31,7 @@ game: src/main.c src/utils.c
 	$(CC) $^ $(CFLAGS) -o $@
 
 server: src/server.c src/utils.c
-	$(CC) $^ $(CFLAGS) -o $@
+	$(CC) $^ $(CFLAGS) -lm -o $@
 
 window: src/window.c src/utils.c
 	$(CC) $^ $(CFLAGS) -lncurses -o $@

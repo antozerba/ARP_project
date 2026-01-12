@@ -1,137 +1,135 @@
-<Sat Jan 10 16:05:29 2026><dynamic><main::iteration:2>
-<Sat Jan 10 16:05:30 2026><window><main loop::iteration:15834056>
-<Sat Jan 10 16:05:30 2026><input><main loop::iteration:1811416>
-<Sat Jan 10 16:05:31 2026><input><main loop::iteration:147283>
-<Sat Jan 10 16:05:31 2026><window><main loop::iteration:1361881>
-<Sat Jan 10 16:05:31 2026><server><main::iteration:36>
-<Sat Jan 10 16:05:31 2026><server><main::iteration:36>
-<Sat Jan 10 16:05:31 2026><dynamic><main::iteration:36>
-<Sat Jan 10 16:05:31 2026><dynamic><main::iteration:36>
-<Sat Jan 10 16:05:32 2026><window><main loop::iteration:18315610>
-<Sat Jan 10 16:05:32 2026><input><main loop::iteration:2098179>
-<Sat Jan 10 16:05:33 2026><window><main loop::iteration:3756947>
-<Sat Jan 10 16:05:33 2026><input><main loop::iteration:468494>
-<Sat Jan 10 16:05:33 2026><server><main::iteration:81>
-<Sat Jan 10 16:05:33 2026><server><main::iteration:81>
-<Sat Jan 10 16:05:33 2026><dynamic><main::iteration:81>
-<Sat Jan 10 16:05:33 2026><dynamic><main::iteration:81>
-<Sat Jan 10 16:05:34 2026><input><main loop::iteration:2472409>
-<Sat Jan 10 16:05:34 2026><window><main loop::iteration:21411962>
-<Sat Jan 10 16:05:35 2026><input><main loop::iteration:852456>
-<Sat Jan 10 16:05:35 2026><window><main loop::iteration:6962484>
-<Sat Jan 10 16:05:35 2026><dynamic><main::iteration:126>
-<Sat Jan 10 16:05:35 2026><dynamic><main::iteration:126>
-<Sat Jan 10 16:05:35 2026><server><main::iteration:127>
-<Sat Jan 10 16:05:35 2026><server><main::iteration:127>
-<Sat Jan 10 16:05:36 2026><window><main loop::iteration:24282568>
-<Sat Jan 10 16:05:36 2026><input><main loop::iteration:2820302>
-<Sat Jan 10 16:05:37 2026><window><main loop::iteration:9802293>
-<Sat Jan 10 16:05:37 2026><input><main loop::iteration:1180613>
-<Sat Jan 10 16:05:37 2026><server><main::iteration:172>
-<Sat Jan 10 16:05:37 2026><server><main::iteration:172>
-<Sat Jan 10 16:05:37 2026><dynamic><main::iteration:172>
-<Sat Jan 10 16:05:37 2026><dynamic><main::iteration:172>
-<Sat Jan 10 16:05:38 2026><window><main loop::iteration:26764859>
-<Sat Jan 10 16:05:38 2026><input><main loop::iteration:3106281>
-<Sat Jan 10 16:05:39 2026><window><main loop::iteration:11825903>
-<Sat Jan 10 16:05:39 2026><input><main loop::iteration:1401915>
-<Sat Jan 10 16:05:39 2026><server><main::iteration:217>
-<Sat Jan 10 16:05:39 2026><server><main::iteration:217>
-<Sat Jan 10 16:05:39 2026><dynamic><main::iteration:217>
-<Sat Jan 10 16:05:39 2026><dynamic><main::iteration:217>
-<Sat Jan 10 16:05:40 2026><window><main loop::iteration:29128176>
-<Sat Jan 10 16:05:40 2026><input><main loop::iteration:3369496>
-<Sat Jan 10 16:05:41 2026><input><main loop::iteration:1719220>
-<Sat Jan 10 16:05:41 2026><window><main loop::iteration:14648542>
-<Sat Jan 10 16:05:41 2026><server><main::iteration:262>
-<Sat Jan 10 16:05:41 2026><server><main::iteration:262>
-<Sat Jan 10 16:05:41 2026><dynamic><main::iteration:262>
-<Sat Jan 10 16:05:41 2026><dynamic><main::iteration:262>
-<Sat Jan 10 16:05:42 2026><window><main loop::iteration:32207204>
-<Sat Jan 10 16:05:42 2026><input><main loop::iteration:3689801>
-<Sat Jan 10 16:05:43 2026><window><main loop::iteration:17408520>
-<Sat Jan 10 16:05:43 2026><input><main loop::iteration:2039726>
-<Sat Jan 10 16:05:43 2026><dynamic><main::iteration:307>
-<Sat Jan 10 16:05:43 2026><dynamic><main::iteration:307>
-<Sat Jan 10 16:05:43 2026><server><main::iteration:308>
-<Sat Jan 10 16:05:43 2026><server><main::iteration:308>
-<Sat Jan 10 16:05:44 2026><window><main loop::iteration:35019917>
-<Sat Jan 10 16:05:44 2026><input><main loop::iteration:3997505>
-<Sat Jan 10 16:05:45 2026><input><main loop::iteration:2356024>
-<Sat Jan 10 16:05:45 2026><window><main loop::iteration:19994799>
-<Sat Jan 10 16:05:45 2026><server><main::iteration:353>
-<Sat Jan 10 16:05:45 2026><server><main::iteration:353>
-<Sat Jan 10 16:05:45 2026><dynamic><main::iteration:353>
-<Sat Jan 10 16:05:45 2026><dynamic><main::iteration:353>
-<Sat Jan 10 16:05:46 2026><window><main loop::iteration:37617626>
-<Sat Jan 10 16:05:46 2026><input><main loop::iteration:4275743>
-<Sat Jan 10 16:05:47 2026><input><main loop::iteration:2659342>
-<Sat Jan 10 16:05:47 2026><window><main loop::iteration:22914158>
-<Sat Jan 10 16:05:47 2026><server><main::iteration:398>
-<Sat Jan 10 16:05:47 2026><server><main::iteration:398>
-<Sat Jan 10 16:05:47 2026><dynamic><main::iteration:398>
-<Sat Jan 10 16:05:47 2026><dynamic><main::iteration:398>
-<Sat Jan 10 16:05:48 2026><input><main loop::iteration:4535642>
-<Sat Jan 10 16:05:48 2026><window><main loop::iteration:40110914>
-<Sat Jan 10 16:05:49 2026><input><main loop::iteration:2979163>
-<Sat Jan 10 16:05:49 2026><window><main loop::iteration:25174526>
-<Sat Jan 10 16:05:49 2026><server><main::iteration:443>
-<Sat Jan 10 16:05:49 2026><server><main::iteration:443>
-<Sat Jan 10 16:05:49 2026><dynamic><main::iteration:443>
-<Sat Jan 10 16:05:49 2026><dynamic><main::iteration:443>
-<Sat Jan 10 16:05:50 2026><input><main loop::iteration:4829129>
-<Sat Jan 10 16:05:50 2026><window><main loop::iteration:42446849>
-<Sat Jan 10 16:05:51 2026><window><main loop::iteration:27722281>
-<Sat Jan 10 16:05:51 2026><input><main loop::iteration:3302165>
-<Sat Jan 10 16:05:51 2026><server><main::iteration:488>
-<Sat Jan 10 16:05:51 2026><server><main::iteration:488>
-<Sat Jan 10 16:05:51 2026><dynamic><main::iteration:488>
-<Sat Jan 10 16:05:51 2026><dynamic><main::iteration:488>
-<Sat Jan 10 16:05:52 2026><window><main loop::iteration:44934809>
-<Sat Jan 10 16:05:52 2026><input><main loop::iteration:5076062>
-<Sat Jan 10 16:05:53 2026><input><main loop::iteration:3519881>
-<Sat Jan 10 16:05:53 2026><window><main loop::iteration:29809508>
-<Sat Jan 10 16:05:53 2026><server><main::iteration:533>
-<Sat Jan 10 16:05:53 2026><server><main::iteration:533>
-<Sat Jan 10 16:05:53 2026><dynamic><main::iteration:533>
-<Sat Jan 10 16:05:53 2026><dynamic><main::iteration:533>
-<Sat Jan 10 16:05:54 2026><input><main loop::iteration:5377893>
-<Sat Jan 10 16:05:54 2026><window><main loop::iteration:47456685>
-<Sat Jan 10 16:05:55 2026><input><main loop::iteration:3838336>
-<Sat Jan 10 16:05:55 2026><window><main loop::iteration:32767841>
-<Sat Jan 10 16:05:55 2026><dynamic><main::iteration:578>
-<Sat Jan 10 16:05:55 2026><dynamic><main::iteration:578>
-<Sat Jan 10 16:05:55 2026><server><main::iteration:579>
-<Sat Jan 10 16:05:55 2026><server><main::iteration:579>
-<Sat Jan 10 16:05:56 2026><input><main loop::iteration:5705776>
-<Sat Jan 10 16:05:56 2026><window><main loop::iteration:50441620>
-<Sat Jan 10 16:05:57 2026><input><main loop::iteration:4172440>
-<Sat Jan 10 16:05:57 2026><window><main loop::iteration:35719458>
-<Sat Jan 10 16:05:57 2026><dynamic><main::iteration:623>
-<Sat Jan 10 16:05:57 2026><dynamic><main::iteration:623>
-<Sat Jan 10 16:05:57 2026><server><main::iteration:624>
-<Sat Jan 10 16:05:57 2026><server><main::iteration:624>
-<Sat Jan 10 16:05:58 2026><input><main loop::iteration:6027881>
-<Sat Jan 10 16:05:58 2026><window><main loop::iteration:53367692>
-<Sat Jan 10 16:05:59 2026><window><main loop::iteration:38652807>
-<Sat Jan 10 16:05:59 2026><input><main loop::iteration:4494952>
-<Sat Jan 10 16:05:59 2026><server><main::iteration:669>
-<Sat Jan 10 16:05:59 2026><server><main::iteration:669>
-<Sat Jan 10 16:05:59 2026><dynamic><main::iteration:669>
-<Sat Jan 10 16:05:59 2026><dynamic><main::iteration:669>
-<Sat Jan 10 16:06:00 2026><input><main loop::iteration:6341206>
-<Sat Jan 10 16:06:00 2026><window><main loop::iteration:56310818>
-<Sat Jan 10 16:06:01 2026><input><main loop::iteration:4831944>
-<Sat Jan 10 16:06:01 2026><window><main loop::iteration:41538324>
-<Sat Jan 10 16:06:01 2026><server><main::iteration:714>
-<Sat Jan 10 16:06:01 2026><server><main::iteration:714>
-<Sat Jan 10 16:06:01 2026><dynamic><main::iteration:714>
-<Sat Jan 10 16:06:01 2026><dynamic><main::iteration:714>
-<Sat Jan 10 16:06:02 2026><input><main loop::iteration:6643795>
-<Sat Jan 10 16:06:02 2026><window><main loop::iteration:59604378>
-<Sat Jan 10 16:06:03 2026><input><main loop::iteration:5145250>
-<Sat Jan 10 16:06:03 2026><window><main loop::iteration:44299596>
-<Sat Jan 10 16:06:03 2026><dynamic><main::iteration:759>
-<Sat Jan 10 16:06:03 2026><dynamic><main::iteration:759>
-<Sat Jan 10 16:06:03 2026><server><main::iteration:760>
-<Sat Jan 10 16:06:03 2026><server><main::iteration:760>
+<Mon Jan 12 12:37:19 2026><dynamic><main::iteration:2>
+<Mon Jan 12 12:37:20 2026><input><main loop::iteration:2258700>
+<Mon Jan 12 12:37:20 2026><window><main loop::iteration:52982>
+<Mon Jan 12 12:37:21 2026><input><main loop::iteration:354469>
+<Mon Jan 12 12:37:21 2026><window><main loop::iteration:5540>
+<Mon Jan 12 12:37:21 2026><dynamic><main::iteration:35>
+<Mon Jan 12 12:37:21 2026><dynamic><main::iteration:35>
+<Mon Jan 12 12:37:21 2026><server><main::iteration:36>
+<Mon Jan 12 12:37:21 2026><server><main::iteration:36>
+<Mon Jan 12 12:37:22 2026><input><main loop::iteration:2746742>
+<Mon Jan 12 12:37:22 2026><window><main loop::iteration:62061>
+<Mon Jan 12 12:37:23 2026><input><main loop::iteration:899278>
+<Mon Jan 12 12:37:23 2026><window><main loop::iteration:14335>
+<Mon Jan 12 12:37:23 2026><server><main::iteration:79>
+<Mon Jan 12 12:37:23 2026><server><main::iteration:79>
+<Mon Jan 12 12:37:23 2026><dynamic><main::iteration:79>
+<Mon Jan 12 12:37:23 2026><dynamic><main::iteration:79>
+<Mon Jan 12 12:37:24 2026><input><main loop::iteration:3296485>
+<Mon Jan 12 12:37:24 2026><window><main loop::iteration:71146>
+<Mon Jan 12 12:37:25 2026><input><main loop::iteration:1468701>
+<Mon Jan 12 12:37:25 2026><window><main loop::iteration:24967>
+<Mon Jan 12 12:37:25 2026><server><main::iteration:123>
+<Mon Jan 12 12:37:25 2026><server><main::iteration:123>
+<Mon Jan 12 12:37:25 2026><dynamic><main::iteration:123>
+<Mon Jan 12 12:37:25 2026><dynamic><main::iteration:123>
+<Mon Jan 12 12:37:26 2026><input><main loop::iteration:3837791>
+<Mon Jan 12 12:37:26 2026><window><main loop::iteration:81525>
+<Mon Jan 12 12:37:27 2026><input><main loop::iteration:1969207>
+<Mon Jan 12 12:37:27 2026><window><main loop::iteration:35180>
+<Mon Jan 12 12:37:27 2026><server><main::iteration:167>
+<Mon Jan 12 12:37:27 2026><server><main::iteration:167>
+<Mon Jan 12 12:37:27 2026><dynamic><main::iteration:167>
+<Mon Jan 12 12:37:27 2026><dynamic><main::iteration:167>
+<Mon Jan 12 12:37:28 2026><input><main loop::iteration:4407011>
+<Mon Jan 12 12:37:28 2026><window><main loop::iteration:91824>
+<Mon Jan 12 12:37:29 2026><input><main loop::iteration:2499079>
+<Mon Jan 12 12:37:29 2026><window><main loop::iteration:45871>
+<Mon Jan 12 12:37:29 2026><server><main::iteration:211>
+<Mon Jan 12 12:37:29 2026><server><main::iteration:211>
+<Mon Jan 12 12:37:29 2026><dynamic><main::iteration:211>
+<Mon Jan 12 12:37:29 2026><dynamic><main::iteration:211>
+<Mon Jan 12 12:37:30 2026><input><main loop::iteration:4970536>
+<Mon Jan 12 12:37:30 2026><window><main loop::iteration:102865>
+<Mon Jan 12 12:37:31 2026><input><main loop::iteration:2955796>
+<Mon Jan 12 12:37:31 2026><window><main loop::iteration:56726>
+<Mon Jan 12 12:37:31 2026><dynamic><main::iteration:255>
+<Mon Jan 12 12:37:31 2026><dynamic><main::iteration:255>
+<Mon Jan 12 12:37:31 2026><server><main::iteration:256>
+<Mon Jan 12 12:37:31 2026><server><main::iteration:256>
+<Mon Jan 12 12:37:32 2026><input><main loop::iteration:5513943>
+<Mon Jan 12 12:37:32 2026><window><main loop::iteration:112843>
+<Mon Jan 12 12:37:33 2026><input><main loop::iteration:3394515>
+<Mon Jan 12 12:37:33 2026><dynamic><main::iteration:299>
+<Mon Jan 12 12:37:33 2026><dynamic><main::iteration:299>
+<Mon Jan 12 12:37:33 2026><window><main loop::iteration:67112>
+<Mon Jan 12 12:37:33 2026><server><main::iteration:300>
+<Mon Jan 12 12:37:33 2026><server><main::iteration:300>
+<Mon Jan 12 12:37:34 2026><input><main loop::iteration:6065633>
+<Mon Jan 12 12:37:34 2026><window><main loop::iteration:123236>
+<Mon Jan 12 12:37:35 2026><input><main loop::iteration:3882545>
+<Mon Jan 12 12:37:35 2026><window><main loop::iteration:78353>
+<Mon Jan 12 12:37:35 2026><dynamic><main::iteration:343>
+<Mon Jan 12 12:37:35 2026><dynamic><main::iteration:343>
+<Mon Jan 12 12:37:35 2026><server><main::iteration:344>
+<Mon Jan 12 12:37:35 2026><server><main::iteration:344>
+<Mon Jan 12 12:37:36 2026><input><main loop::iteration:6611250>
+<Mon Jan 12 12:37:36 2026><window><main loop::iteration:134992>
+<Mon Jan 12 12:37:37 2026><window><main loop::iteration:89292>
+<Mon Jan 12 12:37:37 2026><input><main loop::iteration:4399644>
+<Mon Jan 12 12:37:37 2026><server><main::iteration:387>
+<Mon Jan 12 12:37:37 2026><server><main::iteration:387>
+<Mon Jan 12 12:37:37 2026><dynamic><main::iteration:387>
+<Mon Jan 12 12:37:37 2026><dynamic><main::iteration:387>
+<Mon Jan 12 12:37:38 2026><input><main loop::iteration:7139618>
+<Mon Jan 12 12:37:38 2026><window><main loop::iteration:145368>
+<Mon Jan 12 12:37:39 2026><window><main loop::iteration:100301>
+<Mon Jan 12 12:37:39 2026><input><main loop::iteration:4918596>
+<Mon Jan 12 12:37:39 2026><server><main::iteration:432>
+<Mon Jan 12 12:37:39 2026><server><main::iteration:432>
+<Mon Jan 12 12:37:39 2026><dynamic><main::iteration:432>
+<Mon Jan 12 12:37:39 2026><dynamic><main::iteration:432>
+<Mon Jan 12 12:37:40 2026><input><main loop::iteration:7547595>
+<Mon Jan 12 12:37:40 2026><window><main loop::iteration:156576>
+<Mon Jan 12 12:37:41 2026><input><main loop::iteration:5485658>
+<Mon Jan 12 12:37:41 2026><window><main loop::iteration:110859>
+<Mon Jan 12 12:37:41 2026><server><main::iteration:476>
+<Mon Jan 12 12:37:41 2026><server><main::iteration:476>
+<Mon Jan 12 12:37:41 2026><dynamic><main::iteration:476>
+<Mon Jan 12 12:37:41 2026><dynamic><main::iteration:476>
+<Mon Jan 12 12:37:42 2026><input><main loop::iteration:7951328>
+<Mon Jan 12 12:37:42 2026><window><main loop::iteration:167126>
+<Mon Jan 12 12:37:43 2026><window><main loop::iteration:121027>
+<Mon Jan 12 12:37:43 2026><input><main loop::iteration:6003806>
+<Mon Jan 12 12:37:43 2026><server><main::iteration:520>
+<Mon Jan 12 12:37:43 2026><server><main::iteration:520>
+<Mon Jan 12 12:37:43 2026><dynamic><main::iteration:520>
+<Mon Jan 12 12:37:43 2026><dynamic><main::iteration:520>
+<Mon Jan 12 12:37:44 2026><input><main loop::iteration:8420736>
+<Mon Jan 12 12:37:44 2026><window><main loop::iteration:177490>
+<Mon Jan 12 12:37:45 2026><input><main loop::iteration:6565412>
+<Mon Jan 12 12:37:45 2026><window><main loop::iteration:131427>
+<Mon Jan 12 12:37:45 2026><dynamic><main::iteration:564>
+<Mon Jan 12 12:37:45 2026><dynamic><main::iteration:564>
+<Mon Jan 12 12:37:45 2026><server><main::iteration:565>
+<Mon Jan 12 12:37:45 2026><server><main::iteration:565>
+<Mon Jan 12 12:37:46 2026><window><main loop::iteration:188292>
+<Mon Jan 12 12:37:46 2026><input><main loop::iteration:8820098>
+<Mon Jan 12 12:37:47 2026><input><main loop::iteration:7080581>
+<Mon Jan 12 12:37:47 2026><dynamic><main::iteration:608>
+<Mon Jan 12 12:37:47 2026><dynamic><main::iteration:608>
+<Mon Jan 12 12:37:47 2026><window><main loop::iteration:141525>
+<Mon Jan 12 12:37:47 2026><server><main::iteration:609>
+<Mon Jan 12 12:37:47 2026><server><main::iteration:609>
+<Mon Jan 12 12:37:48 2026><input><main loop::iteration:9285082>
+<Mon Jan 12 12:37:48 2026><window><main loop::iteration:197449>
+<Mon Jan 12 12:37:49 2026><input><main loop::iteration:7628201>
+<Mon Jan 12 12:37:49 2026><window><main loop::iteration:151801>
+<Mon Jan 12 12:37:49 2026><server><main::iteration:653>
+<Mon Jan 12 12:37:49 2026><server><main::iteration:653>
+<Mon Jan 12 12:37:49 2026><dynamic><main::iteration:653>
+<Mon Jan 12 12:37:49 2026><dynamic><main::iteration:653>
+<Mon Jan 12 12:37:50 2026><input><main loop::iteration:9795538>
+<Mon Jan 12 12:37:50 2026><window><main loop::iteration:210740>
+<Mon Jan 12 12:37:51 2026><input><main loop::iteration:8155811>
+<Mon Jan 12 12:37:51 2026><window><main loop::iteration:166311>
+<Mon Jan 12 12:37:51 2026><dynamic><main::iteration:696>
+<Mon Jan 12 12:37:51 2026><dynamic><main::iteration:696>
+<Mon Jan 12 12:37:51 2026><server><main::iteration:697>
+<Mon Jan 12 12:37:51 2026><server><main::iteration:697>
+<Mon Jan 12 12:37:52 2026><input><main loop::iteration:10340196>
+<Mon Jan 12 12:37:52 2026><window><main loop::iteration:225355>
+<Mon Jan 12 12:37:53 2026><input><main loop::iteration:8608002>
+<Mon Jan 12 12:37:53 2026><server><main::iteration:985>
+<Mon Jan 12 12:37:53 2026><window><main loop::iteration:178138>
+<Mon Jan 12 12:37:53 2026><dynamic><main::iteration:746>

@@ -16,6 +16,12 @@
 #include <sys/socket.h>
 #include <errno.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+#define M_PI 3.14159265358979323846
+
+#define MARGIN 1
+
 
 #define COLL_RAD 0.5
 
@@ -33,6 +39,8 @@ int network_socket = -1;
 NetworkMode network_mode = MODE_STANDALONE;
 int input_rec = 0;
 int send_dyn = 0;
+float alpha = M_PI;
+int origin = 0;
 
 typedef enum {
     PROTO_INIT,           // Iniziale
@@ -73,6 +81,78 @@ void handle_quit(){
     fclose(common_log);
     exit(0);
 }
+
+
+// Funzioni di trasformazione coordinate
+void local_to_virtual(float  x_in, float y_in, float *x_out, float *y_out, float alpha, int origin, WorldState *state) {
+    
+    // float cos_a = cosf(alpha);
+    // float sin_a = sinf(alpha);
+    // float tx = x_in * cos_a - y_in * sin_a;
+    // float ty = x_in * sin_a + y_in * cos_a;
+    // *x_out = tx;
+    // *y_out = ty;
+       float x = x_in;
+    float y = y_in;
+    
+    // Converti l'origine locale al sistema virtuale (bottom-left)
+    if(origin == 1) {  // top-left -> bottom-left
+        y =  - y;
+    } else if(origin == 2) {  // center -> bottom-left
+        x = x + state->mapx / 2.0f;
+        y = y + state->mapy / 2.0f;
+    }
+    
+    // Applica rotazione se necessaria
+    if(alpha != 0.0f) {
+        float cos_a = cosf(alpha);
+        float sin_a = sinf(alpha);
+        float temp_x = x * cos_a - y * sin_a;
+        float temp_y = x * sin_a + y * cos_a;
+        x = temp_x;
+        y = temp_y;
+    }
+    
+    *x_out = x;
+    *y_out = y;
+    
+    
+}
+
+void virtual_to_local(float x_in, float y_in, float *x_out, float *y_out, float alpha, int origin, WorldState *state) {
+    
+    // float cos_a = cosf(-alpha);
+    // float sin_a = sinf(-alpha);
+    // float tx = x_in * cos_a - y_in * sin_a;
+    // float ty = x_in * sin_a + y_in * cos_a;
+    // *x_out = tx;
+    // *y_out = ty;
+    float x = x_in;
+    float y = y_in;
+    
+    // Applica rotazione inversa se necessaria
+    if(alpha != 0.0f) {
+        float cos_a = cosf(-alpha);
+        float sin_a = sinf(-alpha);
+        float temp_x = x * cos_a - y * sin_a;
+        float temp_y = x * sin_a + y * cos_a;
+        x = temp_x;
+        y = temp_y;
+    }
+    
+    // Converti dal sistema virtuale (bottom-left) all'origine locale
+    if(origin == 1) {  // bottom-left -> top-left
+        y = config.map_height - y;
+    } else if(origin == 2) {  // bottom-left -> center
+        x = x - state->mapx / 2.0f;
+        y = y - state->mapy / 2.0f;
+    }
+    
+    *x_out = x;
+    *y_out = y;
+    
+}
+
 
 // Setup socket bloccante 
 int setup_network_socket(NetworkConfig *nc) {
@@ -200,15 +280,19 @@ void handle_server_handshake(int sock, WorldState *state) {
     logger(log_file, "Received 'ook', sending size");
     
     // Invia dimensioni
-    ResizeMessage rmsg;
-    rmsg.x = config.map_width;
-    rmsg.y = config.map_height;
-    write(write_window_fd, &rmsg, sizeof(ResizeMessage));
-    state->mapx = rmsg.x;
-    state->mapy = rmsg.y;
+    int dx = config.map_width;
+    int dy = config.map_height;
+
+    state->mapx = dx;
+    state->mapy = dy;
+    write(write_window_fd, state, sizeof(WorldState));
     
-    snprintf(msg, sizeof(msg), "size %d %d\n", rmsg.x, rmsg.y);
+    snprintf(msg, sizeof(msg), "size %d %d\n", dx, dy);
     write(sock, msg, strlen(msg));
+    char wbuf[20];
+    sprintf(wbuf, "SIZE: %d, %d", dx, dy);
+    logger(log_file, wbuf);
+    
     
     // Leggi conferma "sok"
     if(read_line(sock, line, sizeof(line)) <= 0) {
@@ -243,10 +327,22 @@ void handle_server_loop(int sock, WorldState *state) {
     
     // 1. Invia drone
     write(sock, "drone\n", 6);
-    snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
+    float vxd; //virtual pose drone x
+    float vyd; //virtual pose drone y
+    local_to_virtual(state->drone.x, state->drone.y, &vxd, &vyd, alpha, origin, state);
+    float dx = state->drone.x;
+    float dy = state->drone.y;
+    snprintf(msg, sizeof(msg), "%.2f %.2f\n", vxd, vyd); 
+    // snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
     write(sock, msg, strlen(msg));
     logger(log_file, "Send drone");
-    
+    char vbuf[100];
+    sprintf(vbuf, "Sent Virtual Drone pos: x:%f, y:%f", vxd, vyd);
+    logger(log_file, vbuf);
+    char dbuf[100];
+    sprintf(dbuf, "Send Drone pos: x:%f, y:%f",dx , dy);
+    logger(log_file, dbuf);
+
     // 2. Leggi "dok" (BLOCCA finché non arriva)
     if(read_line(sock, line, sizeof(line)) <= 0 || strcmp(line, "dok") != 0) {
         logger(log_file, "SERVER: Protocol error or disconnect");
@@ -326,13 +422,18 @@ void handle_client_handshake(int sock, WorldState *state) {
         net_proto.state = PROTO_ERROR;
         return;
     }
+
+
+    state->mapx = w;
+    state->mapy = h;
+    int dx = w;
+    int dy = h;
+
+    write(write_window_fd, state, sizeof(WorldState));
     
-    // Invia resize e conferma
-    ResizeMessage rmsg;
-    rmsg.x = w;
-    rmsg.y = h;
-    write(write_window_fd, &rmsg, sizeof(ResizeMessage));
-    logger(log_file, "Sent Resize Network");
+    char wbuf[20];
+    sprintf(wbuf, "SIZE: %d, %d", dx, dy);
+    logger(log_file, wbuf);
     
     snprintf(msg, sizeof(msg), "sok %d %d\n", w, h);
     write(sock, msg, strlen(msg));
@@ -378,12 +479,26 @@ void handle_client_loop(int sock, WorldState *state) {
         return;
     }
     
+    // float dx, dy;
+    // if(sscanf(line, "%f %f", &dx, &dy) != 2) {
+    //     logger(log_file, "CLIENT: Invalid drone position");
+    //     net_proto.state = PROTO_ERROR;
+    //     return;
+    // }
+    // char dbuf[100];
+    // sprintf(dbuf, "Received Drone pos: x:%f, y:%f", dx, dy);
+    // logger(log_file, dbuf);
+    float dvx, dvy;
     float dx, dy;
-    if(sscanf(line, "%f %f", &dx, &dy) != 2) {
+    if(sscanf(line, "%f %f", &dvx, &dvy) != 2) {
         logger(log_file, "CLIENT: Invalid drone position");
         net_proto.state = PROTO_ERROR;
         return;
     }
+    virtual_to_local(dvx, dvy, &dx, &dy, alpha, origin, state);
+    char vbuf[100];
+    sprintf(vbuf, "Received Virtual Drone pos: x:%f, y:%f", dvx, dvy);
+    logger(log_file, vbuf);
     char dbuf[100];
     sprintf(dbuf, "Received Drone pos: x:%f, y:%f", dx, dy);
     logger(log_file, dbuf);
@@ -403,7 +518,8 @@ void handle_client_loop(int sock, WorldState *state) {
         net_proto.state = PROTO_ERROR;
         return;
     }
-    
+    int vxd; //virtual pose drone x
+    int vyd; //virtual pose drone y
     // 7. Invia la nostra posizione (come ostacolo)
     snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
     write(sock, msg, strlen(msg));
@@ -496,6 +612,8 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
 void handle_message(WorldState *state, Message *msg) {
     switch(msg->type) {
         case 'D':
+
+
             state->drone.x = msg->data.drone.x;
             state->drone.y = msg->data.drone.y;
             state->drone.vx = msg->data.drone.vx;
@@ -732,7 +850,7 @@ int main(int argc, char **argv){
             // // send_dyn = 1;
             logger(log_file, "Invio dynamic ");
             // write(write_dynamic_fd, &state, sizeof(WorldState));
-            // input_rec = 1;
+            input_rec = 1;
         }
 
         
@@ -755,21 +873,22 @@ int main(int argc, char **argv){
         }
         
         // Window resize
-        if(FD_ISSET(read_window_fd, &read_fds)){
-            ResizeMessage msg;
-            ssize_t n = read(read_window_fd, &msg, sizeof(ResizeMessage));
-            if(n == sizeof(ResizeMessage)) {
-                logger(log_file, "Window Resized");
-                memset(state.obstacles, 0, sizeof(state.obstacles));
-                memset(state.targets, 0, sizeof(state.targets));
-                state.num_active_targets = 0;
-                state.mapx = msg.x;
-                state.mapy = msg.y;
-                state.num_obstacles = 0;
+
+        if(nc.mode == MODE_STANDALONE && write_obs_fd > 0 && write_tar_fd > 0){
+            if(FD_ISSET(read_window_fd, &read_fds)){
+                ResizeMessage msg;
+                ssize_t n = read(read_window_fd, &msg, sizeof(ResizeMessage));
+                if(n == sizeof(ResizeMessage)) {
+                    logger(log_file, "Window Resized");
+                    memset(state.obstacles, 0, sizeof(state.obstacles));
+                    memset(state.targets, 0, sizeof(state.targets));
+                    state.num_active_targets = 0;
+                    state.mapx = msg.x;
+                    state.mapy = msg.y;
+                    state.num_obstacles = 0;
                 
-                if(nc.mode == MODE_STANDALONE && write_obs_fd > 0 && write_tar_fd > 0){
-                    write(write_obs_fd, &msg, sizeof(ResizeMessage));
-                    write(write_tar_fd, &msg, sizeof(ResizeMessage));
+                        write(write_obs_fd, &msg, sizeof(ResizeMessage));
+                        write(write_tar_fd, &msg, sizeof(ResizeMessage));
                 }
             }
         }
@@ -848,10 +967,14 @@ int main(int argc, char **argv){
 
         // }
 
+
         if(nc.mode != MODE_STANDALONE)
         {
             write(write_dynamic_fd, &state, sizeof(WorldState));
         }
+        char wbuf[20];
+        sprintf(wbuf, "SIZE: %d, %d", state.mapx, state.mapy);
+        logger(log_file, wbuf);
 
         logger(log_file, "---- End of iteration ----");
 

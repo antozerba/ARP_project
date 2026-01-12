@@ -1,57 +1,35 @@
 Watchdog started
-[1768061013] Signal received from unknown process (PID 18956)
-[1768061013] Signal received from unknown process (PID 18962)
-[1768061013] Signal received from unknown process (PID 18934)
-Registered process: server (PID 18934)
-Registered process: obs_gen (PID 18938)
-Registered process: dynamic (PID 18937)
-Registered process: tar_gen (PID 18939)
-Registered process: input (PID 18956)
-Registered process: window (PID 18962)
-[1768061013] Signal received from obs_gen (PID 18938) - count: 1
-Ncurses window created at (34,5) size 70x15
+[1768118971] Signal received from unknown process (PID 25662)
+[1768118971] Signal received from unknown process (PID 25679)
+[1768118971] Signal received from unknown process (PID 25685)
+Registered process: server (PID 25657)
+Registered process: tar_gen (PID 25662)
+Registered process: obs_gen (PID 25661)
+Registered process: dynamic (PID 25660)
+Registered process: input (PID 25679)
+Registered process: window (PID 25685)
+Ncurses window created at (46,8) size 70x15
 Watchdog monitoring 6 processes with poll interval 3.0s
-[1768061015] Signal received from window (PID 18962) - count: 1
-[1768061015] Signal received from obs_gen (PID 18938) - count: 2
-[1768061015] Signal received from server (PID 18934) - count: 1
+[1768118971] Signal received from server (PID 25657) - count: 1
+[1768118973] Signal received from obs_gen (PID 25661) - count: 1
+[1768118973] Signal received from window (PID 25685) - count: 1
+[1768118973] Signal received from server (PID 25657) - count: 2
 OK Process
 OK Process
 OK Process
 OK Process
 OK Process
 OK Process
-[1768061017] Signal received from obs_gen (PID 18938) - count: 3
-[1768061017] Signal received from window (PID 18962) - count: 2
-[1768061017] Signal received from server (PID 18934) - count: 2
-[1768061019] Signal received from input (PID 18956) - count: 1
-[1768061019] Signal received from obs_gen (PID 18938) - count: 4
+[1768118975] Signal received from tar_gen (PID 25662) - count: 1
+[1768118975] Signal received from input (PID 25679) - count: 1
+[1768118975] Signal received from server (PID 25657) - count: 3
+[1768118977] Signal received from obs_gen (PID 25661) - count: 2
+[1768118977] Signal received from window (PID 25685) - count: 2
 OK Process
 OK Process
 OK Process
 OK Process
-OK Process
-OK Process
-[1768061019] Signal received from server (PID 18934) - count: 3
-[1768061021] Signal received from input (PID 18956) - count: 2
-[1768061021] Signal received from window (PID 18962) - count: 3
-[1768061021] Signal received from server (PID 18934) - count: 4
+[1768118977] Signal received from server (PID 25657) - count: 4
 OK Process
 OK Process
 OK Process
-OK Process
-OK Process
-OK Process
-[1768061023] Signal received from window (PID 18962) - count: 4
-[1768061023] Signal received from obs_gen (PID 18938) - count: 5
-[1768061023] Signal received from server (PID 18934) - count: 5
-[1768061025] Signal received from window (PID 18962) - count: 5
-[1768061025] Signal received from tar_gen (PID 18939) - count: 1
-OK Process
-OK Process
-ALERT: Process dynamic (PID 18937) not responding! Last signal 12 seconds ago
-OK Process
-OK Process
-OK Process
-[1768061025] Signal received from server (PID 18934) - count: 6
-[1768061027] Signal received from window (PID 18962) - count: 6
-[1768061027] Signal received from server (PID 18934) - count: 7
