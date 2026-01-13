@@ -1,35 +1,15 @@
 Watchdog started
-[1768118971] Signal received from unknown process (PID 25662)
-[1768118971] Signal received from unknown process (PID 25679)
-[1768118971] Signal received from unknown process (PID 25685)
-Registered process: server (PID 25657)
-Registered process: tar_gen (PID 25662)
-Registered process: obs_gen (PID 25661)
-Registered process: dynamic (PID 25660)
-Registered process: input (PID 25679)
-Registered process: window (PID 25685)
-Ncurses window created at (46,8) size 70x15
+[1768318226] Signal received from unknown process (PID 18114)
+[1768318226] Signal received from unknown process (PID 18137)
+Registered process: server (PID 18109)
+Registered process: tar_gen (PID 18114)
+Registered process: obs_gen (PID 18113)
+Registered process: dynamic (PID 18112)
+Registered process: input (PID 18135)
+Registered process: window (PID 18137)
+Ncurses window created at (14,9) size 70x15
 Watchdog monitoring 6 processes with poll interval 3.0s
-[1768118971] Signal received from server (PID 25657) - count: 1
-[1768118973] Signal received from obs_gen (PID 25661) - count: 1
-[1768118973] Signal received from window (PID 25685) - count: 1
-[1768118973] Signal received from server (PID 25657) - count: 2
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-OK Process
-[1768118975] Signal received from tar_gen (PID 25662) - count: 1
-[1768118975] Signal received from input (PID 25679) - count: 1
-[1768118975] Signal received from server (PID 25657) - count: 3
-[1768118977] Signal received from obs_gen (PID 25661) - count: 2
-[1768118977] Signal received from window (PID 25685) - count: 2
-OK Process
-OK Process
-OK Process
-OK Process
-[1768118977] Signal received from server (PID 25657) - count: 4
-OK Process
-OK Process
-OK Process
+[1768318226] Signal received from server (PID 18109) - count: 1
+[1768318228] Signal received from obs_gen (PID 18113) - count: 1
+[1768318228] Signal received from tar_gen (PID 18114) - count: 1
+[1768318228] Signal received from server (PID 18109) - count: 2

@@ -343,7 +343,7 @@ void handle_server_loop(int sock, WorldState *state) {
     sprintf(dbuf, "Send Drone pos: x:%f, y:%f",dx , dy);
     logger(log_file, dbuf);
 
-    // 2.Leggi "dok" (BLOCCA finché non arriva)
+    // 2.Leggi "dok + dim" (BLOCCA finché non arriva)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "SERVER: Connection lost waiting for dok");
         net_proto.state = PROTO_ERROR;
