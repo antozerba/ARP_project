@@ -39,7 +39,7 @@ int network_socket = -1;
 NetworkMode network_mode = MODE_STANDALONE;
 int input_rec = 0;
 int send_dyn = 0;
-float alpha = M_PI;
+float alpha = 0;
 int origin = 0;
 
 typedef enum {
@@ -92,7 +92,7 @@ void local_to_virtual(float  x_in, float y_in, float *x_out, float *y_out, float
     // float ty = x_in * sin_a + y_in * cos_a;
     // *x_out = tx;
     // *y_out = ty;
-       float x = x_in;
+    float x = x_in;
     float y = y_in;
     
     // Converti l'origine locale al sistema virtuale (bottom-left)
@@ -343,11 +343,16 @@ void handle_server_loop(int sock, WorldState *state) {
     sprintf(dbuf, "Send Drone pos: x:%f, y:%f",dx , dy);
     logger(log_file, dbuf);
 
-    // 2. Leggi "dok" (BLOCCA finché non arriva)
-    if(read_line(sock, line, sizeof(line)) <= 0 || strcmp(line, "dok") != 0) {
-        logger(log_file, "SERVER: Protocol error or disconnect");
+    // 2.Leggi "dok" (BLOCCA finché non arriva)
+    if(read_line(sock, line, sizeof(line)) <= 0) {
+        logger(log_file, "SERVER: Connection lost waiting for dok");
         net_proto.state = PROTO_ERROR;
         return;
+    }
+    if(sscanf(line, "dok %f %f", &dx, &dy) != 2) {
+        logger(log_file, "SERVER: Invalid dok response");
+        net_proto.state = PROTO_ERROR;
+       return;
     }
     logger(log_file, "Received dok");
     
@@ -509,8 +514,9 @@ void handle_client_loop(int sock, WorldState *state) {
     state->obstacles[0].y = dy;
     state->num_obstacles = 1;
     
-    // 5. Invia conferma
-    write(sock, "dok\n", 4);
+    // 5. Invia conferma DOK
+    snprintf(msg, sizeof(msg), "dok %.2f %.2f\n", dvx, dvy);
+    write(sock, msg, strlen(msg));
     
     // 6. Leggi "obst" (BLOCCA)
     if(read_line(sock, line, sizeof(line)) <= 0 || strcmp(line, "obst") != 0) {
