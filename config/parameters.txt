@@ -8,5 +8,5 @@ DT=0.05
 STEP_FORCE=1.0
 RHO=5.0
 ETA=0.2
-server_port=5555
-server_ip=130.251.247.247
+server_port=5001
+server_ip=172.20.10.7
