@@ -1,15 +1,81 @@
 Watchdog started
-[1768318226] Signal received from unknown process (PID 18114)
-[1768318226] Signal received from unknown process (PID 18137)
-Registered process: server (PID 18109)
-Registered process: tar_gen (PID 18114)
-Registered process: obs_gen (PID 18113)
-Registered process: dynamic (PID 18112)
-Registered process: input (PID 18135)
-Registered process: window (PID 18137)
-Ncurses window created at (14,9) size 70x15
+[1768550392] Signal received from unknown process (PID 5528)
+[1768550392] Signal received from unknown process (PID 5527)
+[1768550392] Signal received from unknown process (PID 5523)
+Registered process: server (PID 5523)
+Registered process: tar_gen (PID 5528)
+Registered process: obs_gen (PID 5527)
+Registered process: dynamic (PID 5526)
+Registered process: window (PID 5549)
+Registered process: input (PID 5551)
+Ncurses window created at (20,3) size 70x15
 Watchdog monitoring 6 processes with poll interval 3.0s
-[1768318226] Signal received from server (PID 18109) - count: 1
-[1768318228] Signal received from obs_gen (PID 18113) - count: 1
-[1768318228] Signal received from tar_gen (PID 18114) - count: 1
-[1768318228] Signal received from server (PID 18109) - count: 2
+[1768550393] Signal received from input (PID 5551) - count: 1
+[1768550393] Signal received from window (PID 5549) - count: 1
+[1768550394] Signal received from obs_gen (PID 5527) - count: 1
+[1768550394] Signal received from server (PID 5523) - count: 1
+[1768550395] Signal received from input (PID 5551) - count: 2
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1768550395] Signal received from window (PID 5549) - count: 2
+[1768550396] Signal received from obs_gen (PID 5527) - count: 2
+[1768550396] Signal received from tar_gen (PID 5528) - count: 1
+[1768550396] Signal received from server (PID 5523) - count: 2
+[1768550397] Signal received from input (PID 5551) - count: 3
+[1768550397] Signal received from window (PID 5549) - count: 3
+[1768550398] Signal received from obs_gen (PID 5527) - count: 3
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1768550398] Signal received from server (PID 5523) - count: 3
+[1768550399] Signal received from input (PID 5551) - count: 4
+[1768550399] Signal received from window (PID 5549) - count: 4
+[1768550400] Signal received from obs_gen (PID 5527) - count: 4
+[1768550400] Signal received from tar_gen (PID 5528) - count: 2
+[1768550400] Signal received from server (PID 5523) - count: 4
+[1768550401] Signal received from input (PID 5551) - count: 5
+[1768550401] Signal received from window (PID 5549) - count: 5
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+OK Process
+[1768550402] Signal received from tar_gen (PID 5528) - count: 3
+[1768550402] Signal received from obs_gen (PID 5527) - count: 5
+[1768550402] Signal received from server (PID 5523) - count: 5
+[1768550403] Signal received from input (PID 5551) - count: 6
+[1768550403] Signal received from window (PID 5549) - count: 6
+[1768550404] Signal received from tar_gen (PID 5528) - count: 4
+[1768550404] Signal received from obs_gen (PID 5527) - count: 6
+OK Process
+OK Process
+OK Process
+ALERT: Process dynamic (PID 5526) not responding! Last signal 12 seconds ago
+OK Process
+OK Process
+[1768550404] Signal received from server (PID 5523) - count: 6
+[1768550405] Signal received from input (PID 5551) - count: 7
+[1768550405] Signal received from window (PID 5549) - count: 7
+[1768550406] Signal received from obs_gen (PID 5527) - count: 7
+[1768550406] Signal received from tar_gen (PID 5528) - count: 5
+[1768550406] Signal received from server (PID 5523) - count: 7
+[1768550407] Signal received from input (PID 5551) - count: 8
+OK Process
+OK Process
+OK Process
+ALERT: Process dynamic (PID 5526) not responding! Last signal 15 seconds ago
+OK Process
+OK Process
+[1768550407] Signal received from window (PID 5549) - count: 8
+[1768550408] Signal received from obs_gen (PID 5527) - count: 8
+[1768550408] Signal received from tar_gen (PID 5528) - count: 6
+[1768550409] Signal received from input (PID 5551) - count: 9
+[1768550409] Signal received from window (PID 5549) - count: 9

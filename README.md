@@ -184,12 +184,156 @@ The directory `config/`containes some configuration files.
 - `watchdog.txt`: stores `watchdog.c` pid so that the process `main.c` can share it to other processes when `fork` is called.
 - `pid.txt` : stores process id of all processes so that the `watchdog.c` can use them to poll.
 
-## WARNING ‼️
-When running the executable, the gui asks the user to insert the desired mode:
-- ***MODE_STANDALONE***: mode to see the complete project for assignment 2.
-- ***MODE_CLIENT***: work in progress for assignment 3.
-- ***MODE_SERVER***: work in progress for assignment 3.
 
-### Possible Problem
-- At the beginning, to avoid the bell ring for the input precess select the input ncurses window with cursor.
+### Network Modes
+The application supports three operational modes:
+1. **MODE_STANDALONE**: Single-player mode with local obstacle and target generation
+2. **MODE_SERVER**: Acts as server, waiting for a client connection
+3. **MODE_CLIENT**: Acts as client, connecting to a server instance
 
+The network mode is configured at startup through the GUI and stored in the `NETWORK_MODE` environment variable.
+
+### Connection Establishment
+
+#### Server Mode
+1. Creates a TCP socket and binds to the configured port (from `parameters.txt`)
+2. Listens for incoming connections
+3. Accepts a single client connection
+4. Socket remains in **blocking mode** for synchronous protocol execution
+
+#### Client Mode
+1. Creates a TCP socket
+2. Connects to the server using the IP address specified in `parameters.txt`
+3. Socket remains in **blocking mode** for synchronous communication
+
+### Handshake Protocol
+
+The handshake establishes the connection and synchronizes map dimensions between server and client.
+
+#### Server-Side Handshake Sequence
+```
+Server → Client: "ok\n"
+Client → Server: "ook\n"
+Server → Client: "size <width> <height>\n"
+Client → Server: "sok <width> <height>\n"
+→ Handshake complete, enter main loop
+```
+
+#### Client-Side Handshake Sequence
+```
+Server → Client: "ok\n"
+Client → Server: "ook\n"
+Server → Client: "size <width> <height>\n"
+Client → Server: "sok <width> <height>\n"
+→ Handshake complete, enter main loop
+```
+
+**Key Points:**
+- The server sends its map dimensions, which the client must adopt
+- Both instances synchronize their window sizes before gameplay begins
+- All messages are newline-terminated text strings
+
+### Main Communication Loop
+
+After the handshake, the system enters a synchronized data exchange loop. Each iteration follows a strict protocol to exchange drone positions.
+
+#### Server Loop (per iteration)
+```
+1. Server → Client: "drone\n"
+2. Server → Client: "<drone_x> <drone_y>\n"
+3. Client → Server: "dok <drone_x> <drone_y>\n"
+4. Server → Client: "obst\n"
+5. Client → Server: "<obstacle_x> <obstacle_y>\n"
+6. Server → Client: "pok <obstacle_x> <obstacle_y>\n"
+→ Loop repeats
+```
+
+#### Client Loop (per iteration)
+```
+1. Server → Client: "drone\n"
+2. Server → Client: "<drone_x> <drone_y>\n"
+3. Client → Server: "dok <drone_x> <drone_y>\n"
+4. Server → Client: "obst\n"
+5. Client → Server: "<obstacle_x> <obstacle_y>\n"
+6. Server → Client: "pok <obstacle_x> <obstacle_y>\n"
+→ Loop repeats
+```
+
+**Protocol Explanation:**
+- **drone**: Server announces it will send its drone position
+- **dok** (drone ok): Client acknowledges receipt of server's drone position
+- **obst**: Server requests the client's position (as obstacle)
+- **pok** (position ok): Server confirms receipt of client's position
+
+### Protocol State Machine
+
+The network protocol is managed by a state machine with the following states:
+
+```c
+typedef enum {
+    PROTO_INIT,           
+    PROTO_HANDSHAKE,     
+    PROTO_LOOP_SERVER,   
+    PROTO_LOOP_CLIENT,   
+    PROTO_ERROR           
+} State;
+```
+
+**State Transitions:**
+- `PROTO_INIT` → `PROTO_HANDSHAKE` (after socket connection)
+- `PROTO_HANDSHAKE` → `PROTO_LOOP_SERVER` (server handshake complete)
+- `PROTO_HANDSHAKE` → `PROTO_LOOP_CLIENT` (client handshake complete)
+- Any state → `PROTO_ERROR` (on connection loss or protocol violation)
+
+### Graceful Shutdown
+
+When the server initiates shutdown:
+```
+Server → Client: "q\n"
+Client → Server: "qok\n"
+→ Both sides close connections and exit
+```
+
+The client can also detect connection loss and exit gracefully.
+
+
+### Configuration Parameters
+
+Network settings in `config/parameters.txt`:
+```
+server_ip=127.0.0.1    # IP address for client mode
+server_port=8888       # TCP port for connection
+```
+
+
+### Future Enhancements
+
+Possible improvements to the network protocol:
+- Non-blocking I/O with `select()` or `epoll()` for better responsiveness
+- UDP mode for lower latency (with packet loss handling)
+- Support for more than two connected instances
+- Authentication and encryption for secure connections
+- Heartbeat mechanism to detect connection issues faster
+- Bandwidth optimization (send only changed data)
+
+---
+
+## Troubleshooting Network Mode
+
+**Connection Refused:**
+- Verify server is running and listening
+- Check firewall settings
+- Ensure correct IP and port in `parameters.txt`
+
+**Protocol Errors:**
+- Check logs in `log_s/` and `log_c/`
+- Verify both instances use same protocol version
+- Ensure map dimensions are compatible
+
+**Performance Issues:**
+- Network latency affects update rate
+- Consider local network for best performance
+- Monitor logs for slow message exchanges
+
+**Testing:**
+The connection protocol was tested with the progject of the group `ISAIA_ALLEGRI`.

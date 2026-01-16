@@ -1,12 +1,17 @@
+// Standard C library headers
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
 #include <stdlib.h>
+
+// Custom project headers
 #include "utils.h"
 #include <sys/select.h>
 #include "protocol.h"
+
+// System headers for file locking, signals, networking
 #include <string.h>
 #include <sys/file.h>
 #include <signal.h>
@@ -16,54 +21,74 @@
 #include <sys/socket.h>
 #include <errno.h>
 
+// Math constants and library
 #define _USE_MATH_DEFINES
 #include <math.h>
 #define M_PI 3.14159265358979323846
 
+// Margin for boundary collision detection
 #define MARGIN 1
 
-
+// Collision radius for target detection
 #define COLL_RAD 0.5
 
-FILE * log_file;
-FILE * wd_log_file;
-FILE * common_log;
-Config config = {};
-pid_t watchdog_pid = -1;
-int read_input_fd, write_input_fd;
-int read_window_fd, write_window_fd;
-int read_dynamic_fd, write_dynamic_fd;
-int read_obs_fd, write_obs_fd;
-int read_tar_fd, write_tar_fd;
-int network_socket = -1;
-NetworkMode network_mode = MODE_STANDALONE;
-int input_rec = 0;
-int send_dyn = 0;
-float alpha = 0;
-int origin = 0;
+// Global variables for logging and configuration
+FILE * log_file;                     // Main server log file
+FILE * wd_log_file;                  // Watchdog log file
+FILE * common_log;                   // Common shared log file
+Config config = {};                  // Configuration parameters
+pid_t watchdog_pid = -1;             // Watchdog process ID
 
+// File descriptors for inter-process communication pipes
+int read_input_fd, write_input_fd;       // Input module pipes
+int read_window_fd, write_window_fd;     // Window module pipes
+int read_dynamic_fd, write_dynamic_fd;   // Dynamic module pipes
+int read_obs_fd, write_obs_fd;           // Obstacle generator pipes
+int read_tar_fd, write_tar_fd;           // Target generator pipes
+
+// Network communication variables
+int network_socket = -1;                 // Socket for network communication
+NetworkMode network_mode = MODE_STANDALONE;  // Current network mode
+
+// State flags
+int input_rec = 0;                       // Flag: input received this iteration
+int send_dyn = 0;                        // Flag: should send to dynamic module
+float alpha = 0;                         // Rotation angle for coordinate transformation
+int origin = 0;                          // Origin type for coordinate system
+
+/**
+ * Protocol state machine states for network communication
+ */
 typedef enum {
-    PROTO_INIT,           // Iniziale
-    PROTO_HANDSHAKE,      // Handshake iniziale (ok/ook/size)
-    PROTO_LOOP_SERVER,    // Loop dati server (tutto in uno stato!)
-    PROTO_LOOP_CLIENT,    // Loop dati client (tutto in uno stato!)
-    PROTO_ERROR           // Errore
+    PROTO_INIT,           // Initial state
+    PROTO_HANDSHAKE,      // Handshake phase (ok/ook/size exchange)
+    PROTO_LOOP_SERVER,    // Server main data exchange loop
+    PROTO_LOOP_CLIENT,    // Client main data exchange loop
+    PROTO_ERROR           // Error state
 } State;
 
+/**
+ * Network protocol state and buffer
+ */
 typedef struct {
-    State state;
-    char buffer[256];
-    int buf_len;
-    int quit_requested;
+    State state;          // Current protocol state
+    char buffer[256];     // Message buffer
+    int buf_len;          // Buffer length
+    int quit_requested;   // Flag: quit has been requested
 } NetworkProtocol;
 
+// Initialize protocol state
 NetworkProtocol net_proto = {
     .state = PROTO_INIT,
     .buf_len = 0,
     .quit_requested = 0
 };
 
+/**
+ * Clean shutdown handler - closes all resources and exits
+ */
 void handle_quit(){
+    // Close all pipe file descriptors
     close(read_input_fd);
     close(write_input_fd);
     close(read_window_fd);
@@ -74,8 +99,11 @@ void handle_quit(){
     close(write_obs_fd);
     close(read_tar_fd);
     close(write_tar_fd);
+    
+    // Close network socket if open
     if(network_socket >= 0) close(network_socket);
 
+    // Close all log files
     fclose(log_file);
     fclose(wd_log_file);
     fclose(common_log);
@@ -83,19 +111,25 @@ void handle_quit(){
 }
 
 
-// Funzioni di trasformazione coordinate
+/**
+ * Transform coordinates from local coordinate system to virtual (standardized) system
+ * Handles different origin types and rotation
+ * 
+ * @param x_in Local x coordinate
+ * @param y_in Local y coordinate
+ * @param x_out Output virtual x coordinate
+ * @param y_out Output virtual y coordinate
+ * @param alpha Rotation angle in radians
+ * @param origin Origin type (0=bottom-left, 1=top-left, 2=center)
+ * @param state World state for map dimensions
+ */
 void local_to_virtual(float  x_in, float y_in, float *x_out, float *y_out, float alpha, int origin, WorldState *state) {
     
-    // float cos_a = cosf(alpha);
-    // float sin_a = sinf(alpha);
-    // float tx = x_in * cos_a - y_in * sin_a;
-    // float ty = x_in * sin_a + y_in * cos_a;
-    // *x_out = tx;
-    // *y_out = ty;
+    
     float x = x_in;
     float y = y_in;
     
-    // Converti l'origine locale al sistema virtuale (bottom-left)
+    // Convert local origin to virtual system (bottom-left origin)
     if(origin == 1) {  // top-left -> bottom-left
         y =  - y;
     } else if(origin == 2) {  // center -> bottom-left
@@ -103,7 +137,7 @@ void local_to_virtual(float  x_in, float y_in, float *x_out, float *y_out, float
         y = y + state->mapy / 2.0f;
     }
     
-    // Applica rotazione se necessaria
+    // Apply rotation if needed
     if(alpha != 0.0f) {
         float cos_a = cosf(alpha);
         float sin_a = sinf(alpha);
@@ -119,18 +153,25 @@ void local_to_virtual(float  x_in, float y_in, float *x_out, float *y_out, float
     
 }
 
+/**
+ * Transform coordinates from virtual (standardized) system to local coordinate system
+ * Inverse of local_to_virtual
+ * 
+ * @param x_in Virtual x coordinate
+ * @param y_in Virtual y coordinate
+ * @param x_out Output local x coordinate
+ * @param y_out Output local y coordinate
+ * @param alpha Rotation angle in radians
+ * @param origin Origin type (0=bottom-left, 1=top-left, 2=center)
+ * @param state World state for map dimensions
+ */
 void virtual_to_local(float x_in, float y_in, float *x_out, float *y_out, float alpha, int origin, WorldState *state) {
     
-    // float cos_a = cosf(-alpha);
-    // float sin_a = sinf(-alpha);
-    // float tx = x_in * cos_a - y_in * sin_a;
-    // float ty = x_in * sin_a + y_in * cos_a;
-    // *x_out = tx;
-    // *y_out = ty;
+    
     float x = x_in;
     float y = y_in;
     
-    // Applica rotazione inversa se necessaria
+    // Apply inverse rotation if needed
     if(alpha != 0.0f) {
         float cos_a = cosf(-alpha);
         float sin_a = sinf(-alpha);
@@ -140,7 +181,7 @@ void virtual_to_local(float x_in, float y_in, float *x_out, float *y_out, float 
         y = temp_y;
     }
     
-    // Converti dal sistema virtuale (bottom-left) all'origine locale
+    // Convert from virtual system (bottom-left) to local origin
     if(origin == 1) {  // bottom-left -> top-left
         y = config.map_height - y;
     } else if(origin == 2) {  // bottom-left -> center
@@ -154,21 +195,30 @@ void virtual_to_local(float x_in, float y_in, float *x_out, float *y_out, float 
 }
 
 
-// Setup socket bloccante 
+/**
+ * Sets up network socket for server or client mode
+ * Socket remains in blocking mode for synchronous protocol
+ * 
+ * @param nc Network configuration
+ * @return Socket file descriptor on success, -1 on failure
+ */
 int setup_network_socket(NetworkConfig *nc) {
     int sock;
     struct sockaddr_in addr;
     
     if(nc->mode == MODE_SERVER) {
+        // Create TCP socket
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if(sock < 0) {
             logger(log_file, "Failed to create socket");
             return -1;
         }
         
+        // Allow address reuse
         int opt = 1;
         setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
         
+        // Bind to any address on specified port
         memset(&addr, 0, sizeof(addr));
         addr.sin_family = AF_INET;
         addr.sin_addr.s_addr = INADDR_ANY;
@@ -180,6 +230,7 @@ int setup_network_socket(NetworkConfig *nc) {
             return -1;
         }
         
+        // Listen for incoming connections
         if(listen(sock, 1) < 0) {
             close(sock);
             logger(log_file, "Failed to listen on socket");
@@ -188,6 +239,7 @@ int setup_network_socket(NetworkConfig *nc) {
         
         logger(log_file, "Server waiting for connection...");
         
+        // Accept client connection (blocks until client connects)
         int client_sock = accept(sock, NULL, NULL);
         if(client_sock < 0) {
             close(sock);
@@ -195,22 +247,25 @@ int setup_network_socket(NetworkConfig *nc) {
             return -1;
         }
         
+        // Close listening socket, keep client socket
         close(sock);
         logger(log_file, "Client connected!");
         
-        // Socket rimane bloccante!
+        // Socket remains blocking for synchronous protocol
         write(client_sock, "ok\n", 3);
         net_proto.state = PROTO_HANDSHAKE;
         
         return client_sock;
         
     } else if(nc->mode == MODE_CLIENT) {
+        // Create TCP socket
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if(sock < 0) {
             logger(log_file, "Failed to create socket");
             return -1;
         }
         
+        // Configure server address
         memset(&addr, 0, sizeof(addr));
         addr.sin_family = AF_INET;
         addr.sin_port = htons(nc->serve_port);
@@ -218,6 +273,7 @@ int setup_network_socket(NetworkConfig *nc) {
         
         logger(log_file, "Connecting to server...");
         
+        // Connect to server
         if(connect(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
             close(sock);
             perror("connect");
@@ -226,7 +282,7 @@ int setup_network_socket(NetworkConfig *nc) {
         
         logger(log_file, "Connected to server!");
         
-        // Socket rimane bloccante!
+        // Socket remains blocking for synchronous protocol
         net_proto.state = PROTO_HANDSHAKE;
         
         return sock;
@@ -235,7 +291,15 @@ int setup_network_socket(NetworkConfig *nc) {
     return -1;
 }
 
-// Legge una riga completa dal socket (bloccante)
+/**
+ * Reads a complete line from socket (blocking)
+ * Reads character by character until newline
+ * 
+ * @param sock Socket file descriptor
+ * @param buffer Output buffer
+ * @param max_len Maximum buffer length
+ * @return Number of bytes read, 0 on connection close, -1 on error
+ */
 int read_line(int sock, char *buffer, size_t max_len) {
     size_t i = 0;
     while(i < max_len - 1) {
@@ -243,15 +307,15 @@ int read_line(int sock, char *buffer, size_t max_len) {
         ssize_t n = read(sock, &c, 1);
         
         if(n < 0) {
-            return -1;  // Errore
+            return -1;  // Error
         }
         if(n == 0) {
-            return 0;   // Connessione chiusa
+            return 0;   // Connection closed
         }
         
         buffer[i++] = c;
         if(c == '\n') {
-            buffer[i-1] = '\0';  // Sostituisci \n con \0
+            buffer[i-1] = '\0';  // Replace \n with \0
             return i;
         }
     }
@@ -259,12 +323,18 @@ int read_line(int sock, char *buffer, size_t max_len) {
     return i;
 }
 
-// Gestione handshake iniziale SERVER
+/**
+ * Handles initial handshake protocol for SERVER mode
+ * Protocol: ok -> ook <- size -> sok <-
+ * 
+ * @param sock Network socket
+ * @param state World state to initialize with map size
+ */
 void handle_server_handshake(int sock, WorldState *state) {
     char line[256];
     char msg[128];
     
-    // Leggi "ook"
+    // Read "ook" from client
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "Connection lost during handshake");
         net_proto.state = PROTO_ERROR;
@@ -279,7 +349,7 @@ void handle_server_handshake(int sock, WorldState *state) {
     
     logger(log_file, "Received 'ook', sending size");
     
-    // Invia dimensioni
+    // Send map dimensions
     int dx = config.map_width;
     int dy = config.map_height;
 
@@ -294,7 +364,7 @@ void handle_server_handshake(int sock, WorldState *state) {
     logger(log_file, wbuf);
     
     
-    // Leggi conferma "sok"
+    // Read confirmation "sok" with dimensions
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "Connection lost waiting for sok");
         net_proto.state = PROTO_ERROR;
@@ -312,12 +382,23 @@ void handle_server_handshake(int sock, WorldState *state) {
     net_proto.state = PROTO_LOOP_SERVER;
 }
 
-// Loop dati SERVER - TUTTO IN UNO STATO!
+/**
+ * Main data exchange loop for SERVER mode
+ * Protocol per iteration:
+ * 1. Send "drone" + position
+ * 2. Receive "dok" + dimensions
+ * 3. Send "obst"
+ * 4. Receive obstacle position
+ * 5. Send "pok" confirmation
+ * 
+ * @param sock Network socket
+ * @param state Current world state
+ */
 void handle_server_loop(int sock, WorldState *state) {
     char line[256];
     char msg[128];
     
-    // Check quit
+    // Check if quit was requested
     if(net_proto.quit_requested) {
         write(sock, "q\n", 2);
         logger(log_file, "SERVER: Sent quit");
@@ -325,15 +406,14 @@ void handle_server_loop(int sock, WorldState *state) {
         return;
     }
     
-    // 1. Invia drone
+    // 1. Send drone position
     write(sock, "drone\n", 6);
-    float vxd; //virtual pose drone x
-    float vyd; //virtual pose drone y
+    float vxd; // Virtual pose drone x
+    float vyd; // Virtual pose drone y
     local_to_virtual(state->drone.x, state->drone.y, &vxd, &vyd, alpha, origin, state);
     float dx = state->drone.x;
     float dy = state->drone.y;
     snprintf(msg, sizeof(msg), "%.2f %.2f\n", vxd, vyd); 
-    // snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
     write(sock, msg, strlen(msg));
     logger(log_file, "Send drone");
     char vbuf[100];
@@ -343,7 +423,7 @@ void handle_server_loop(int sock, WorldState *state) {
     sprintf(dbuf, "Send Drone pos: x:%f, y:%f",dx , dy);
     logger(log_file, dbuf);
 
-    // 2.Leggi "dok + dim" (BLOCCA finché non arriva)
+    // 2. Read "dok + dimensions" (blocks until arrives)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "SERVER: Connection lost waiting for dok");
         net_proto.state = PROTO_ERROR;
@@ -356,11 +436,11 @@ void handle_server_loop(int sock, WorldState *state) {
     }
     logger(log_file, "Received dok");
     
-    // 3. Chiedi ostacolo
+    // 3. Request obstacle position
     write(sock, "obst\n", 5);
     logger(log_file, "Ask obs");
     
-    // 4. Leggi posizione ostacolo (BLOCCA)
+    // 4. Read obstacle position (blocks)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "SERVER: Connection lost");
         net_proto.state = PROTO_ERROR;
@@ -377,27 +457,33 @@ void handle_server_loop(int sock, WorldState *state) {
     sprintf(obuf, "Obs received: x:%f, y:%f", ox, oy );
     logger(log_file, obuf);
     
-    // 5. Aggiorna stato
+    // 5. Update state with received obstacle
     state->obstacles[0].active = 1;
     state->obstacles[0].x = ox;
     state->obstacles[0].y = oy;
     state->num_obstacles = 1;
     
-    // 6. Invia conferma
+    // 6. Send confirmation
     snprintf(msg, sizeof(msg), "pok %.2f %.2f\n", ox, oy);
     write(sock, msg, strlen(msg));
     logger(log_file, "send pok");
     
-    // Loop completo! Tornerà qui al prossimo giro
+    // Loop complete! Will return here next iteration
     logger(log_file, "CLIENT: loop completo");
 }
 
-// Gestione handshake iniziale CLIENT
+/**
+ * Handles initial handshake protocol for CLIENT mode
+ * Protocol: -> ok -> ook <- size -> sok
+ * 
+ * @param sock Network socket
+ * @param state World state to initialize with map size
+ */
 void handle_client_handshake(int sock, WorldState *state) {
     char line[256];
     char msg[128];
     
-    // Leggi "ok"
+    // Read "ok" from server
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "Connection lost during handshake");
         net_proto.state = PROTO_ERROR;
@@ -410,11 +496,11 @@ void handle_client_handshake(int sock, WorldState *state) {
         return;
     }
     
-    // Invia "ook"
+    // Send "ook"
     write(sock, "ook\n", 4);
     logger(log_file, "Sent 'ook', waiting for size");
     
-    // Leggi dimensioni
+    // Read map dimensions
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "Connection lost waiting for size");
         net_proto.state = PROTO_ERROR;
@@ -428,7 +514,7 @@ void handle_client_handshake(int sock, WorldState *state) {
         return;
     }
 
-
+    // Update state with received dimensions
     state->mapx = w;
     state->mapy = h;
     int dx = w;
@@ -440,6 +526,7 @@ void handle_client_handshake(int sock, WorldState *state) {
     sprintf(wbuf, "SIZE: %d, %d", dx, dy);
     logger(log_file, wbuf);
     
+    // Send confirmation
     snprintf(msg, sizeof(msg), "sok %d %d\n", w, h);
     write(sock, msg, strlen(msg));
     
@@ -447,19 +534,31 @@ void handle_client_handshake(int sock, WorldState *state) {
     net_proto.state = PROTO_LOOP_CLIENT;
 }
 
-// Loop dati CLIENT - TUTTO IN UNO STATO!
+/**
+ * Main data exchange loop for CLIENT mode
+ * Protocol per iteration:
+ * 1. Receive "drone" command or "q" for quit
+ * 2. Receive drone position
+ * 3. Send "dok" confirmation
+ * 4. Receive "obst" request
+ * 5. Send own position as obstacle
+ * 6. Receive "pok" confirmation
+ * 
+ * @param sock Network socket
+ * @param state Current world state
+ */
 void handle_client_loop(int sock, WorldState *state) {
     char line[256];
     char msg[128];
     
-    // 1. Leggi comando (BLOCCA finché non arriva)
+    // 1. Read command (blocks until arrives)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "CLIENT: Connection lost");
         net_proto.state = PROTO_ERROR;
         return;
     }
     
-    // Check quit
+    // Check for quit command
     if(strcmp(line, "q") == 0) {
         write(sock, "qok\n", 4);
         logger(log_file, "CLIENT: Received quit");
@@ -467,7 +566,7 @@ void handle_client_loop(int sock, WorldState *state) {
         return;
     }
     
-    // 2. Deve essere "drone"
+    // 2. Must be "drone" command
     if(strcmp(line, "drone") != 0) {
         logger(log_file, "CLIENT: Protocol error, expected 'drone'");
         net_proto.state = PROTO_ERROR;
@@ -475,24 +574,15 @@ void handle_client_loop(int sock, WorldState *state) {
     }
 
     
-    
-    
-    // 3. Leggi posizione drone (BLOCCA)
+    // 3. Read drone position (blocks)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "CLIENT: Connection lost");
         net_proto.state = PROTO_ERROR;
         return;
     }
     
-    // float dx, dy;
-    // if(sscanf(line, "%f %f", &dx, &dy) != 2) {
-    //     logger(log_file, "CLIENT: Invalid drone position");
-    //     net_proto.state = PROTO_ERROR;
-    //     return;
-    // }
-    // char dbuf[100];
-    // sprintf(dbuf, "Received Drone pos: x:%f, y:%f", dx, dy);
-    // logger(log_file, dbuf);
+    
+    // Read virtual coordinates and convert to local
     float dvx, dvy;
     float dx, dy;
     if(sscanf(line, "%f %f", &dvx, &dvy) != 2) {
@@ -508,32 +598,34 @@ void handle_client_loop(int sock, WorldState *state) {
     sprintf(dbuf, "Received Drone pos: x:%f, y:%f", dx, dy);
     logger(log_file, dbuf);
     
-    // 4. Aggiorna stato
+    // 4. Update state with other drone as obstacle
     state->obstacles[0].active = 1;
     state->obstacles[0].x = dx;
     state->obstacles[0].y = dy;
     state->num_obstacles = 1;
     
-    // 5. Invia conferma DOK
+    // 5. Send confirmation DOK
     snprintf(msg, sizeof(msg), "dok %.2f %.2f\n", dvx, dvy);
     write(sock, msg, strlen(msg));
     
-    // 6. Leggi "obst" (BLOCCA)
+    // 6. Read "obst" request (blocks)
     if(read_line(sock, line, sizeof(line)) <= 0 || strcmp(line, "obst") != 0) {
         logger(log_file, "CLIENT: Protocol error, expected 'obst'");
         net_proto.state = PROTO_ERROR;
         return;
     }
-    int vxd; //virtual pose drone x
-    int vyd; //virtual pose drone y
-    // 7. Invia la nostra posizione (come ostacolo)
+    
+    int vxd; // Virtual pose drone x
+    int vyd; // Virtual pose drone y
+    
+    // 7. Send our position (as obstacle for the other drone)
     snprintf(msg, sizeof(msg), "%.2f %.2f\n", state->drone.x, state->drone.y);
     write(sock, msg, strlen(msg));
     char obuf[100];
     sprintf(obuf, "Send Obs pos: x:%f, y:%f", state->drone.x, state->drone.y);
     logger(log_file, obuf);
     
-    // 8. Leggi "pok" (BLOCCA)
+    // 8. Read "pok" confirmation (blocks)
     if(read_line(sock, line, sizeof(line)) <= 0) {
         logger(log_file, "CLIENT: Connection lost");
         net_proto.state = PROTO_ERROR;
@@ -548,13 +640,19 @@ void handle_client_loop(int sock, WorldState *state) {
     }
     logger(log_file, "CLIENT: loop completo");
     
-    // Loop completo! Tornerà qui al prossimo giro
+    // Loop complete! Will return here next iteration
 }
 
+/**
+ * Initialize world state with default values from config
+ * 
+ * @param state World state to initialize
+ */
 void init_world_state(WorldState * state){
     memset(state, 0, sizeof(WorldState));
     state->drone.x = config.drone_x;
     state->drone.y = config.drone_y;
+    // Deactivate all obstacles
     for (int i = 0; i < MAX_OBS; i++) {
         state->obstacles[i].active = 0;
         state->obstacles[i].x = -1;
@@ -564,6 +662,13 @@ void init_world_state(WorldState * state){
     state->mapy = config.map_height;
 }
 
+/**
+ * Replace a random active obstacle with a new one
+ * Used when obstacle array is full
+ * 
+ * @param state World state
+ * @param obs New obstacle to add
+ */
 void replace_obs(WorldState * state, const Obstacle * obs){
     int finding = 1;
     while(finding){
@@ -575,15 +680,24 @@ void replace_obs(WorldState * state, const Obstacle * obs){
     }
 }
 
+/**
+ * Process input commands from input module
+ * Handles brake, reset, quit, and force application
+ * 
+ * @param state Current world state
+ * @param cmd Input command to process
+ */
 void handle_input_command(WorldState *state, InputCommand *cmd) {
     switch(cmd->type) {
         case CMD_BRAKE:
+            // Stop all forces
             state->drone.fx = 0;
             state->drone.fy = 0;
             logger(log_file, "[SERVER] Brake applied");
             break;
         
         case CMD_RESET:
+            // Reset drone to initial position and zero all motion
             state->drone.x = config.drone_x;
             state->drone.y = config.drone_y;
             state->drone.vx = 0;
@@ -600,6 +714,7 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
             break;
         
         default:
+            // Apply force from command
             state->drone.fx += cmd->force_x;
             state->drone.fy += cmd->force_y;
             logger(log_file, "Aggiornamento forze");
@@ -615,15 +730,22 @@ void handle_input_command(WorldState *state, InputCommand *cmd) {
     }
 }
 
+/**
+ * Process messages from other modules (dynamic, obstacles, targets)
+ * Updates world state based on message type
+ * 
+ * @param state Current world state
+ * @param msg Message to process
+ */
 void handle_message(WorldState *state, Message *msg) {
     switch(msg->type) {
         case 'D':
-
-
+            // Update drone position and velocity from dynamics module
             state->drone.x = msg->data.drone.x;
             state->drone.y = msg->data.drone.y;
             state->drone.vx = msg->data.drone.vx;
             state->drone.vy = msg->data.drone.vy;
+            // Optional: update forces (commented out to preserve input forces)
             // if(!input_rec){
             //     state->drone.fx = msg->data.drone.fx;
             //     state->drone.fy = msg->data.drone.fy;
@@ -631,6 +753,7 @@ void handle_message(WorldState *state, Message *msg) {
             break;
         
         case 'T':
+            // Add new target to first available slot
             for (int i = 0; i < MAX_TAR; i++) {
                 if (!state->targets[i].active) {
                     state->targets[i] = msg->data.target;
@@ -641,11 +764,14 @@ void handle_message(WorldState *state, Message *msg) {
             break;
         
         case 'O':
+            // Add new obstacle
             int i = state->num_obstacles;
             if(i == MAX_OBS){
+                // Array full, replace random obstacle
                 replace_obs(state, &msg->data.obstacle);
                 break;
             }
+            // Add to first available slot
             for (i = 0; i < MAX_OBS; i++) {
                 if (!state->obstacles[i].active) {
                     state->obstacles[i] = msg->data.obstacle;

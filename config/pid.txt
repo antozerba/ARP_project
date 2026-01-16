@@ -1,4 +1,6 @@
-server 3402
-dynamic 3405
-input 3423
-window 3429
+server 5523
+tar_gen 5528
+obs_gen 5527
+dynamic 5526
+window 5549
+input 5551
